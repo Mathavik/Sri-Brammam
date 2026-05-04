@@ -2,42 +2,45 @@ import React from "react";
 
 const Header: React.FC = () => {
   return (
-    <header className="w-full bg-white shadow-sm">
+    <header className="w-full bg-white">
       
-      {/* Top Section */}
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
+      {/* Top Section: Logo and Login */}
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-6 px-10">
         
+        {/* Left Spacer (Balancing) */}
         <div className="w-1/3"></div>
 
+        {/* Center: Logo */}
         <div className="w-1/3 flex justify-center">
           <img
             src="/images/logo.png"
             alt="logo"
-            className="h-14 object-contain"
+            className="h-20 object-contain"
           />
         </div>
 
+        {/* Right: Login Button */}
         <div className="w-1/3 flex justify-end">
-          <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-600 transition">
+          <button className="bg-[#B22222] text-white px-8 py-2 rounded-full font-semibold text-sm transition hover:bg-red-800 shadow-md">
             Login
           </button>
         </div>
       </div>
 
-      <div className="border-t border-gray-200"></div>
-
-      {/* Navigation */}
-      <nav
-        className="max-w-5xl mx-auto flex justify-between py-3 text-gray-700 font-medium text-[20px] leading-[100%]"
-        style={{ fontFamily: "Arima" }}
-      >
-        <a href="#" className="hover:text-red-500 transition">About</a>
-        <a href="/herosection" className="hover:text-red-500 transition">About</a>
-        <a href="#" className="hover:text-red-500 transition">Issues</a>
-        <a href="#" className="hover:text-red-500 transition">Community</a>
-        <a href="#" className="hover:text-red-500 transition">Reporters</a>
-        <a href="#" className="hover:text-red-500 transition">Events</a>
-      </nav>
+      {/* Navigation Section with Top and Bottom Borders */}
+      {/* முதல் படத்தில் உள்ளது போன்ற கோடுகள் (Borders) இங்கே கொடுக்கப்பட்டுள்ளன */}
+      <div className="border-t border-b border-gray-200">
+        <nav
+          className="max-w-6xl mx-auto flex justify-between items-center py-4 text-[#333] font-medium text-[18px]"
+          style={{ fontFamily: "Arima, serif" }}
+        >
+          <a href="#" className="hover:text-red-600 transition px-6">About</a>
+          <a href="#" className="hover:text-red-600 transition px-6">Issues</a>
+          <a href="#" className="hover:text-red-600 transition px-6">Community</a>
+          <a href="#" className="hover:text-red-600 transition px-6">Reporters</a>
+          <a href="#" className="hover:text-red-600 transition px-6">Events</a>
+        </nav>
+      </div>
 
     </header>
   );
