@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function HeroSectionAbout() {
+export default function HeroSection() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* Hero Section */}
