@@ -1,10 +1,25 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import FeaturedCategories from "./pages/homePage/FeaturedCategories";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 function App() {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-3xl font-bold text-purple-600">
-        Tailwind is working 🚀
-      </h1>
-    </div>
+    <BrowserRouter>
+
+      {/* Header */}
+      <Header />
+
+      {/* Page Routes */}
+      <Routes>
+        <Route path="/" element={<FeaturedCategories />} />
+      </Routes>
+
+      {/* Footer */}
+      <Footer />
+
+    </BrowserRouter>
   );
 }
 
