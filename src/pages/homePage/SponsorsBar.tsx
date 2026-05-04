@@ -2,11 +2,11 @@ import React from "react";
 
 const SponsorsBar: React.FC = () => {
   return (
-    <div className="w-full bg-white py-12 px-6 md:px-12 flex justify-center items-center">
+    <div className="w-full bg-white py-12 px-8 md:px-20 flex justify-center items-center">
       {/* Container: இடது மற்றும் வலது பக்கங்களில் கூடுதல் padding-உடன், 
         குறிப்பிட்ட அகலம் மற்றும் சாம்பல் நிற (F9F9F9) பேக்கிரவுண்டுடன் அமைக்கப்பட்டுள்ளது 
       */}
-      <div className="max-w-7xl w-full mx-auto bg-[#F9F9F9] rounded-2xl py-10 px-10 md:px-16 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
+      <div className="max-w-7xl w-full mx-auto bg-[#F9F9F9] rounded-2xl py-10 px-12 md:px-20 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
         
         {/* Logo 1 - one.png */}
         <div className="flex justify-center items-center h-24 w-40">
