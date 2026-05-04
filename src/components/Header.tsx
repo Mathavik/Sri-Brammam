@@ -1,22 +1,25 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
     <header className="w-full bg-white">
-      
+
       {/* Top Section: Logo and Login */}
       <div className="max-w-7xl mx-auto flex items-center justify-between py-6 px-10">
-        
+
         {/* Left Spacer (Balancing) */}
         <div className="w-1/3"></div>
 
         {/* Center: Logo */}
         <div className="w-1/3 flex justify-center">
-          <img
-            src="/images/logo.png"
-            alt="logo"
-            className="h-20 object-contain"
-          />
+          <Link to="/">
+            <img
+              src="/images/logo.png"
+              alt="logo"
+              className="h-20 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+            />
+          </Link>
         </div>
 
         {/* Right: Login Button */}
