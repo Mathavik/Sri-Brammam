@@ -10,9 +10,12 @@ const EditorsPick: React.FC = () => {
           <h2 className="text-3xl font-bold text-gray-800" style={{ fontFamily: "Arima, serif" }}>
             Editor’s Pick
           </h2>
-          <p className="text-red-600 font-semibold cursor-pointer flex items-center gap-1 hover:underline">
-            See All <span className="text-lg">→</span>
-          </p>
+          <span 
+className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2"         
+          style={{ color: '#B22C23', fontWeight: 600 }} // Custom color and font-weight 600
+        >
+          See All &rarr;
+        </span>
         </div>
 
         {/* Cards Grid */}
