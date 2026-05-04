@@ -30,32 +30,36 @@ const FeaturedCategories: React.FC = () => {
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-  {categories.map((cat, index) => (
-    <div
-      key={index}
-      className="relative w-full h-[200px] md:h-[260px] rounded-2xl overflow-hidden group cursor-pointer"
-    >
-      <img
-        src={cat.bgImage}
-        alt="bg"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      <div className="flex gap-4 md:gap-6 overflow-x-auto">
+        {categories.map((cat, index) => (
+          <div
+  key={index}
+  className="relative min-w-[160px] md:min-w-[220px] h-[200px] md:h-[260px] rounded-2xl overflow-hidden flex-shrink-0 group cursor-pointer"
+>
+  {/* Background Image */}
+  <img
+    src={cat.bgImage}
+    alt="bg"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
 
-      <div className="absolute inset-0 bg-black/30"></div>
+  {/* Overlay (optional dark layer for readability) */}
+  <div className="absolute inset-0 bg-black/30"></div>
 
-      <img
-        src={cat.image}
-        alt={cat.title}
-        className="relative w-full h-full object-cover group-hover:scale-105 transition duration-300"
-      />
+  {/* Main Image */}
+  <img
+    src={cat.image}
+    alt={cat.title}
+    className="relative w-full h-full object-cover group-hover:scale-105 transition duration-300"
+  />
 
-      <div className="absolute bottom-3 left-3 text-white text-sm md:text-lg font-semibold drop-shadow-lg">
-        {cat.title}
-      </div>
-    </div>
-  ))}
+  {/* Title */}
+  <div className="absolute bottom-3 left-3 text-white text-sm md:text-lg font-semibold drop-shadow-lg">
+    {cat.title}
+  </div>
 </div>
+        ))}
+      </div>
     </div>
   );
 };
