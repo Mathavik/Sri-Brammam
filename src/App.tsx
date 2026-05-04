@@ -4,6 +4,7 @@ import FeaturedCategories from "./pages/homePage/FeaturedCategories";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HeroSection from "./pages/aboutPage/HeroSection";
+import Home from "./pages/homePage/home";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
 
       {/* Page Routes */}
       <Routes>
-        <Route path="/" element={<FeaturedCategories />} />
+        <Route path="/" element={<Home />} />
         <Route path="/herosection" element={<HeroSection />} />
       </Routes>
 
