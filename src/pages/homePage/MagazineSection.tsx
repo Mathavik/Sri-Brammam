@@ -2,67 +2,123 @@ import React from "react";
 
 const MagazineSection: React.FC = () => {
   return (
-    <div className="w-full flex justify-center items-center py-20">
+    <div className="w-full flex justify-center items-center py-20 bg-white">
       
-      {/* CONTAINER */}
+      {/* 
+          MAIN WRAPPER 
+          Width: 1286px, Height: 524px 
+      */}
       <div 
-        className="relative overflow-hidden flex items-center justify-between px-16 shadow-2xl"
+        className="relative overflow-hidden flex items-center justify-between px-20 shadow-2xl rounded-sm"
         style={{ 
           width: "1286px", 
           height: "524px",
-          
+          backgroundImage: "url('/images/magazine/mag.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center"
         }}
       >
-
-        {/* ✅ BACKGROUND IMAGE ONLY */}
-        <img
-          src="/images/magazine/mag.png"
-          alt="bg"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        {/* LEFT CONTENT */}
-        <div className="relative z-10 text-white max-w-2xl">
-          <h2 className="text-5xl font-bold mb-6" style={{ fontFamily: "Arima, serif" }}>
+        {/* LEFT CONTENT AREA */}
+        <div className="relative z-10 text-white flex flex-col justify-center h-full">
+          
+          {/* சமீபத்திய வெளியீடு - Fixed height remove panni flex use panniyullen */}
+          <h2 
+            className="mb-4"
+            style={{ 
+              fontFamily: "'TAU-Paalai', sans-serif", 
+              fontWeight: 700,
+              fontSize: "46px",
+              lineHeight: "1.2", // Fixed 48px-க்கு பதில் 1.2 spacing normalize seyyum
+              letterSpacing: "0%",
+              textTransform: "capitalize"
+            }}
+          >
             சமீபத்திய வெளியீடு
           </h2>
 
-          <p className="text-lg leading-relaxed mb-8 opacity-95 text-justify">
-            இதில் பக்தி கதைகள், ஆன்மிக கட்டுரைகள், தியான முறைகள், வாழ்க்கை 
-            முன்னேற்றத்திற்கான வழிகாட்டுதல்கள் மற்றும் நல்லெண்ணப் பதிவுகள் 
-            இடம்பெறும்.
+          {/* இதழ் பற்றிய விளக்கம் - Height auto-vaga iruppathu overlap-ai thadukkum */}
+          <p 
+            className="mb-8"
+            style={{
+              maxWidth: "650px",
+              fontFamily: "'Mukta Malar', sans-serif",
+              fontWeight: 400,
+              fontSize: "18px",
+              lineHeight: "28px", // Reference-ku etra vivid-ana spacing
+              letterSpacing: "0%",
+            }}
+          >
+            இதில் பக்தி கதைகள், ஆன்மிக கட்டுரைகள், தியான முறைகள், வாழ்க்கை முன்னேற்றத்திற்கான வழிகாட்டுதல்கள் மற்றும் நல்லெண்ணப் பதிவுகள் இடம்பெறும். வாசகர்களின் மன அமைதியை வளர்க்கவும், உள்ளார்ந்த ஞானத்தைத் தூண்டவும் இந்த இதழ் உதவுகிறது.
           </p>
 
-          <ul className="space-y-4 mb-10 text-xl font-medium">
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 bg-white rounded-full"></span> சமூகம்
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 bg-white rounded-full"></span> ஆன்மிகம்
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 bg-white rounded-full"></span> வழிகாட்டுதல்
-            </li>
-          </ul>
+          {/* வகைகள் (Categories) */}
+          <div 
+            className="mb-10"
+            style={{
+              fontFamily: "'Mukta Malar', sans-serif",
+              fontWeight: 400,
+              fontSize: "24px",
+              lineHeight: "42px",
+              letterSpacing: "0%",
+            }}
+          >
+            <ul className="space-y-2">
+              <li className="flex items-center gap-3 italic">
+                <span className="w-1.5 h-1.5 bg-white rounded-full"></span> சமூகம்
+              </li>
+              <li className="flex items-center gap-3 italic">
+                <span className="w-1.5 h-1.5 bg-white rounded-full"></span> ஆன்மிகம்
+              </li>
+              <li className="flex items-center gap-3 italic">
+                <span className="w-1.5 h-1.5 bg-white rounded-full"></span> வழிகாட்டுதல்
+              </li>
+            </ul>
+          </div>
 
-          <div className="flex gap-6">
-            <button className="bg-white text-[#B12A1C] px-8 py-3 rounded-full text-lg font-bold">
+          {/* BUTTONS AREA */}
+          <div className="flex gap-6 items-center">
+            {/* Read Article Button */}
+            <button 
+              className="bg-white text-[#B12A1C] flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+              style={{
+                width: "180px", 
+                height: "48px",
+                fontFamily: "'Arima', serif",
+                fontWeight: 700,
+                fontSize: "15px",
+                textAlign: "center"
+              }}
+            >
               📖 Read Article
             </button>
 
-            <button className="border-2 border-white text-white px-8 py-3 rounded-full text-lg font-bold">
+            {/* View all Issues Button */}
+            <button 
+              className="border border-white text-white flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+              style={{
+                width: "180px",
+                height: "48px",
+                fontFamily: "'Arima', serif",
+                fontWeight: 700,
+                fontSize: "15px",
+                textAlign: "center"
+              }}
+            >
               View all Issues →
             </button>
           </div>
         </div>
 
-        {/* RIGHT IMAGE */}
+        {/* RIGHT SIDE IMAGE */}
         <div className="relative z-10">
           <img
             src="/images/magazine/mag1.png"
             alt="magazine cover"
-            style={{ width: "340px", height: "426px" }}
             className="object-cover rounded-xl shadow-2xl"
+            style={{ 
+                width: "360px", 
+                height: "460px" 
+            }}
           />
         </div>
 
