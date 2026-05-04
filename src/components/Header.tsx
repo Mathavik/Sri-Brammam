@@ -32,6 +32,7 @@ const Header: React.FC = () => {
         style={{ fontFamily: "Arima" }}
       >
         <a href="#" className="hover:text-red-500 transition">About</a>
+        <a href="/herosection" className="hover:text-red-500 transition">About</a>
         <a href="#" className="hover:text-red-500 transition">Issues</a>
         <a href="#" className="hover:text-red-500 transition">Community</a>
         <a href="#" className="hover:text-red-500 transition">Reporters</a>
