@@ -1,11 +1,27 @@
-function App() {
+import React from "react";
+
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+
+const MainLayout: React.FC = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-3xl font-bold text-purple-600">
-        Tailwind is working 🚀
-      </h1>
+    <div className="flex flex-col min-h-screen">
+      
+      {/* Header */}
+      <Header />
+
+      {/* Page Content */}
+      <div className="flex-grow">
+        <Outlet />
+      </div>
+
+      {/* Footer */}
+      <Footer />
+
     </div>
   );
-}
+};
 
-export default App;
+export default MainLayout;
