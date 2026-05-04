@@ -12,7 +12,7 @@ const Header: React.FC = () => {
         {/* Center Logo */}
         <div className="w-1/3 flex justify-center">
           <img
-            src="/logo.png" // 🔁 replace with your logo path
+            src="/images/logo.png"
             alt="logo"
             className="h-14 object-contain"
           />
