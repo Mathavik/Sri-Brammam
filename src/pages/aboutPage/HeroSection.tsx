@@ -1,6 +1,6 @@
 import React from "react";
 import HeroBanner from "./HeroBanner";
-import StatsSection from "./StatsSection";
+import StatsSection from "../homePage/StatsSection";
 
 export default function AboutPage() {
   return (
