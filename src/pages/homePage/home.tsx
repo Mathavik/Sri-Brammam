@@ -3,6 +3,8 @@ import StatsSection from "./StatsSection";
 import SponsorsBar from "./SponsorsBar";
 
 import MainSection from "./main";
+import FeaturedCategories from "./FeaturedCategories";
+import TopWriters from "./TopWriters";
 
 
 export default function Home() {
@@ -11,6 +13,8 @@ export default function Home() {
       <MainSection/>
       <StatsSection/>
       <SponsorsBar/>
+      <FeaturedCategories/>
+      <TopWriters/>
 
     </div>
   );
