@@ -36,34 +36,41 @@ const writers: Writer[] = [
 
 const TopWriters: React.FC = () => {
   return (
-    <div className="bg-gray-100 p-6 rounded-xl">
+    <div className="w-full bg-white px-10 py-8 rounded-2xl ">
+      
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-2xl font-semibold text-gray-800">
           Top Writers
         </h2>
-        <button className="text-red-500 font-medium hover:underline flex items-center gap-1">
-          See All <span>→</span>
+
+        <button className="text-red-500 font-medium flex items-center gap-2">
+          See All <span className="text-lg">→</span>
         </button>
       </div>
 
-      {/* Writers List */}
-      <div className="flex items-center gap-10">
+      {/* Writers */}
+      <div className="flex items-center justify-between">
         {writers.map((writer) => (
-          <div key={writer.id} className="flex items-center gap-4">
+          <div
+            key={writer.id}
+            className="flex items-center gap-4 min-w-[220px]"
+          >
             {/* Avatar */}
             <img
               src={writer.image}
               alt={writer.name}
-              className="w-14 h-14 rounded-full object-cover"
+              className="w-16 h-16 rounded-full object-cover"
             />
 
-            {/* Info */}
+            {/* Text */}
             <div>
-              <h3 className="text-gray-900 font-semibold text-sm">
+              <h3 className="text-base font-semibold text-gray-900">
                 {writer.name}
               </h3>
-              <p className="text-gray-500 text-sm">{writer.role}</p>
+              <p className="text-sm text-gray-500">
+                {writer.role}
+              </p>
             </div>
           </div>
         ))}
