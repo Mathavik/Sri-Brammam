@@ -31,7 +31,7 @@ const Header: React.FC = () => {
 
       {/* Navigation */}
       <nav className="max-w-5xl mx-auto flex justify-between py-3 text-gray-700 font-medium">
-        <a href="/herosection" className="hover:text-red-500 transition">About</a>
+        <a href="/about" className="hover:text-red-500 transition">About</a>
         <a href="#" className="hover:text-red-500 transition">Issues</a>
         <a href="#" className="hover:text-red-500 transition">Community</a>
         <a href="#" className="hover:text-red-500 transition">Reporters</a>
