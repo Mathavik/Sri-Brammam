@@ -14,11 +14,8 @@
     "lucide-react": "^1.14.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-<<<<<<< HEAD
     "react-router-dom": "^7.14.2",
-=======
     "react-router-dom": "^6.30.3",
->>>>>>> 9318a528e2e7e65cb20dc8d64f8dc411aad27e00
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
