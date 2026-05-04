@@ -34,7 +34,7 @@ const Header: React.FC = () => {
           className="max-w-6xl mx-auto flex justify-between items-center py-4 text-[#333] font-medium text-[18px]"
           style={{ fontFamily: "Arima, serif" }}
         >
-          <a href="#" className="hover:text-red-600 transition px-6">About</a>
+          <a href="about" className="hover:text-red-600 transition px-6">About</a>
           <a href="#" className="hover:text-red-600 transition px-6">Issues</a>
           <a href="#" className="hover:text-red-600 transition px-6">Community</a>
           <a href="#" className="hover:text-red-600 transition px-6">Reporters</a>
@@ -42,14 +42,6 @@ const Header: React.FC = () => {
         </nav>
       </div>
 
-      {/* Navigation */}
-      <nav className="max-w-5xl mx-auto flex justify-between py-3 text-gray-700 font-medium">
-        <a href="/about" className="hover:text-red-500 transition">About</a>
-        <a href="#" className="hover:text-red-500 transition">Issues</a>
-        <a href="#" className="hover:text-red-500 transition">Community</a>
-        <a href="#" className="hover:text-red-500 transition">Reporters</a>
-        <a href="#" className="hover:text-red-500 transition">Events</a>
-      </nav>
     </header>
   );
 };
