@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import FeaturedCategories from "./pages/homePage/FeaturedCategories";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HeroSection from "./pages/aboutPage/HeroSection";
 import Home from "./pages/homePage/home";
+import AboutPage from "./pages/aboutPage/HeroSection";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/herosection" element={<HeroSection />} />
+        
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
 
       {/* Footer */}
