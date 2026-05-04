@@ -4,6 +4,7 @@ import FeaturedCategories from "./pages/homePage/FeaturedCategories";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AboutPage from "./pages/aboutPage/HeroSection";
+import TopWriters from "./pages/homePage/TopWriters";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<FeaturedCategories />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/TopWriters" element={<TopWriters />} />
+
       </Routes>
 
       {/* Footer */}
