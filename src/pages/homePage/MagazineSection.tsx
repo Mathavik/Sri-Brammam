@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 // Updated interface to match your API response
 interface LatestReleaseData {
   title: string;
@@ -53,10 +52,10 @@ const MagazineSection: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full flex justify-center items-center py-10 md:py-20 px-4 md:px-0 -mt-10 md:-mt-16">       
-      <div 
+    <div className="w-full flex justify-center items-center py-10 md:py-20 px-4 md:px-0 -mt-10 md:-mt-16">
+      <div
         className="relative overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 py-10 md:px-20 shadow-2xl rounded-xl md:rounded-sm w-full max-w-[1286px] min-h-[524px]"
-        style={{ 
+        style={{
           backgroundImage: "url('/images/magazine/mag.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -65,13 +64,13 @@ const MagazineSection: React.FC = () => {
       >
         {/* LEFT CONTENT AREA */}
         <div className="relative z-10 text-white flex flex-col justify-center text-center md:text-left mb-10 md:mb-0">
-          
-          <h2 
+
+          <h2
             className="mb-4 text-[32px] md:text-[46px]"
-            style={{ 
-              fontFamily: "'TAU-Paalai', sans-serif", 
+            style={{
+              fontFamily: "'TAU-Paalai', sans-serif",
               fontWeight: 700,
-              lineHeight: "1.2", 
+              lineHeight: "1.2",
               textTransform: "capitalize"
             }}
           >
@@ -79,7 +78,7 @@ const MagazineSection: React.FC = () => {
             {releaseData?.title || "சமீபத்திய வெளியீடு"}
           </h2>
 
-          <p 
+          <p
             className="mb-8 text-[16px] md:text-[18px] opacity-90"
             style={{
               maxWidth: "650px",
@@ -92,7 +91,7 @@ const MagazineSection: React.FC = () => {
           </p>
 
           {/* Categories */}
-          <div 
+          <div
             className="mb-10 text-[18px] md:text-[24px]"
             style={{
               fontFamily: "'Mukta Malar', sans-serif",
@@ -116,19 +115,20 @@ const MagazineSection: React.FC = () => {
           {/* BUTTONS AREA */}
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-center justify-center md:justify-start">
             <button
-              type="button"
-              onClick={() => setShowPdfModal(true)}
-              className="bg-white text-[#B12A1C] flex items-center justify-center rounded-full hover:bg-gray-100 transition-all w-[200px] md:w-[180px] h-[48px]"
-              style={{
-                fontFamily: "'Arima', serif",
-                fontWeight: 700,
-                fontSize: "15px",
-              }}
-            >
-              📖 Read Article
-            </button>
+  type="button"
+  onClick={() => setShowPdfModal(true)}
+  className="bg-white text-[#B12A1C] flex items-center justify-center rounded-full hover:bg-gray-100 transition-all w-[200px] md:w-[180px] h-[48px]"
+  style={{
+    fontFamily: "'Arima', serif",
+    fontWeight: 700,
+    fontSize: "15px",
+  }}
+>
+  <img src="/images/magazine/bookIcon.png" alt="book" className="w-5 h-5 mr-2" />
+  Read Article
+</button>
 
-            <button 
+            <button
               className="border border-white text-white flex items-center justify-center rounded-full hover:bg-white/10 transition-all w-[200px] md:w-[180px] h-[48px]"
               style={{
                 fontFamily: "'Arima', serif",
@@ -171,7 +171,7 @@ const MagazineSection: React.FC = () => {
             </div>
           )}
         </div>
-        
+
       </div>
 
       {showPdfModal && releaseData?.pdf_url && (
