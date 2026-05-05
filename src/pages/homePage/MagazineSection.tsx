@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// Updated interface to match your API response
+
 interface LatestReleaseData {
   title: string;
   image_url: string;
@@ -52,7 +52,8 @@ const MagazineSection: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full flex justify-center items-center py-10 md:py-20 px-4 md:px-0 -mt-10 md:-mt-16">
+    // Increased padding to create more space on the left and right sides
+    <div className="w-full flex justify-center items-center py-10 md:py-20 px-6 md:px-16 lg:px-24 -mt-10 md:-mt-16">
       <div
         className="relative overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 py-10 md:px-20 shadow-2xl rounded-xl md:rounded-sm w-full max-w-[1286px] min-h-[524px]"
         style={{
@@ -74,7 +75,6 @@ const MagazineSection: React.FC = () => {
               textTransform: "capitalize"
             }}
           >
-            {/* Fallback to static title if dynamic is empty */}
             {releaseData?.title || "சமீபத்திய வெளியீடு"}
           </h2>
 
@@ -115,18 +115,18 @@ const MagazineSection: React.FC = () => {
           {/* BUTTONS AREA */}
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-center justify-center md:justify-start">
             <button
-  type="button"
-  onClick={() => setShowPdfModal(true)}
-  className="bg-white text-[#B12A1C] flex items-center justify-center rounded-full hover:bg-gray-100 transition-all w-[200px] md:w-[180px] h-[48px]"
-  style={{
-    fontFamily: "'Arima', serif",
-    fontWeight: 700,
-    fontSize: "15px",
-  }}
->
-  <img src="/images/magazine/bookIcon.png" alt="book" className="w-5 h-5 mr-2" />
-  Read Article
-</button>
+              type="button"
+              onClick={() => setShowPdfModal(true)}
+              className="bg-white text-[#B12A1C] flex items-center justify-center rounded-full hover:bg-gray-100 transition-all w-[200px] md:w-[180px] h-[48px]"
+              style={{
+                fontFamily: "'Arima', serif",
+                fontWeight: 700,
+                fontSize: "15px",
+              }}
+            >
+              <img src="/images/magazine/bookIcon.png" alt="book" className="w-5 h-5 mr-2" />
+              Read Article
+            </button>
 
             <button
               className="border border-white text-white flex items-center justify-center rounded-full hover:bg-white/10 transition-all w-[200px] md:w-[180px] h-[48px]"
