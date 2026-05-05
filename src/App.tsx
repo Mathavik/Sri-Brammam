@@ -8,8 +8,8 @@ import Home from "./pages/homePage/home";
 import AboutPage from "./pages/aboutPage/HeroSection";
 import { MagazineGallery } from "./pages/issuePage/issues";
 import CommonIssue from "./pages/issuePage/commonIssue";
-// import Main from "./pages/eventsPage/ban";
-import Ban from "./pages/eventsPage/ban";
+
+import MainBan from "./pages/eventsPage/mainban";
 // import Ban from "./pages/eventsPage/ban";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
 
         <Route path="/issues" element={<CommonIssue />} />
-        <Route path="/events" element={<Ban />} />
+        <Route path="/events" element={<MainBan />} />
 
 
       </Routes>
