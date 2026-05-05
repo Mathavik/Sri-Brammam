@@ -7,11 +7,11 @@ const descriptionText = `"ஸ்ரீ பிரம்மம் மாத இத
 const Footer: React.FC = () => {
   return (
     <footer className="w-full bg-gray-100 md:bg-white">
-      {/* மொபைலில் Column ஆகவும், md (Tablet/Desktop) திரையில் Row ஆகவும் மாறும் */}
-      <div className="flex flex-col md:flex-row w-full">
+      {/* மொபைல் மற்றும் டேப்லெட்டில் Column ஆகவும், lg (Desktop) திரையில் மட்டும் Row ஆகவும் மாறும் */}
+      <div className="flex flex-col lg:flex-row w-full">
         
         {/* LEFT SECTION */}
-        <div className="w-full md:w-[30%] bg-gray-100 p-6 md:p-8 flex flex-col items-center md:items-start justify-center">
+        <div className="w-full lg:w-[30%] bg-gray-100 p-6 md:p-8 flex flex-col items-center md:items-start justify-center">
           {/* Logo */}
           <div className="mb-6 w-full flex justify-center md:justify-start">
             <img
@@ -62,8 +62,8 @@ const Footer: React.FC = () => {
         </div>
 
         {/* RIGHT SECTION */}
-        <div className="w-full md:w-[70%] bg-red-700 text-white px-6 md:px-10 pt-8 pb-6 flex flex-col justify-between">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-x-4 mb-8 md:mb-0">
+        <div className="w-full lg:w-[70%] bg-red-700 text-white px-6 md:px-10 pt-8 pb-6 flex flex-col justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-4 mb-8 md:mb-0">
             
             {/* Explore */}
             <div className="flex flex-col items-center md:items-start">
@@ -129,7 +129,7 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Contacts */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <h2
                 className="font-semibold text-lg mb-3 border-b border-red-400/30 pb-2 md:border-none md:pb-0 text-center md:text-left"
                 style={{
