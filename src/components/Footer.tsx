@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Link-ஐ இம்போர்ட் செய்துள்ளோம்
 import { Mail, MapPin, Phone } from "lucide-react";
 
 // குறிப்பு படத்தில் உள்ள சரியான தமிழ் உரை
@@ -35,27 +36,27 @@ const Footer: React.FC = () => {
           {/* Social Icons */}
           <div className="flex gap-5 items-center justify-center md:justify-start w-full mb-6 md:mb-0 px-2">
             <a 
-              href="https://www.facebook.com" // உங்கள் பேஸ்புக் இணைப்பை இங்கு கொடுக்கவும்
+              href="https://www.facebook.com" 
               target="_blank" 
               rel="noopener noreferrer"
             >
               <img 
-                src="/images/facebook.png" // உங்கள் பேஸ்புக் படத்தின் பாத் (path)
+                src="/images/facebook.png" 
                 alt="Facebook"
                 className="object-contain cursor-pointer hover:opacity-80" 
-                style={{ width: "30px", height: "32px" }} // Facebook icon
+                style={{ width: "30px", height: "32px" }} 
               />
             </a>
             <a 
-              href="https://www.youtube.com" // உங்கள் யூடியூப் இணைப்பை இங்கு கொடுக்கவும்
+              href="https://www.youtube.com" 
               target="_blank" 
               rel="noopener noreferrer"
             >
               <img 
-                src="/images/youtube.png" // உங்கள் யூடியூப் படத்தின் பாத் (path)
+                src="/images/youtube.png" 
                 alt="YouTube"
                 className="object-contain cursor-pointer hover:opacity-80" 
-                style={{ width: "32px", height: "32px" }} // YouTube icon size changed to match facebook
+                style={{ width: "32px", height: "32px" }} 
               />
             </a>
           </div>
@@ -79,8 +80,8 @@ const Footer: React.FC = () => {
               >
                 Explore
               </h2>
-              <ul 
-                className="space-y-2 text-center md:text-left" 
+              <nav 
+                className="flex flex-col space-y-2 text-center md:text-left" 
                 style={{ 
                   fontFamily: "'Noto Sans Tamil', sans-serif",
                   fontWeight: 600,
@@ -89,12 +90,12 @@ const Footer: React.FC = () => {
                   letterSpacing: "0%"
                 }}
               >
-                <li className="cursor-pointer hover:underline">About</li>
-                <li className="cursor-pointer hover:underline">Issues</li>
-                <li className="cursor-pointer hover:underline">Community</li>
-                <li className="cursor-pointer hover:underline">Writers</li>
-                <li className="cursor-pointer hover:underline">Reporters</li>
-              </ul>
+                <Link to="/about" className="hover:underline cursor-pointer">About</Link>
+                <Link to="/issues" className="hover:underline cursor-pointer">Issues</Link>
+                <Link to="/community" className="hover:underline cursor-pointer">Community</Link>
+                <Link to="/writers" className="hover:underline cursor-pointer">Writers</Link>
+                <Link to="/reporters" className="hover:underline cursor-pointer">Reporters</Link>
+              </nav>
             </div>
 
             {/* Useful Links */}
@@ -111,8 +112,8 @@ const Footer: React.FC = () => {
               >
                 Useful Link
               </h2>
-              <ul 
-                className="space-y-2 text-center md:text-left"
+              <nav 
+                className="flex flex-col space-y-2 text-center md:text-left"
                 style={{ 
                   fontFamily: "'Noto Sans Tamil', sans-serif",
                   fontWeight: 600,
@@ -121,11 +122,11 @@ const Footer: React.FC = () => {
                   letterSpacing: "0%"
                 }}
               >
-                <li className="cursor-pointer hover:underline">Blog</li>
-                <li className="cursor-pointer hover:underline">Print Media</li>
-                <li className="cursor-pointer hover:underline">FAQ</li>
-                <li className="cursor-pointer hover:underline">Carrer</li>
-              </ul>
+                <Link to="/blog" className="hover:underline cursor-pointer">Blog</Link>
+                <Link to="/print-media" className="hover:underline cursor-pointer">Print Media</Link>
+                <Link to="/faq" className="hover:underline cursor-pointer">FAQ</Link>
+                <Link to="/career" className="hover:underline cursor-pointer">Carrer</Link>
+              </nav>
             </div>
 
             {/* Contacts */}

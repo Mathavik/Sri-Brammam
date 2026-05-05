@@ -1,18 +1,31 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HeroSection from "./pages/aboutPage/HeroSection";
 import Home from "./pages/homePage/home";
 import AboutPage from "./pages/aboutPage/HeroSection";
-import { MagazineGallery } from "./pages/issuePage/issues";
 import CommonIssue from "./pages/issuePage/commonIssue";
-import Main from "./pages/eventsPage/mainsection";
+
+import MainBan from "./pages/eventsPage/mainban";
+// import Ban from "./pages/eventsPage/ban";
+
+// பக்கத்தின் மேல் பகுதிக்கு ஸ்க்ரோல் செய்யும் காம்பொனென்ட்
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   return (
     <BrowserRouter>
+      {/* ScrollToTop காம்பொனென்ட்டை BrowserRouter-க்குள் சேர்த்துள்ளோம் */}
+      <ScrollToTop />
 
       {/* Header */}
       <Header />
@@ -21,18 +34,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/herosection" element={<HeroSection />} />
-        
         <Route path="/about" element={<AboutPage />} />
-
         <Route path="/issues" element={<CommonIssue />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/events" element={<MainBan />} />
 
 
       </Routes>
 
       {/* Footer */}
       <Footer />
-
     </BrowserRouter>
   );
 }
