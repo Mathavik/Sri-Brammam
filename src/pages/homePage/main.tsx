@@ -35,7 +35,7 @@ const MainSection: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-[600px] relative overflow-hidden">
+    <div className="w-full h-auto md:h-[600px] relative overflow-hidden py-12 md:py-0 flex items-center">
       {/* Background Image */}
       <img
         src="/images/herosection/background.png"
@@ -47,28 +47,27 @@ const MainSection: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-orange-900/70 to-transparent"></div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto h-full flex items-center justify-between px-10">
+      <div className="relative z-10 max-w-7xl mx-auto h-full flex flex-col md:flex-row items-center justify-between px-6 md:px-10 gap-12 md:gap-6 w-full">
         
         {/* LEFT TEXT */}
-        <div className="text-white">
+        <div className="text-white text-center md:text-left w-full md:w-1/2">
           <h1
-            className="drop-shadow-2xl mb-2"
+            className="drop-shadow-2xl mb-4"
             style={{
               fontFamily: "'TAU-Paalai', sans-serif",
               fontWeight: 700,
-              fontSize: "58px",
-              lineHeight: "48px",
+              fontSize: "clamp(38px, 5vw, 58px)",
+              lineHeight: "1.2",
             }}
           >
             ஸ்ரீ பிரம்மம்
           </h1>
 
           <p
+            className="text-lg md:text-2xl leading-relaxed md:leading-[48px]"
             style={{
               fontFamily: "'Arima', serif",
               fontWeight: 700,
-              fontSize: "24px",
-              lineHeight: "48px",
             }}
           >
             “ஆன்மீகம் • அறம் • அறிவு — உங்கள் வழிகாட்டி”
@@ -76,9 +75,9 @@ const MainSection: React.FC = () => {
         </div>
 
         {/* RIGHT VIDEO */}
-        <div className="relative">
-          <div className="bg-white p-4 pt-12 pb-5 rounded-[45px] shadow-2xl">
-            <div className="rounded-[35px] overflow-hidden w-[440px] h-[300px] flex items-center justify-center bg-gray-100">
+        <div className="relative w-full max-w-[440px] flex justify-center">
+          <div className="bg-white p-4 pt-12 pb-5 rounded-[45px] shadow-2xl w-full">
+            <div className="rounded-[35px] overflow-hidden w-full h-[220px] sm:h-[260px] md:h-[300px] flex items-center justify-center bg-gray-100">
               
               {loading ? (
                 <p className="text-gray-500 text-sm">
