@@ -7,11 +7,11 @@ const descriptionText = `"ஸ்ரீ பிரம்மம் மாத இத
 const Footer: React.FC = () => {
   return (
     <footer className="w-full bg-gray-100 md:bg-white">
-      {/* மொபைலில் Column ஆகவும், md (Tablet/Desktop) திரையில் Row ஆகவும் மாறும் */}
-      <div className="flex flex-col md:flex-row w-full">
+      {/* மொபைல் மற்றும் டேப்லெட்டில் Column ஆகவும், lg (Desktop) திரையில் மட்டும் Row ஆகவும் மாறும் */}
+      <div className="flex flex-col lg:flex-row w-full">
         
         {/* LEFT SECTION */}
-        <div className="w-full md:w-[30%] bg-gray-100 p-6 md:p-8 flex flex-col items-center md:items-start justify-center">
+        <div className="w-full lg:w-[30%] bg-gray-100 p-6 md:p-8 flex flex-col items-center md:items-start justify-center">
           {/* Logo */}
           <div className="mb-6 w-full flex justify-center md:justify-start">
             <img
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
             {descriptionText}
           </p>
 
-          {/* Social Icons - படங்களின் அளவுகள் சமமாக மாற்றப்பட்டுள்ளது */}
+          {/* Social Icons */}
           <div className="flex gap-5 items-center justify-center md:justify-start w-full mb-6 md:mb-0 px-2">
             <a 
               href="https://www.facebook.com" // உங்கள் பேஸ்புக் இணைப்பை இங்கு கொடுக்கவும்
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
                 src="/images/facebook.png" // உங்கள் பேஸ்புக் படத்தின் பாத் (path)
                 alt="Facebook"
                 className="object-contain cursor-pointer hover:opacity-80" 
-                style={{ width: "22px", height: "14px" }}
+                style={{ width: "30px", height: "32px" }} // Facebook icon
               />
             </a>
             <a 
@@ -55,15 +55,15 @@ const Footer: React.FC = () => {
                 src="/images/youtube.png" // உங்கள் யூடியூப் படத்தின் பாத் (path)
                 alt="YouTube"
                 className="object-contain cursor-pointer hover:opacity-80" 
-                style={{ width: "22px", height: "14px" }}
+                style={{ width: "32px", height: "32px" }} // YouTube icon size changed to match facebook
               />
             </a>
           </div>
         </div>
 
         {/* RIGHT SECTION */}
-        <div className="w-full md:w-[70%] bg-red-700 text-white px-6 md:px-10 pt-8 pb-6 flex flex-col justify-between">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-x-10 mb-8 md:mb-0">
+        <div className="w-full lg:w-[70%] bg-red-700 text-white px-6 md:px-10 pt-8 pb-6 flex flex-col justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-4 mb-8 md:mb-0">
             
             {/* Explore */}
             <div className="flex flex-col items-center md:items-start">
@@ -129,7 +129,7 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Contacts */}
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <h2
                 className="font-semibold text-lg mb-3 border-b border-red-400/30 pb-2 md:border-none md:pb-0 text-center md:text-left"
                 style={{
@@ -170,7 +170,7 @@ const Footer: React.FC = () => {
                 {/* மொபைல் எண்கள் 1 வரியில் */}
                 <li className="flex items-center justify-center md:justify-start gap-2 text-center md:text-left w-full">
                   <Phone size={16} className="mt-1 flex-shrink-0" />
-                  <span className="break-all">044 2446 3550, +91 86558 85568</span>
+                  <span className="whitespace-nowrap">044 2446 3550, +91 86558 85568</span>
                 </li>
               </ul>
             </div>
