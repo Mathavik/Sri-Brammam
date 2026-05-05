@@ -73,18 +73,7 @@ const MainSection: React.FC = () => {
           >
             “ஆன்மீகம் • அறம் • அறிவு — உங்கள் வழிகாட்டி”
           </p>
-         <p
-  style={{
-    fontFamily: "'Arima', serif",
-    fontWeight: 700,
-    fontSize: "20px",
-    lineHeight: "48px",
-    letterSpacing: "0%",
-    textTransform: "capitalize",
-  }}
->
-  “ஆன்மீகம் • அறம் • அறிவு — உங்கள் வழிகாட்டி”
-</p>
+        
         </div>
 
         {/* RIGHT VIDEO */}

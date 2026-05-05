@@ -1,9 +1,9 @@
-export default function HeroBanner() {
+export default function Main() {
   return (
     <div className="w-full">
 
       {/* Left Floating Text */}
-      <div className="ml-4 sm:ml-6 md:ml-8 lg:ml-4 mb-8 text-black 
+      <div className="ml-4 sm:ml-6 md:ml-8 lg:ml-12 mb-8 text-black 
                       max-w-[85%] sm:max-w-md md:max-w-lg">
         <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
           ஸ்ரீ பிரம்மம்
@@ -30,7 +30,7 @@ export default function HeroBanner() {
         {/* Right Card */}
         <div className="
           absolute 
-          right-4 sm:right-6 md:right-8 lg:right-20
+          right-4 sm:right-6 md:right-8 lg:right-10
           -top-12 sm:-top-16 md:-top-20 lg:-top-24
           bg-[#B22C23] text-white 
           p-4 sm:p-6 md:p-6 lg:p-10 
