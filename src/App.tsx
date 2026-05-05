@@ -8,7 +8,9 @@ import Home from "./pages/homePage/home";
 import AboutPage from "./pages/aboutPage/HeroSection";
 import { MagazineGallery } from "./pages/issuePage/issues";
 import CommonIssue from "./pages/issuePage/commonIssue";
-import Main from "./pages/eventsPage/mainsection";
+// import Main from "./pages/eventsPage/ban";
+import Ban from "./pages/eventsPage/ban";
+// import Ban from "./pages/eventsPage/ban";
 
 function App() {
   return (
@@ -25,7 +27,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
 
         <Route path="/issues" element={<CommonIssue />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/events" element={<Ban />} />
 
 
       </Routes>
