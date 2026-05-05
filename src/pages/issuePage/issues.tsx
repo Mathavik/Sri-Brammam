@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import SubscribeSection from '../homePage/SubscribeSection';
 
-// Ungalathu public folder-il ulla images path-ai ingu kodungal
 const magazines = [
   {
     id: 1,
@@ -9,7 +8,7 @@ const magazines = [
     month: 'April',
     year: '2026',
     isNew: true,
-    image: '/images/issue/mag.jpg', // Ungalathu image path ingu podungal
+    image: '/images/issue/mag.jpg',
     altText: 'April 2026 Magazine Cover',
     titleText: 'ஸ்ரீ ப்ரஹ்மம்',
     subtitleText: 'SRI BRAHMAM'
@@ -20,7 +19,7 @@ const magazines = [
     month: 'March',
     year: '2026',
     isNew: false,
-    image: '/images/issue/mag.jpg', // Ungalathu image path ingu podungal
+    image: '/images/issue/mag.jpg',
     altText: 'March 2026 Magazine Cover',
     titleText: 'ஸ்ரீ ப்ரஹ்மம்',
     subtitleText: 'SRI BRAHMAM'
@@ -31,7 +30,7 @@ const magazines = [
     month: 'February',
     year: '2026',
     isNew: false,
-    image: '/images/issue/mag.jpg', // Ungalathu image path ingu podungal
+    image: '/images/issue/mag.jpg',
     altText: 'February 2026 Magazine Cover',
     titleText: 'ஸ்ரீ ப்ரஹ்மம்',
     subtitleText: 'SRI BRAHMAM'
@@ -42,7 +41,7 @@ const magazines = [
     month: 'January',
     year: '2026',
     isNew: false,
-    image: '/images/issue/mag.jpg', // Ungalathu image path ingu podungal
+    image: '/images/issue/mag.jpg',
     altText: 'January 2026 Magazine Cover',
     titleText: 'ஸ்ரீ ப்ரஹ்மம்',
     subtitleText: 'SRI BRAHMAM'
@@ -56,7 +55,7 @@ export const MagazineGallery: React.FC = () => {
   return (
     <div className="min-h-screen bg-white p-8 font-sans antialiased">
       {/* Header & Filters Section */}
-      <div className="flex flex-wrap items-center gap-6 mb-12 max-w-6xl mx-auto">
+      <div className="flex flex-wrap items-center gap-6 mb-12 max-w-[1200px] mx-auto">
         {/* Name / Year Dropdown */}
         <div className="flex flex-col gap-1.5 min-w-[160px]">
           <label htmlFor="year-select" className="text-xs font-semibold text-gray-900 tracking-wider">
@@ -108,9 +107,9 @@ export const MagazineGallery: React.FC = () => {
       </div>
 
       {/* Magazine Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto justify-items-center lg:justify-items-start">
         {magazines.map((mag) => (
-          <div key={mag.id} className="flex flex-col items-start">
+          <div key={mag.id} className="flex flex-col items-center lg:items-start w-64">
             <div className="relative w-64 h-96 bg-gray-100 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
               {/* Card Header Tag */}
               {mag.isNew && (
@@ -123,13 +122,11 @@ export const MagazineGallery: React.FC = () => {
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url(${mag.image})` }}
-              >
-
-              </div>
+              ></div>
             </div>
 
             {/* Tamil Description Label below */}
-            <p className="mt-4 text-sm font-bold text-gray-900 tracking-wide">
+            <p className="mt-4 text-sm font-bold text-gray-900 tracking-wide text-center lg:text-left">
               {mag.title}
             </p>
           </div>
