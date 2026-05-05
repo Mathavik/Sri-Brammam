@@ -2,7 +2,7 @@ import React from "react";
 
 const StatsSection: React.FC = () => {
   return (
-    <div className="w-full bg-[#FFF9F6] py-12 border-y border-[#B12A1C]/20">
+    <div className="w-full bg-[#FFF9F6] py-6 md:py-8 -mt-16 md:-mt-28 relative z-10 border-y border-[#B12A1C]/20">
       {/* மொபைல் திரையில் கீழே அடுத்தடுத்து வரவும், டெஸ்க்டாப் திரையில் பக்கவாட்டிலும் அமையச் செய்யும். */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6 gap-8 md:gap-4">
         
