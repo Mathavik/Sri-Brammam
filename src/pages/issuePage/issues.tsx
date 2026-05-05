@@ -135,8 +135,6 @@ export const MagazineGallery: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="mt-6"></div>
-      <SubscribeSection />
     </div>
   );
 };
