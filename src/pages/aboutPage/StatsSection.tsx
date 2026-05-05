@@ -1,37 +1,53 @@
-export default function StatsSection() {
+import React from "react";
+
+const StatsSection: React.FC = () => {
   return (
-    <div className="w-full bg-white py-6 sm:py-8 md:py-10 border-t">
-      
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center ">
+    <div className="w-full bg-[#FFF9F6] py-6 md:py-8  relative z-10 border-y border-[#B12A1C]/20">
+      {/* மொபைல் திரையில் கீழே அடுத்தடுத்து வரவும், டெஸ்க்டாப் திரையில் பக்கவாட்டிலும் அமையச் செய்யும். */}
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6 gap-8 md:gap-4">
         
-        {/* Item 1 */}
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center border-2 border-red-500 rounded-full text-red-500 text-lg">
-            ⭐
+        {/* Item 1 - ஆண்டுகள் */}
+        <div className="flex items-center gap-6 w-64 sm:w-72 md:w-auto justify-start md:justify-center">
+          <img 
+            src="/images/state/state1.png" 
+            alt="years"
+            className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
+          />
+          <div className="text-left min-w-[110px]">
+            <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold leading-none">27+</h2>
+            <p className="text-black text-lg font-bold mt-1">ஆண்டுகள்</p>
           </div>
-          <p className="text-lg sm:text-xl font-bold text-red-600">27+</p>
-          <p className="text-gray-600 text-sm sm:text-base">ஆண்டுகள்</p>
         </div>
 
-        {/* Item 2 */}
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center border-2 border-red-500 rounded-full text-red-500 text-lg">
-            📄
+        {/* Item 2 - வெளியீடுகள் */}
+        <div className="flex items-center gap-6 w-64 sm:w-72 md:w-auto justify-start md:justify-center">
+          <img 
+            src="/images/state/state2.png" 
+            alt="publications"
+            className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
+          />
+          <div className="text-left min-w-[110px]">
+            <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold leading-none">150+</h2>
+            <p className="text-black text-lg font-bold mt-1">வெளியீடுகள்</p>
           </div>
-          <p className="text-lg sm:text-xl font-bold text-red-600">150+</p>
-          <p className="text-gray-600 text-sm sm:text-base">வெளியீடுகள்</p>
         </div>
 
-        {/* Item 3 */}
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center border-2 border-red-500 rounded-full text-red-500 text-lg">
-            👥
+        {/* Item 3 - வாசகர்கள் */}
+        <div className="flex items-center gap-6 w-64 sm:w-72 md:w-auto justify-start md:justify-center">
+          <img 
+            src="/images/state/state3.png" 
+            alt="readers"
+            className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
+          />
+          <div className="text-left min-w-[110px]">
+            <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold leading-none">5000+</h2>
+            <p className="text-black text-lg font-bold mt-1">வாசகர்கள்</p>
           </div>
-          <p className="text-lg sm:text-xl font-bold text-red-600">5000+</p>
-          <p className="text-gray-600 text-sm sm:text-base">வாசகர்கள்</p>
         </div>
 
       </div>
     </div>
   );
-}
+};
+
+export default StatsSection;
