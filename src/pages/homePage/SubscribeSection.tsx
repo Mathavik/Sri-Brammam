@@ -2,8 +2,8 @@ import React from "react";
 
 const SubscribeSection: React.FC = () => {
   return (
-    <div className="w-full bg-[#E6DDC9] py-8 md:py-16">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-10 gap-8 md:gap-4">
+    <div className="w-full px-4 md:px-12 lg:px-20 my-10 md:my-16">
+      <div className="max-w-7xl mx-auto bg-[#FFF8E5] rounded-3xl py-12 md:py-16 px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
         
         {/* LEFT TEXT */}
         <div className="flex-1 text-center md:text-left w-full">
@@ -37,7 +37,7 @@ const SubscribeSection: React.FC = () => {
           <input
             type="email"
             placeholder="Your email"
-            className="w-full md:w-[300px] lg:w-[400px] h-[50px] md:h-[60px] px-6 bg-[#F3F4F6] outline-none text-gray-700 placeholder:text-gray-400 border-none rounded-l-md"
+            className="w-full md:w-[300px] lg:w-[400px] h-[50px] md:h-[60px] px-6 bg-white outline-none text-gray-700 placeholder:text-gray-400 border-none rounded-l-md"
           />
 
           <button className="h-[50px] md:h-[60px] px-6 md:px-8 bg-[#B12A1C] text-white text-sm md:text-lg font-bold hover:bg-[#8e2217] transition-colors rounded-r-md whitespace-nowrap">
