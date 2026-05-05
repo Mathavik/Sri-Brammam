@@ -6,7 +6,9 @@ import HeroSection from "./pages/aboutPage/HeroSection";
 import Home from "./pages/homePage/home";
 import AboutPage from "./pages/aboutPage/HeroSection";
 import CommonIssue from "./pages/issuePage/commonIssue";
-import Main from "./pages/eventsPage/mainsection";
+// import Main from "./pages/eventsPage/ban";
+import Ban from "./pages/eventsPage/ban";
+// import Ban from "./pages/eventsPage/ban";
 
 // பக்கத்தின் மேல் பகுதிக்கு ஸ்க்ரோல் செய்யும் காம்பொனென்ட்
 function ScrollToTop() {
@@ -34,7 +36,9 @@ function App() {
         <Route path="/herosection" element={<HeroSection />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/issues" element={<CommonIssue />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/events" element={<Ban />} />
+
+
       </Routes>
 
       {/* Footer */}
