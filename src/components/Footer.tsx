@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
             {descriptionText}
           </p>
 
-          {/* Social Icons - படங்களின் அளவுகள் சமமாக மாற்றப்பட்டுள்ளது */}
+          {/* Social Icons */}
           <div className="flex gap-5 items-center justify-center md:justify-start w-full mb-6 md:mb-0 px-2">
             <a 
               href="https://www.facebook.com" // உங்கள் பேஸ்புக் இணைப்பை இங்கு கொடுக்கவும்
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
                 src="/images/facebook.png" // உங்கள் பேஸ்புக் படத்தின் பாத் (path)
                 alt="Facebook"
                 className="object-contain cursor-pointer hover:opacity-80" 
-                style={{ width: "22px", height: "14px" }}
+                style={{ width: "30px", height: "32px" }} // Facebook icon
               />
             </a>
             <a 
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
                 src="/images/youtube.png" // உங்கள் யூடியூப் படத்தின் பாத் (path)
                 alt="YouTube"
                 className="object-contain cursor-pointer hover:opacity-80" 
-                style={{ width: "22px", height: "14px" }}
+                style={{ width: "32px", height: "32px" }} // YouTube icon size changed to match facebook
               />
             </a>
           </div>
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
 
         {/* RIGHT SECTION */}
         <div className="w-full md:w-[70%] bg-red-700 text-white px-6 md:px-10 pt-8 pb-6 flex flex-col justify-between">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-x-10 mb-8 md:mb-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-x-4 mb-8 md:mb-0">
             
             {/* Explore */}
             <div className="flex flex-col items-center md:items-start">
@@ -170,7 +170,7 @@ const Footer: React.FC = () => {
                 {/* மொபைல் எண்கள் 1 வரியில் */}
                 <li className="flex items-center justify-center md:justify-start gap-2 text-center md:text-left w-full">
                   <Phone size={16} className="mt-1 flex-shrink-0" />
-                  <span className="break-all">044 2446 3550, +91 86558 85568</span>
+                  <span className="whitespace-nowrap">044 2446 3550, +91 86558 85568</span>
                 </li>
               </ul>
             </div>
