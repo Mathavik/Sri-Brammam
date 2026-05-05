@@ -1,28 +1,49 @@
 import React, { useEffect, useState } from "react";
 
+// Updated interface to match your API response
 interface LatestReleaseData {
   title: string;
-  coverImage: string;
-  link: string;
+  image_url: string;
+  pdf_url: string;
+  description: string;
 }
 
 const MagazineSection: React.FC = () => {
   const [releaseData, setReleaseData] = useState<LatestReleaseData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showPdfModal, setShowPdfModal] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchLatestRelease = async () => {
+      setLoading(true);
+      console.log("MagazineSection: fetchLatestRelease started");
       try {
-        const response = await fetch("https://pcstech.in/pcs_api/brammam/public/api/latest-releases");
-        const data = await response.json();
-        
-        if (Array.isArray(data) && data.length > 0) {
-          setReleaseData(data[0]);
-        } else if (data) {
-          setReleaseData(data);
+        const response = await fetch("https://pcstech.in/pcs_api/brammam/public/api/latest-releases", {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        console.log("MagazineSection: fetch status", response.status, response.statusText);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const json = await response.json();
+        console.log("MagazineSection: API response json", json);
+
+        if (json.success !== true) {
+          console.error("MagazineSection: API returned success=false", json);
+        } else if (!Array.isArray(json.data) || json.data.length === 0) {
+          console.error("MagazineSection: API returned empty data array", json);
+        } else {
+          setReleaseData(json.data[0]);
         }
       } catch (error) {
-        console.error("Error fetching latest releases:", error);
+        console.error("MagazineSection: Error fetching latest releases:", error);
       } finally {
         setLoading(false);
       }
@@ -32,13 +53,7 @@ const MagazineSection: React.FC = () => {
   }, []);
 
   return (
-    /* வெளிப்புறத்தில் இருந்த bg-[#B12A1C] நீக்கப்பட்டது */
-<div className="w-full flex justify-center items-center py-10 md:py-20 px-4 md:px-0 -mt-10 md:-mt-16">      
-      {/* 
-        MAIN WRAPPER: 
-        - இங்குதான் உங்கள் 'mag.png' படம் பின்னணியாக உள்ளது.
-        - 'bg-no-repeat' மற்றும் 'bg-cover' சேர்ப்பதன் மூலம் படம் கச்சிதமாகப் பொருந்தும்.
-      */}
+    <div className="w-full flex justify-center items-center py-10 md:py-20 px-4 md:px-0 -mt-10 md:-mt-16">       
       <div 
         className="relative overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 py-10 md:px-20 shadow-2xl rounded-xl md:rounded-sm w-full max-w-[1286px] min-h-[524px]"
         style={{ 
@@ -60,7 +75,8 @@ const MagazineSection: React.FC = () => {
               textTransform: "capitalize"
             }}
           >
-            சமீபத்திய வெளியீடு
+            {/* Fallback to static title if dynamic is empty */}
+            {releaseData?.title || "சமீபத்திய வெளியீடு"}
           </h2>
 
           <p 
@@ -72,10 +88,10 @@ const MagazineSection: React.FC = () => {
               lineHeight: "28px",
             }}
           >
-            இதில் பக்தி கதைகள், ஆன்மிக கட்டுரைகள், தியான முறைகள், வாழ்க்கை முன்னேற்றத்திற்கான வழிகாட்டுதல்கள் மற்றும் நல்லெண்ணப் பதிவுகள் இடம்பெறும். வாசகர்களின் மன அமைதியை வளர்க்கவும், உள்ளார்ந்த ஞானத்தைத் தூண்டவும் இந்த இதழ் உதவுகிறது.
+            {releaseData?.description || "இதில் பக்தி கதைகள், ஆன்மிக கட்டுரைகள், தியான முறைகள் மற்றும் வாழ்க்கை முன்னேற்றத்திற்கான வழிகாட்டுதல்கள் இடம்பெறும்."}
           </p>
 
-          {/* வகைகள் (Categories) */}
+          {/* Categories */}
           <div 
             className="mb-10 text-[18px] md:text-[24px]"
             style={{
@@ -99,7 +115,9 @@ const MagazineSection: React.FC = () => {
 
           {/* BUTTONS AREA */}
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-center justify-center md:justify-start">
-            <button 
+            <button
+              type="button"
+              onClick={() => setShowPdfModal(true)}
               className="bg-white text-[#B12A1C] flex items-center justify-center rounded-full hover:bg-gray-100 transition-all w-[200px] md:w-[180px] h-[48px]"
               style={{
                 fontFamily: "'Arima', serif",
@@ -126,13 +144,24 @@ const MagazineSection: React.FC = () => {
         {/* RIGHT SIDE DYNAMIC IMAGE */}
         <div className="relative z-10 flex items-center justify-center w-full max-w-[320px] md:max-w-[360px] aspect-[3/4] bg-white/10 backdrop-blur-sm rounded-xl p-2">
           {loading ? (
-            <p className="text-white text-sm">தரவு (Data) லோட் ஆகிறது...</p>
-          ) : releaseData && releaseData.coverImage ? (
-            <img
-              src={releaseData.coverImage}
-              alt={releaseData.title || "சமீபத்திய வெளியீடு"}
-              className="object-cover rounded-xl shadow-2xl w-full h-full border border-white/20"
-            />
+            <p className="text-white text-sm animate-pulse">பதிவிறக்கம் செய்யப்படுகிறது...</p>
+          ) : releaseData && releaseData.image_url ? (
+            <button
+              type="button"
+              onClick={() => setShowPdfModal(true)}
+              className="group relative w-full h-full rounded-xl overflow-hidden border border-white/20"
+              style={{ backgroundColor: "transparent" }}
+            >
+              <img
+                src={releaseData.image_url}
+                alt={releaseData.title}
+                className="object-cover rounded-xl shadow-2xl w-full h-full transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <span className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#B12A1C] opacity-0 group-hover:opacity-100 transition-opacity">
+                Read PDF
+              </span>
+            </button>
           ) : (
             <div className="text-center p-5 text-white">
               <p className="font-semibold text-lg mb-2">
@@ -144,6 +173,28 @@ const MagazineSection: React.FC = () => {
         </div>
         
       </div>
+
+      {showPdfModal && releaseData?.pdf_url && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="relative w-full max-w-[1100px] h-[90vh] rounded-[32px] shadow-2xl overflow-hidden bg-[#111]">
+            <button
+              type="button"
+              onClick={() => setShowPdfModal(false)}
+              className="absolute top-4 right-4 z-20 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#111] shadow-lg hover:bg-white"
+            >
+              Close
+            </button>
+            <div className="relative w-full h-full bg-white rounded-[32px] overflow-hidden">
+              <iframe
+                src={releaseData.pdf_url}
+                title="Magazine PDF Preview"
+                className="w-full h-full bg-white"
+                frameBorder="0"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
