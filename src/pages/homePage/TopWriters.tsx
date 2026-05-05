@@ -58,15 +58,15 @@ const TopWriters: React.FC = () => {
         </h2>
 
         <span 
-className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2"         
- style={{ color: '#B22C23', fontWeight: 600 }}
+          className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2" 
+          style={{ color: '#B22C23', fontWeight: 600 }}
         >
           See All &rarr;
         </span>
       </div>
 
       {/* Desktop View */}
-      <div className="hidden md:flex items-center justify-between gap-6 overflow-x-auto">
+      <div className="hidden lg:flex items-center justify-between gap-6 overflow-x-auto">
         {writers.map((writer) => (
           <div key={writer.id} className="flex items-center gap-4 min-w-[220px]">
             <img
@@ -84,47 +84,104 @@ className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underl
         ))}
       </div>
 
-      {/* Mobile Slider */}
-      <div className="md:hidden flex flex-col items-center">
-        <div className="flex items-center gap-4">
+      {/* Mobile Slider (Below 768px screens) - Shows 1 Item */}
+      <div className="md:hidden flex items-center justify-between px-1 w-full">
+        <button
+          onClick={prev}
+          className="p-2 -ml-1 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
+          aria-label="Previous"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        </button>
+
+        <div className="flex items-center gap-3 px-1 overflow-hidden max-w-[75%]">
           <img
             src={writers[current].image}
             alt={writers[current].name}
-            className="w-16 h-16 rounded-full object-cover border border-gray-100 shadow-sm"
+            className="w-12 h-12 rounded-full object-cover border border-gray-100 shadow-sm shrink-0"
           />
-          <div>
-            <h3 className="text-base font-semibold text-gray-900">
+          <div className="min-w-0">
+            <h3 className="text-sm font-semibold text-gray-900 truncate">
               {writers[current].name}
             </h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-xs text-gray-500 truncate">
               {writers[current].role}
             </p>
           </div>
         </div>
 
-        {/* Carousel Navigation Arrows */}
-        <div className="flex justify-center items-center gap-6 mt-8">
-          <button
-            onClick={prev}
-            className="p-3 bg-orange-50 hover:bg-orange-100 text-[#d8421c] rounded-full transition shadow-sm border border-orange-200 focus:outline-none"
-            aria-label="Previous"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          
-          <button
-            onClick={next}
-            className="p-3 bg-orange-50 hover:bg-orange-100 text-[#d8421c] rounded-full transition shadow-sm border border-orange-200 focus:outline-none"
-            aria-label="Next"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
+        <button
+          onClick={next}
+          className="p-2 -mr-1 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
+          aria-label="Next"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
       </div>
+
+      {/* Tablet Slider (Between 768px and 1024px) - Shows 2 Items */}
+      <div className="hidden md:flex lg:hidden items-center justify-between px-6 w-full">
+        <button
+          onClick={prev}
+          className="p-2 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
+          aria-label="Previous"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        </button>
+
+        <div className="flex items-center justify-around gap-12 w-full px-4 overflow-hidden">
+          {/* Item 1 */}
+          <div className="flex items-center gap-4 min-w-[200px] max-w-[260px]">
+            <img
+              src={writers[current].image}
+              alt={writers[current].name}
+              className="w-16 h-16 rounded-full object-cover border border-gray-100 shadow-sm shrink-0"
+            />
+            <div className="min-w-0">
+              <h3 className="text-base font-semibold text-gray-900 truncate">
+                {writers[current].name}
+              </h3>
+              <p className="text-sm text-gray-500 truncate">
+                {writers[current].role}
+              </p>
+            </div>
+          </div>
+
+          {/* Item 2 */}
+          <div className="flex items-center gap-4 min-w-[200px] max-w-[260px]">
+            <img
+              src={writers[(current + 1) % writers.length].image}
+              alt={writers[(current + 1) % writers.length].name}
+              className="w-16 h-16 rounded-full object-cover border border-gray-100 shadow-sm shrink-0"
+            />
+            <div className="min-w-0">
+              <h3 className="text-base font-semibold text-gray-900 truncate">
+                {writers[(current + 1) % writers.length].name}
+              </h3>
+              <p className="text-sm text-gray-500 truncate">
+                {writers[(current + 1) % writers.length].role}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={next}
+          className="p-2 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
+          aria-label="Next"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
     </div>
   );
 };

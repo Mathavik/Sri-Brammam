@@ -40,7 +40,7 @@ const SponsorsBar: React.FC = () => {
         </div>
 
         {/* Logo 4 - four.png */}
-        <div className="flex justify-center items-center h-24 w-44">
+        <div className="flex justify-center items-center h-34 w-44">
           <img
             src="images/sponser/four.png" 
             alt="Logo 4"
