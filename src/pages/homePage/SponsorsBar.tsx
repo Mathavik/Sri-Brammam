@@ -2,11 +2,15 @@ import React from "react";
 
 const SponsorsBar: React.FC = () => {
   return (
-    <div className="w-full bg-white py-12 px-8 md:px-20 flex justify-center items-center">
-      {/* Container: இடது மற்றும் வலது பக்கங்களில் கூடுதல் padding-உடன், 
-        குறிப்பிட்ட அகலம் மற்றும் சாம்பல் நிற (F9F9F9) பேக்கிரவுண்டுடன் அமைக்கப்பட்டுள்ளது 
+    // வெளிப்புற Padding-ஐ (px-8, md:px-20) நீக்கியுள்ளேன்
+    <div className="w-full bg-white py-12 flex justify-center items-center -mt-16">
+      
+      {/* 
+          1. max-w-7xl-ஐ நீக்கிவிட்டு w-full கொடுத்துள்ளேன்.
+          2. rounded-2xl-ஐ நீக்கியுள்ளேன் (ஏனெனில் முழு அகலத்திற்கு வரும்போது வளைவுகள் தேவையில்லை).
+          3. Padding-ஐ சரி செய்துள்ளேன்.
       */}
-      <div className="max-w-7xl w-full mx-auto bg-[#F9F9F9] rounded-2xl py-10 px-12 md:px-20 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
+      <div className="w-full bg-[#F9F9F9] py-10 px-4 md:px-10 flex flex-col md:flex-row items-center justify-around gap-8">
         
         {/* Logo 1 - one.png */}
         <div className="flex justify-center items-center h-24 w-40">
