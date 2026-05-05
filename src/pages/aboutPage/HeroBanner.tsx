@@ -30,7 +30,7 @@ export default function HeroBanner() {
         {/* Right Card */}
         <div className="
           absolute 
-          right-4 sm:right-6 md:right-8 lg:right-10
+          right-4 sm:right-6 md:right-8 lg:right-20
           -top-12 sm:-top-16 md:-top-20 lg:-top-24
           bg-[#B22C23] text-white 
           p-4 sm:p-6 md:p-6 lg:p-10 

@@ -1,7 +1,7 @@
 import React from "react";
 import HeroBanner from "./HeroBanner";
-import StatsSection from "../homePage/StatsSection";
 import SubscribeSection from "../homePage/SubscribeSection";
+import StatsSection from "./StatsSection";
 
 export default function AboutPage() {
   return (
