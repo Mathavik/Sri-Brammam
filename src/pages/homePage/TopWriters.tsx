@@ -46,7 +46,8 @@ const TopWriters: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-white px-6 md:px-12 py-12 md:py-16 my-8 md:my-12 rounded-2xl max-w-7xl mx-auto shadow-sm">
+    // Reduced margin and padding to decrease the space
+    <div className="w-full bg-white px-6 md:px-12 py-8 md:py-10 my-4 md:my-6 rounded-2xl max-w-7xl mx-auto shadow-sm">
       
       {/* Header */}
       <div className="flex items-center justify-between mb-8 md:mb-10">
