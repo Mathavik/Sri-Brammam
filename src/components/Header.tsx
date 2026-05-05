@@ -5,31 +5,33 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    // relative சேர்த்து உள்ளோம், இதனால் உள்ளே இருக்கும் absolute மெனு சரியாக அலைன் ஆகும்.
     <header className="w-full bg-white shadow-sm md:shadow-none relative z-50">
-      
-      {/* Top Section: Logo, Login, and Hamburger Toggle */}
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4 md:py-6 px-4 md:px-10">
 
-        {/* Left: Hamburger Menu Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 text-[#333] hover:bg-gray-100 rounded-full transition focus:outline-none"
-          aria-label="Toggle Menu"
-        >
-          {isMenuOpen ? (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
-        </button>
+        {/* Left Section: Menu button (Mobile only) */}
+        <div className="w-1/3 md:hidden">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 text-[#333] hover:bg-gray-100 rounded-full transition focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            {isMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
 
-        {/* Center/Left Spacer: Logo */}
-        <div className="flex md:w-1/3 justify-center md:justify-center">
+        {/* Left Section: Spacer for Desktop/Tablet */}
+        <div className="hidden md:flex w-1/3 justify-start"></div>
+
+        {/* Center: Logo */}
+        <div className="w-1/3 flex justify-center">
           <Link to="/">
             <img
               src="/images/logo.png"
@@ -39,15 +41,13 @@ const Header: React.FC = () => {
           </Link>
         </div>
 
-        {/* Empty Spacer for Desktop Layout */}
-        <div className="hidden md:flex md:w-1/3"></div>
-
-        {/* Right: Login Button */}
-        <div className="md:w-1/3 flex justify-end">
+        {/* Right Section: Login Button */}
+        <div className="w-1/3 flex justify-end">
           <button className="bg-[#B22222] text-white px-5 md:px-8 py-2 rounded-full font-semibold text-xs md:text-sm transition hover:bg-red-800 shadow-md">
             Login
           </button>
         </div>
+
       </div>
 
       {/* Desktop Navigation Section */}

@@ -3,11 +3,10 @@ import React from "react";
 const StatsSection: React.FC = () => {
   return (
     <div className="w-full bg-[#FFF9F6] py-12 border-y border-[#B12A1C]/20">
-      {/* 
-          max-w-7xl: இது கன்டெய்னரை இன்னும் அகலமாக்கும்.
-          px-4: ஓரங்களில் உள்ள இடைவெளியைக் குறைப்பதால் இமேஜ்கள் இன்னும் ஓரத்திற்குச் செல்லும்.
+      {/* flex-col md:flex-row : மொபைல் திரையில் கீழே அடுத்தடுத்து வரவும், 
+          டெஸ்க்டாப் திரையில் பக்கவாட்டிலும் அமையச் செய்யும்.
       */}
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6 gap-8 md:gap-4">
         
         {/* Item 1 - Extreme Left */}
         <div className="flex items-center gap-4">
