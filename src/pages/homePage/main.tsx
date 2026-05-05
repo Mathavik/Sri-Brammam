@@ -12,8 +12,6 @@ const MainSection: React.FC = () => {
         );
         const result = await response.json();
 
-        console.log("API RESULT:", result); // ✅ debug
-
         // ✅ Correct data access
         if (result.success && result.data.length > 0) {
           const youtubeUrl = result.data[0].url;
@@ -35,7 +33,7 @@ const MainSection: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-auto md:h-[600px] relative overflow-hidden py-12 md:py-0 flex items-center">
+    <div className="relative w-full h-[320px] sm:h-[350px] md:h-[400px] lg:h-[450px] mt-16 sm:mt-0">
       {/* Background Image */}
       <img
         src="/images/herosection/background.png"
@@ -48,7 +46,7 @@ const MainSection: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto h-full flex flex-col md:flex-row items-center justify-between px-6 md:px-10 gap-12 md:gap-6 w-full">
-        
+
         {/* LEFT TEXT */}
         <div className="text-white text-center md:text-left w-full md:w-1/2">
           <h1
@@ -64,10 +62,13 @@ const MainSection: React.FC = () => {
           </h1>
 
           <p
-            className="text-lg md:text-2xl leading-relaxed md:leading-[48px]"
             style={{
               fontFamily: "'Arima', serif",
               fontWeight: 700,
+              fontSize: "20px",
+              lineHeight: "48px",
+              letterSpacing: "0%",
+              textTransform: "capitalize",
             }}
           >
             “ஆன்மீகம் • அறம் • அறிவு — உங்கள் வழிகாட்டி”
@@ -78,7 +79,7 @@ const MainSection: React.FC = () => {
         <div className="relative w-full max-w-[440px] flex justify-center">
           <div className="bg-white p-4 pt-12 pb-5 rounded-[45px] shadow-2xl w-full">
             <div className="rounded-[35px] overflow-hidden w-full h-[220px] sm:h-[260px] md:h-[300px] flex items-center justify-center bg-gray-100">
-              
+
               {loading ? (
                 <p className="text-gray-500 text-sm">
                   வீடியோ லோட் ஆகிறது...
