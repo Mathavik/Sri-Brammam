@@ -1,38 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <header className="w-full bg-white">
+    // relative சேர்த்து உள்ளோம், இதனால் உள்ளே இருக்கும் absolute மெனு சரியாக அலைன் ஆகும்.
+    <header className="w-full bg-white shadow-sm md:shadow-none relative z-50">
+      
+      {/* Top Section: Logo, Login, and Hamburger Toggle */}
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-4 md:py-6 px-4 md:px-10">
 
-      {/* Top Section: Logo and Login */}
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-6 px-10">
+        {/* Left: Hamburger Menu Button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden p-2 text-[#333] hover:bg-gray-100 rounded-full transition focus:outline-none"
+          aria-label="Toggle Menu"
+        >
+          {isMenuOpen ? (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
 
-        {/* Left Spacer (Balancing) */}
-        <div className="w-1/3"></div>
-
-        {/* Center: Logo */}
-        <div className="w-1/3 flex justify-center">
+        {/* Center/Left Spacer: Logo */}
+        <div className="flex md:w-1/3 justify-center md:justify-center">
           <Link to="/">
             <img
               src="/images/logo.png"
               alt="logo"
-              className="h-20 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+              className="h-10 md:h-20 object-contain cursor-pointer hover:opacity-80 transition-opacity"
             />
           </Link>
         </div>
 
+        {/* Empty Spacer for Desktop Layout */}
+        <div className="hidden md:flex md:w-1/3"></div>
+
         {/* Right: Login Button */}
-        <div className="w-1/3 flex justify-end">
-          <button className="bg-[#B22222] text-white px-8 py-2 rounded-full font-semibold text-sm transition hover:bg-red-800 shadow-md">
+        <div className="md:w-1/3 flex justify-end">
+          <button className="bg-[#B22222] text-white px-5 md:px-8 py-2 rounded-full font-semibold text-xs md:text-sm transition hover:bg-red-800 shadow-md">
             Login
           </button>
         </div>
       </div>
 
-      {/* Navigation Section with Top and Bottom Borders */}
-      {/* முதல் படத்தில் உள்ளது போன்ற கோடுகள் (Borders) இங்கே கொடுக்கப்பட்டுள்ளன */}
-      <div className="border-t border-b border-gray-200">
+      {/* Desktop Navigation Section */}
+      <div className="hidden md:block border-t border-b border-gray-200">
         <nav
           className="max-w-6xl mx-auto flex justify-between items-center py-4 text-[#333] font-medium text-[18px]"
           style={{ fontFamily: "Arima, serif" }}
@@ -44,6 +63,17 @@ const Header: React.FC = () => {
           <a href="#" className="hover:text-red-600 transition px-6">Events</a>
         </nav>
       </div>
+
+      {/* Mobile Navigation Menu as an overlay */}
+      {isMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full border-t border-gray-200 bg-white py-4 px-6 flex flex-col space-y-4 font-medium text-[16px] shadow-lg transition-all duration-300 ease-in-out z-40">
+          <a href="about" className="hover:text-red-600 transition py-2 border-b border-gray-50">About</a>
+          <a href="issues" className="hover:text-red-600 transition py-2 border-b border-gray-50">Issues</a>
+          <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Community</a>
+          <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
+          <a href="#" className="hover:text-red-600 transition py-2">Events</a>
+        </div>
+      )}
 
     </header>
   );
