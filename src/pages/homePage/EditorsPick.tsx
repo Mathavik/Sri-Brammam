@@ -3,23 +3,23 @@ import React from "react";
 const EditorsPick: React.FC = () => {
   return (
     <div className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
         
         {/* Top Header */}
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-800" style={{ fontFamily: "Arima, serif" }}>
+        <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0">
+          <h2 className="text-3xl font-bold text-gray-800 text-center md:text-left w-full md:w-auto" style={{ fontFamily: "Arima, serif" }}>
             Editor’s Pick
           </h2>
           <span 
-className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2"         
-          style={{ color: '#B22C23', fontWeight: 600 }} // Custom color and font-weight 600
-        >
-          See All &rarr;
-        </span>
+            className="font-['Arima'] text-[24px] md:text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"          
+            style={{ color: '#B22C23', fontWeight: 600 }} // Custom color and font-weight 600
+          >
+            See All &rarr;
+          </span>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-3 gap-8 items-start">
+        {/* Cards Grid: Mobile - 1 column, Tablet & Desktop - 3 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           
           {/* CARD 1 */}
           <div className="flex flex-col">
@@ -41,7 +41,7 @@ className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underl
           </div>
 
           {/* CARD 2 (CENTER RED STYLE) */}
-          <div className="relative h-[480px] rounded-2xl overflow-hidden shadow-xl text-white flex flex-col justify-end p-6 group">
+          <div className="relative h-[380px] md:h-[480px] rounded-2xl overflow-hidden shadow-xl text-white flex flex-col justify-end p-6 group">
             <img 
               src="/images/subs/subs2.png" 
               alt="card2" 
@@ -72,7 +72,6 @@ className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underl
               <img src="/images/subs/subs3.png" alt="card3" className="w-full h-full object-cover" />
             </div>
             <div className="flex items-center gap-2 mb-3">
-              {/* <img src="/images/authors/author3.png" className="w-6 h-6 rounded-full" alt="author" /> */}
               <span className="text-sm font-bold text-gray-700">S.நிர்மலா குப்தா</span>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 leading-tight mb-3">
