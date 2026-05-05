@@ -2,15 +2,13 @@ import React from "react";
 
 const SponsorsBar: React.FC = () => {
   return (
-    // வெளிப்புற Padding-ஐ (px-8, md:px-20) நீக்கியுள்ளேன்
-    <div className="w-full bg-white py-12 flex justify-center items-center -mt-16">
+    <div className="w-full bg-white py-12 px-4 md:px-8 flex justify-center items-center -mt-16">
       
-      {/* 
-          1. max-w-7xl-ஐ நீக்கிவிட்டு w-full கொடுத்துள்ளேன்.
-          2. rounded-2xl-ஐ நீக்கியுள்ளேன் (ஏனெனில் முழு அகலத்திற்கு வரும்போது வளைவுகள் தேவையில்லை).
-          3. Padding-ஐ சரி செய்துள்ளேன்.
+      {/* 1. max-w-6xl சேர்த்து அகலத்தைக் கட்டுப்படுத்தியுள்ளோம்.
+          2. rounded-2xl சேர்த்து ஓரங்களை வளைத்து பெட்டி போல உருவாக்கியுள்ளோம்.
+          3. justify-between கொடுத்து லோகோக்களைச் சீராகப் பிரித்துள்ளோம்.
       */}
-      <div className="w-full bg-[#F9F9F9] py-10 px-4 md:px-10 flex flex-col md:flex-row items-center justify-around gap-8">
+      <div className="w-full max-w-6xl bg-[#F9F9F9] py-10 px-6 md:px-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8">
         
         {/* Logo 1 - one.png */}
         <div className="flex justify-center items-center h-24 w-40">
@@ -40,7 +38,7 @@ const SponsorsBar: React.FC = () => {
         </div>
 
         {/* Logo 4 - four.png */}
-        <div className="flex justify-center items-center h-34 w-44">
+        <div className="flex justify-center items-center h-24 w-44">
           <img
             src="images/sponser/four.png" 
             alt="Logo 4"

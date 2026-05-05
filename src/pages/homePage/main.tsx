@@ -73,10 +73,22 @@ const MainSection: React.FC = () => {
           >
             “ஆன்மீகம் • அறம் • அறிவு — உங்கள் வழிகாட்டி”
           </p>
+         <p
+  style={{
+    fontFamily: "'Arima', serif",
+    fontWeight: 700,
+    fontSize: "20px",
+    lineHeight: "48px",
+    letterSpacing: "0%",
+    textTransform: "capitalize",
+  }}
+>
+  “ஆன்மீகம் • அறம் • அறிவு — உங்கள் வழிகாட்டி”
+</p>
         </div>
 
         {/* RIGHT VIDEO */}
-        <div className="relative w-full max-w-[440px] flex justify-center">
+        <div className="relative w-full max-w-[440px] flex justify-center mr-8 md:mr-16">
           <div className="bg-white p-4 pt-12 pb-5 rounded-[45px] shadow-2xl w-full">
             <div className="rounded-[35px] overflow-hidden w-full h-[220px] sm:h-[260px] md:h-[300px] flex items-center justify-center bg-gray-100">
 
