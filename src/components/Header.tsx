@@ -31,15 +31,15 @@ const Header: React.FC = () => {
         <div className="hidden md:flex w-1/3 justify-start"></div>
 
         {/* Center: Logo */}
-        <div className="w-1/3 flex justify-center">
-          <Link to="/">
-            <img
-              src="/images/logo.png"
-              alt="logo"
-              className="h-10 md:h-20 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-            />
-          </Link>
-        </div>
+       <div className="w-1/2 flex justify-center">
+  <a href="/">
+    <img
+      src="/images/logo.png"
+      alt="logo"
+      className="h-15 md:h-20 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+    />
+  </a>
+</div>
 
         {/* Right Section: Login Button */}
         <div className="w-1/3 flex justify-end">
@@ -59,10 +59,10 @@ const Header: React.FC = () => {
           <a href="/about" className="hover:text-red-600 transition px-6">About</a>
           <a href="/issues" className="hover:text-red-600 transition px-6">Issues</a>
           <a href="#" className="hover:text-red-600 transition px-6">Community</a>
-          <a href="#" className="hover:text-red-600 transition px-6">Reporters</a>
-          <Link to="/events" className="hover:text-red-600 transition px-6">
-            Events
-          </Link>
+          <a href="/reporters" className="hover:text-red-600 transition px-6">Reporters</a>
+          <a href="/events" className="hover:text-red-600 transition px-6">Events</a>
+
+         
         </nav>
       </div>
 
@@ -72,10 +72,8 @@ const Header: React.FC = () => {
           <a href="/about" className="hover:text-red-600 transition py-2 border-b border-gray-50">About</a>
           <a href="/issues" className="hover:text-red-600 transition py-2 border-b border-gray-50">Issues</a>
           <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Community</a>
-          <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
-          <Link to="/events" className="hover:text-red-600 transition py-2">
-            Events
-          </Link>
+          <a href="/reporters" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
+          <a href="/events" className="hover:text-red-600 transition py-2 border-b border-gray-50">Events</a>
         </div>
       )}
 
