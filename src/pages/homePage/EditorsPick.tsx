@@ -11,11 +11,11 @@ const EditorsPick: React.FC = () => {
             Editor’s Pick
           </h2>
           <span 
-            className="font-['Arima'] text-[24px] md:text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"          
-            style={{ color: '#B22C23', fontWeight: 600 }} // Custom color and font-weight 600
-          >
-            See All &rarr;
-          </span>
+  className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"          
+  style={{ color: '#B22C23', fontWeight: 600 }}
+>
+  See All &rarr;
+</span>
         </div>
 
         {/* Cards Grid: Mobile - 1 column, Tablet & Desktop - 3 columns */}

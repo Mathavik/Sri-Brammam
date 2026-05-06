@@ -7,7 +7,7 @@ const descriptionText = `"ஸ்ரீ பிரம்மம் மாத இத
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-gray-100 md:bg-white md:mt-60">
+    <footer className="w-full bg-gray-100 md:bg-white">
       {/* மொபைல் மற்றும் டேப்லெட்டில் Column ஆகவும், lg (Desktop) திரையில் மட்டும் Row ஆகவும் மாறும் */}
       <div className="flex flex-col lg:flex-row w-full">
         
@@ -178,16 +178,15 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Divider and Copyright */}
-          <div 
-            className="border-t border-red-400 pt-6 text-xs md:text-sm text-center md:text-left mt-4"
-            style={{ 
-              fontFamily: "'Noto Sans Tamil', sans-serif",
-              fontSize: "18px",
-              fontWeight: 600
-            }}
-          >
-            © 2026 Sri Brammam. All Rights Reserved
-          </div>
+   <div 
+  className="border-t border-red-400 pt-6 text-[16px] md:text-[18px] text-center md:text-left mt-4 whitespace-nowrap"
+  style={{ 
+    fontFamily: "'Noto Sans Tamil', sans-serif",
+    fontWeight: 600
+  }}
+>
+  © 2026 Sri Brammam. All Rights Reserved
+</div>
         </div>
       </div>
     </footer>

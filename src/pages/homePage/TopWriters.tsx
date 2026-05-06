@@ -50,16 +50,15 @@ const TopWriters: React.FC = () => {
     <div className="w-full bg-white px-6 md:px-12 py-8 md:py-10 my-4 md:my-6 rounded-2xl max-w-7xl mx-auto shadow-sm">
       
       {/* Header */}
-      <div className="flex items-center justify-between mb-8 md:mb-10">
+       <div className="flex flex-col items-center justify-center mb-6 md:flex-row md:justify-between w-full">
         <h2 
-          className="font-['Arima'] text-[28px] leading-[38px] text-[#000000] tracking-[0%] capitalize"
+          className="font-['Arima'] text-[28px] leading-[38px] text-[#000000] tracking-[0%] capitalize text-center mb-2 md:mb-0"
           style={{ fontWeight: 600 }}
         >
           Top Writers
         </h2>
-
         <span 
-          className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2" 
+          className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"          
           style={{ color: '#B22C23', fontWeight: 600 }}
         >
           See All &rarr;

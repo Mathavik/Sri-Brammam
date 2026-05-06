@@ -29,16 +29,16 @@ const FeaturedCategories: React.FC = () => {
     <div className="w-full px-6 md:px-12 py-8 bg-white max-w-7xl mx-auto">
       
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col items-center justify-center mb-6 md:flex-row md:justify-between w-full">
         <h2 
-          className="font-['Arima'] text-[28px] leading-[38px] text-[#000000] tracking-[0%] capitalize"
+          className="font-['Arima'] text-[28px] leading-[38px] text-[#000000] tracking-[0%] capitalize text-center mb-2 md:mb-0"
           style={{ fontWeight: 600 }}
         >
           Featured Categories
         </h2>
         <span 
-className="font-['Arima'] text-[26px] leading-[38px] cursor-pointer hover:underline flex items-center gap-2"         
-          style={{ color: '#B22C23', fontWeight: 600 }} // Custom color and font-weight 600
+          className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"          
+          style={{ color: '#B22C23', fontWeight: 600 }}
         >
           See All &rarr;
         </span>
