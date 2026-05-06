@@ -52,13 +52,17 @@ const EventsPage: React.FC = () => {
           
           {/* Left Content Area */}
           <div className="space-y-4 sm:space-y-5">
-            <div className="inline-flex items-center gap-3 rounded-full bg-[#ffeadb] px-4 py-2 text-sm font-semibold uppercase tracking-[0.35em] text-[#b33b1f] shadow-sm shadow-[#f8d5c8]/60">
+            {/* மொபைலில் 1 வரியாக வர `whitespace-nowrap` மற்றும் `text-xs` கொடுக்கப்பட்டுள்ளது */}
+            <div className="inline-flex items-center gap-3 rounded-full bg-[#ffeadb] px-3 py-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] sm:tracking-[0.35em] text-[#b33b1f] shadow-sm shadow-[#f8d5c8]/60 whitespace-nowrap">
               ஸ்ரீ பிரம்மம் நிகழ்ச்சிகள்
             </div>
-            <h2 className="text-2xl sm:text-3xl font-semibold leading-snug text-slate-900">
+              {/* மொபைல் வியூவில் `text-lg` மற்றும் `break-words` பயன்படுத்தப்பட்டுள்ளது */}
+            <h2 className="text-lg sm:text-3xl font-semibold leading-snug text-slate-900 break-words">
               இந்த மாத நிகழ்ச்சிகள் உங்கள் சமூகத்திற்கும் ஆன்மீகத்திற்கு அர்ப்பணிக்கப்பட்டவை
             </h2>
-            <p className="text-base sm:text-lg max-w-3xl text-slate-700">
+            
+            {/* பத்தியின் அளவு மொபைலுக்கு `text-xs` மற்றும் டெஸ்க்டாப்பிற்கு `text-base` என மாற்றப்பட்டுள்ளது */}
+            <p className="text-xs sm:text-lg max-w-3xl text-slate-700 leading-normal">
               இங்கே ஸ்ரீ பிரம்மம் பிரபல நிகழ்ச்சிகளை, தமிழ் எழுத்து, பாரம்பரியம் மற்றும் ஆன்மிக பிரிவுகளைப் பற்றிய உயிர்வாழ்வு நிகழ்ச்சிகளாகக் காணலாம்.
             </p>
             

@@ -32,7 +32,7 @@ export default function MainBan() {
       </div>
 
       {/* Events */}
-      <div className="mt-14">
+      <div className="mt-6">
         <EventsPage />
       </div>
 
