@@ -73,7 +73,9 @@ const Header: React.FC = () => {
           <a href="/issues" className="hover:text-red-600 transition py-2 border-b border-gray-50">Issues</a>
           <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Community</a>
           <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
-          <a href="#" className="hover:text-red-600 transition py-2">Events</a>
+          <Link to="/events" className="hover:text-red-600 transition py-2">
+            Events
+          </Link>
         </div>
       )}
 
