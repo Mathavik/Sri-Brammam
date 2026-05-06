@@ -4,7 +4,7 @@ import EventsPage from "./EventsPage";
 export default function MainBan() {
   return (
     // pt-24 kku bathila pt-16 use panniruken, ithu gap-ah kuraikum
-    <div className="w-full pt-6"> 
+    <div className="w-full min-h-screen mt-28 md:mt-60">
 
       {/* Banner */}
       <div className="relative w-full h-[320px] sm:h-[350px] md:h-[400px] lg:h-[450px]">
