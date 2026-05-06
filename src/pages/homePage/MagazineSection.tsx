@@ -52,8 +52,8 @@ const MagazineSection: React.FC = () => {
   }, []);
 
   return (
-    // Increased padding to create more space on the left and right sides
-    <div className="w-full flex justify-center items-center py-10 md:py-20 px-6 md:px-16 lg:px-24 -mt-10 md:-mt-16">
+    // இடது மற்றும் வலது பக்க இடைவெளி குறைக்கப்பட்டு, விளிம்புகளுக்கு அருகில் இருக்குமாறு மாற்றப்பட்டுள்ளது
+    <div className="w-full flex justify-center items-center pt-2 pb-10 md:py-20 px-4 md:px-8 lg:px-12 mt-8 md:-mt-16">     
       <div
         className="relative overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 py-10 md:px-20 shadow-2xl rounded-xl md:rounded-sm w-full max-w-[1286px] min-h-[524px]"
         style={{
@@ -174,6 +174,7 @@ const MagazineSection: React.FC = () => {
 
       </div>
 
+      {/* Modal */}
       {showPdfModal && releaseData?.pdf_url && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
           <div className="relative w-full max-w-[1100px] h-[90vh] rounded-[32px] shadow-2xl overflow-hidden bg-[#111]">
