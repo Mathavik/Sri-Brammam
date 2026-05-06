@@ -179,7 +179,7 @@ const Footer: React.FC = () => {
 
           {/* Divider and Copyright */}
    <div 
-  className="border-t border-red-400 pt-6 text-[16px] md:text-[18px] text-center md:text-left mt-4 whitespace-nowrap"
+  className="border-t border-red-400 pt-6 text-[14px] md:text-[18px] text-center md:text-left mt-4 whitespace-nowrap"
   style={{ 
     fontFamily: "'Noto Sans Tamil', sans-serif",
     fontWeight: 600
