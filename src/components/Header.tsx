@@ -59,7 +59,7 @@ const Header: React.FC = () => {
           <a href="/about" className="hover:text-red-600 transition px-6">About</a>
           <a href="/issues" className="hover:text-red-600 transition px-6">Issues</a>
           <a href="#" className="hover:text-red-600 transition px-6">Community</a>
-          <a href="#" className="hover:text-red-600 transition px-6">Reporters</a>
+          <a href="/reporter" className="hover:text-red-600 transition px-6">Reporters</a>
           <Link to="/events" className="hover:text-red-600 transition px-6">
             Events
           </Link>
@@ -72,8 +72,8 @@ const Header: React.FC = () => {
           <a href="/about" className="hover:text-red-600 transition py-2 border-b border-gray-50">About</a>
           <a href="/issues" className="hover:text-red-600 transition py-2 border-b border-gray-50">Issues</a>
           <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Community</a>
-          <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
-          <a href="#" className="hover:text-red-600 transition py-2">Events</a>
+          <a href="/reporter" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
+          <a href="/events" className="hover:text-red-600 transition py-2">Events</a>
         </div>
       )}
 
