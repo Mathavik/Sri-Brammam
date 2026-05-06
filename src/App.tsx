@@ -38,7 +38,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/issues" element={<CommonIssue />} />
         <Route path="/events" element={<MainBan />} />
-        <Route path="/reporter" element={<Reporter />} />
+        <Route path="/reporters" element={<Reporter />} />
 
       </Routes>
 
