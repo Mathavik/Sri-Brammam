@@ -1,6 +1,6 @@
 export default function Ban() {
   return (
-    <div className="w-full">
+    <div className="w-full min-h-screen mt-28 md:mt-60 bg-[#FFF9F6]">
 
 
 

@@ -7,7 +7,7 @@ const descriptionText = `"ஸ்ரீ பிரம்மம் மாத இத
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-gray-100 md:bg-white">
+    <footer className="w-full bg-gray-100 md:bg-white md:mt-60">
       {/* மொபைல் மற்றும் டேப்லெட்டில் Column ஆகவும், lg (Desktop) திரையில் மட்டும் Row ஆகவும் மாறும் */}
       <div className="flex flex-col lg:flex-row w-full">
         
