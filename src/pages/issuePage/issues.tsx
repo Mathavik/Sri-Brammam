@@ -53,7 +53,8 @@ export const MagazineGallery: React.FC = () => {
   const [selectedMonth, setSelectedMonth] = useState('All');
 
   return (
-    <div className="min-h-screen bg-white p-8 font-sans antialiased">
+    /* p-8 மொபைலுக்கு மட்டும் வைக்கப்பட்டு டெஸ்க்டாப்பில் p-0 ஆக மாற்றப்பட்டுள்ளது */
+    <div className="min-h-screen bg-white p-8 md:p-0 font-sans antialiased">
       {/* Header & Filters Section */}
       <div className="flex flex-wrap items-center gap-6 mb-12 max-w-[1200px] mx-auto">
         {/* Name / Year Dropdown */}

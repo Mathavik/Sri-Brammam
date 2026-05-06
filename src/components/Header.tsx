@@ -5,7 +5,7 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="w-full bg-white shadow-sm md:shadow-none relative z-50">
+    <header className="w-full bg-white shadow-sm md:shadow-none fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4 md:py-6 px-4 md:px-10">
 
         {/* Left Section: Menu button (Mobile only) */}
@@ -56,21 +56,21 @@ const Header: React.FC = () => {
           className="max-w-6xl mx-auto flex justify-between items-center py-4 text-[#333] font-medium text-[18px]"
           style={{ fontFamily: "Arima, serif" }}
         >
-          <a href="about" className="hover:text-red-600 transition px-6">About</a>
-          <a href="issues" className="hover:text-red-600 transition px-6">Issues</a>
+          <a href="/about" className="hover:text-red-600 transition px-6">About</a>
+          <a href="/issues" className="hover:text-red-600 transition px-6">Issues</a>
           <a href="#" className="hover:text-red-600 transition px-6">Community</a>
           <a href="#" className="hover:text-red-600 transition px-6">Reporters</a>
           <Link to="/events" className="hover:text-red-600 transition px-6">
-  Events
-</Link>
+            Events
+          </Link>
         </nav>
       </div>
 
       {/* Mobile Navigation Menu as an overlay */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full border-t border-gray-200 bg-white py-4 px-6 flex flex-col space-y-4 font-medium text-[16px] shadow-lg transition-all duration-300 ease-in-out z-40">
-          <a href="about" className="hover:text-red-600 transition py-2 border-b border-gray-50">About</a>
-          <a href="issues" className="hover:text-red-600 transition py-2 border-b border-gray-50">Issues</a>
+          <a href="/about" className="hover:text-red-600 transition py-2 border-b border-gray-50">About</a>
+          <a href="/issues" className="hover:text-red-600 transition py-2 border-b border-gray-50">Issues</a>
           <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Community</a>
           <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
           <a href="#" className="hover:text-red-600 transition py-2">Events</a>

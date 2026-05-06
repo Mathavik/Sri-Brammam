@@ -4,7 +4,7 @@ import { MagazineGallery } from "./issues";
 
 export default function CommonIssue() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center py-6 gap-0">
+    <div className="w-full min-h-screen mt-28 md:mt-60">
 
       <MagazineGallery/>
       <div className="mt-6"></div>
