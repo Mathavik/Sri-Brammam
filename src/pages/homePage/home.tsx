@@ -12,7 +12,7 @@ import EditorsPick from "./EditorsPick";
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen mt-28 md:mt-60 bg-[#FFF9F6]">
+    <div className="w-full min-h-screen mt-28 md:mt-60">
       <MainSection/>
       <MagazineSection/>
       <StatsSection/>
