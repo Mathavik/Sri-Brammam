@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
 
-// Interfaces (அப்படியே இருக்கட்டும்)
+// Interfaces
 interface ReporterItem {
     id: number;
     name: string;
@@ -100,19 +100,30 @@ export const Reporter: React.FC<ReporterProps> = () => {
     }, [selectedReporterId]);
 
     return (
-<div className="w-full max-w-7xl mx-auto px-4 py-8 md:py-10 min-h-screen mt-32 md:mt-52">
-            {/* Tab Switcher - Mobile Friendly Scroll */}
+        <div className="w-full max-w-7xl mx-auto px-4 py-8 md:py-10 min-h-screen mt-12 md:mt-52">
+            
+            {/* Tab Switcher - Modified for Mobile Wrapping */}
             <div className="flex justify-center mb-8 md:mb-12">
-                <div className="flex overflow-x-auto no-scrollbar gap-2 bg-[#F0ECE1] p-1.5 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl">
+                <div className="flex flex-wrap md:flex-nowrap justify-center gap-2 bg-[#F0ECE1] p-2 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl">
                     {reporters.map((reporter) => (
                         <button
                             key={reporter.id}
                             onClick={() => setSelectedReporterId(reporter.id)}
-                            className={`whitespace-nowrap flex-1 min-w-[100px] md:min-w-[120px] py-2.5 md:py-3 px-4 rounded-xl md:rounded-full text-xs md:text-sm font-bold transition-all duration-300 capitalize ${
-                                selectedReporterId === reporter.id
-                                    ? 'bg-[#932725] text-white shadow-md'
-                                    : 'text-[#6C5F47] hover:bg-white/50'
-                            }`}
+                            className={`
+                                /* Mobile: Two buttons per row, Tablet/Desktop: Auto width */
+                                flex-grow md:flex-none 
+                                min-w-[45%] sm:min-w-[140px] md:min-w-[120px] 
+                                
+                                py-2.5 md:py-3 px-4 
+                                rounded-xl md:rounded-full 
+                                text-xs md:text-sm font-bold 
+                                transition-all duration-300 capitalize 
+                                ${
+                                    selectedReporterId === reporter.id
+                                        ? 'bg-[#932725] text-white shadow-md'
+                                        : 'text-[#6C5F47] hover:bg-white/50'
+                                }
+                            `}
                         >
                             {reporter.name}
                         </button>
@@ -129,7 +140,6 @@ export const Reporter: React.FC<ReporterProps> = () => {
                 <div className="space-y-10">
                     <section>
                         {personsData.senior.length > 0 ? (
-                            /* Grid Layout for Mobile and Desktop */
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                                 {personsData.senior.map((member) => (
                                     <div
