@@ -11,19 +11,33 @@ interface ReporterItem {
 interface ReporterPersonItem {
     id: number;
     name: string;
-    phone?: string;
-    bio?: string;
+    describe_role?: string;
+    address?: string;
+    pincode?: string;
+    mobile?: string;
+    email?: string;
     profile_image?: string;
     status?: boolean;
+    reporter?: {
+        id: number;
+        name: string;
+        status: boolean;
+        created_at: string;
+    };
     created_at?: string;
+    updated_at?: string;
 }
 
 interface TeamMember {
     id: string | number;
     name: string;
-    phone: string;
+    mobile: string;
+    email: string;
     destination: string;
+    address: string;
+    pincode: string;
     imageUrl: string;
+    reporterName: string;
 }
 
 interface TeamData {
@@ -80,9 +94,13 @@ export const Reporter: React.FC<ReporterProps> = ({ reportersData }) => {
                 const members: TeamMember[] = data.map(item => ({
                     id: item.id,
                     name: item.name,
-                    phone: item.phone || 'N/A',
-                    destination: item.bio || 'Reporter Person',
-                    imageUrl: item.profile_image || `https://via.placeholder.com/80?text=${encodeURIComponent(item.name)}`
+                    mobile: item.mobile || 'N/A',
+                    email: item.email || 'N/A',
+                    destination: item.describe_role || 'Reporter Person',
+                    address: item.address || 'No address available',
+                    pincode: item.pincode || 'N/A',
+                    imageUrl: item.profile_image || `https://via.placeholder.com/120?text=${encodeURIComponent(item.name)}`,
+                    reporterName: item.reporter?.name || 'No role'
                 }));
 
                 setPersonsData({ senior: members, junior: [] });
@@ -135,7 +153,11 @@ export const Reporter: React.FC<ReporterProps> = ({ reportersData }) => {
                                         </div>
                                         <h3 className="text-lg font-bold text-[#1D1917] group-hover:text-[#932725]">{member.name}</h3>
                                         <span className="bg-[#FDF7EE] text-[#932725] text-xs font-semibold px-3 py-1 rounded-full my-2">{member.destination}</span>
-                                        <p className="text-sm text-[#6C5F47]">{member.phone}</p>
+                                        <p className="text-sm text-[#6C5F47]">{member.mobile}</p>
+                                        {/* <p className="text-sm text-[#6C5F47]">{member.email}</p> */}
+                                        {/* <p className="text-sm text-[#A69B88] mt-2">{member.address}</p> */}
+                                        <p className="text-sm text-[#A69B88]">Pincode: {member.pincode}</p>
+                                        <p className="text-xs text-[#6C5F47] mt-1">Role: {member.reporterName}</p>
                                     </div>
                                 ))}
                             </div>
@@ -152,7 +174,7 @@ export const Reporter: React.FC<ReporterProps> = ({ reportersData }) => {
                                         <img src={member.imageUrl} alt={member.name} className="w-20 h-20 rounded-full mb-5 border-2 border-[#E9DFCE]" />
                                         <h3 className="text-lg font-bold text-[#1D1917] group-hover:text-[#932725]">{member.name}</h3>
                                         <span className="bg-[#F5F1EB] text-[#6C5F47] text-xs font-semibold px-3 py-1 rounded-full my-2">{member.destination}</span>
-                                        <p className="text-sm text-[#A69B88]">{member.phone}</p>
+                                        <p className="text-sm text-[#A69B88]">{member.mobile}</p>
                                     </div>
                                 ))}
                             </div>
