@@ -1,19 +1,10 @@
-const API_URL = "https://pcstech.in/pcs_api/brammam/public/api";
+import axios from "axios";
 
-const api = {
-  get: async (endpoint: string) => {
-    const response = await fetch(`${API_URL}${endpoint}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("API request failed");
-    }
-
-    return response.json();
+const api = axios.create({
+  baseURL: "https://pcstech.in/pcs_api/brammam/public/api",
+  headers: {
+    "Content-Type": "application/json",
   },
-};
+});
 
 export default api;

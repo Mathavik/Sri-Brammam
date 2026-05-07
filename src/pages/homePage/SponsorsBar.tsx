@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../api";
+import api from "../../api"; // path correct ah podunga
 
 type Client = {
   id: number;
@@ -11,18 +11,19 @@ const SponsorsBar: React.FC = () => {
   const [clients, setClients] = useState<Client[]>([]);
 
   // API Fetch
-   // API Fetch
   useEffect(() => {
-    api
-      .get("/clients")
-      .then((res: any) => {
-        setClients(res.data.data);
-      })
-      .catch((err: any) =>
-        console.error("API Error:", err)
-      );
-  }, []);
+    const fetchClients = async () => {
+      try {
+        const response = await api.get("/clients");
 
+        setClients(response.data.data);
+      } catch (err) {
+        console.error("API Error:", err);
+      }
+    };
+
+    fetchClients();
+  }, []);
 
   return (
     <div className="w-full bg-white py-12 px-4 md:px-8 flex justify-center items-center -mt-16">
@@ -34,13 +35,11 @@ const SponsorsBar: React.FC = () => {
             key={client.id}
             className="flex justify-center items-center h-24 w-44"
           >
-
             <img
               src={client.client_logo}
               alt={client.name}
               className="max-h-full max-w-full object-contain transition-transform hover:scale-105"
             />
-
           </div>
         ))}
 
