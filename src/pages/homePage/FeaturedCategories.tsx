@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../api";
 type Category = {
   id: number;
   title: string;
@@ -20,23 +21,27 @@ const FeaturedCategories: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 const navigate = useNavigate();
   // API Fetch
-  useEffect(() => {
-    fetch("https://pcstech.in/pcs_api/brammam/public/api/featured-categories")
-      .then((res) => res.json())
-      .then((data) => {
-      const formattedData = data.data.map(
-  (item: any, index: number) => ({
-    id: item.id,
-    title: item.name,
-    bgImage: item.image,
-    image: staticImages[index] || "/images/default.png",
-  })
-);
+ useEffect(() => {
+  api
+    .get("/featured-categories")
+    .then((res: any) => {
 
-        setCategories(formattedData);
-      })
-      .catch((err) => console.error("API Error:", err));
-  }, []);
+      const formattedData = res.data.data.map(
+        (item: any, index: number) => ({
+          id: item.id,
+          title: item.name,
+          bgImage: item.image,
+          image: staticImages[index] || "/images/default.png",
+        })
+      );
+
+      setCategories(formattedData);
+
+    })
+    .catch((err: any) =>
+      console.error("API Error:", err)
+    );
+}, []);
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>

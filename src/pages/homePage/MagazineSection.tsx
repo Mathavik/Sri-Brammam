@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../api";
 interface LatestReleaseData {
   title: string;
   image_url: string;
@@ -13,44 +14,37 @@ const MagazineSection: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [showPdfModal, setShowPdfModal] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchLatestRelease = async () => {
-      setLoading(true);
-      console.log("MagazineSection: fetchLatestRelease started");
-      try {
-        const response = await fetch("https://pcstech.in/pcs_api/brammam/public/api/latest-releases", {
-          method: "GET",
-          mode: "cors",
-          headers: {
-            Accept: "application/json",
-          },
-        });
+ useEffect(() => {
+  const fetchLatestRelease = async () => {
+    setLoading(true);
 
-        console.log("MagazineSection: fetch status", response.status, response.statusText);
+    try {
+      const res: any = await api.get("/latest-releases");
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const json = await response.json();
-        console.log("MagazineSection: API response json", json);
-
-        if (json.success !== true) {
-          console.error("MagazineSection: API returned success=false", json);
-        } else if (!Array.isArray(json.data) || json.data.length === 0) {
-          console.error("MagazineSection: API returned empty data array", json);
-        } else {
-          setReleaseData(json.data[0]);
-        }
-      } catch (error) {
-        console.error("MagazineSection: Error fetching latest releases:", error);
-      } finally {
-        setLoading(false);
+      if (
+        res.data.success === true &&
+        Array.isArray(res.data.data) &&
+        res.data.data.length > 0
+      ) {
+        setReleaseData(res.data.data[0]);
       }
-    };
 
-    fetchLatestRelease();
-  }, []);
+    } catch (error: any) {
+
+      console.error(
+        "MagazineSection API Error:",
+        error
+      );
+
+    } finally {
+
+      setLoading(false);
+
+    }
+  };
+
+  fetchLatestRelease();
+}, []);
 
   return (
     // இடது மற்றும் வலது பக்க இடைவெளி குறைக்கப்பட்டு, விளிம்புகளுக்கு அருகில் இருக்குமாறு மாற்றப்பட்டுள்ளது

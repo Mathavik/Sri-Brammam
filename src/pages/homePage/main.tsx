@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from "react";
-
+import api from "../../api";
 const MainSection: React.FC = () => {
   const [videoUrl, setVideoUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchVideoData = async () => {
-      try {
-        const response = await fetch(
-          "https://pcstech.in/pcs_api/brammam/public/api/video-urls"
-        );
-        const result = await response.json();
+  const fetchVideoData = async () => {
 
-        if (result.success && result.data.length > 0) {
-          const youtubeUrl = result.data[0].url;
+    try {
 
-          // Convert to embed URL
-          const videoId = youtubeUrl.split("v=")[1];
-          const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      const res: any = await api.get("/video-urls");
 
-          setVideoUrl(embedUrl);
-        }
-      } catch (error) {
-        console.error("Error fetching video data:", error);
-      } finally {
-        setLoading(false);
+      if (
+        res.data.success &&
+        res.data.data.length > 0
+      ) {
+
+        const youtubeUrl = res.data.data[0].url;
+
+        // Convert to embed URL
+        const videoId = youtubeUrl.split("v=")[1];
+
+        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+        setVideoUrl(embedUrl);
       }
-    };
 
-    fetchVideoData();
-  }, []);
+    } catch (error: any) {
+
+      console.error(
+        "Error fetching video data:",
+        error
+      );
+
+    } finally {
+
+      setLoading(false);
+
+    }
+  };
+
+  fetchVideoData();
+}, []);
 
   return (
     <div className="relative w-full py-4 md:py-0 min-h-[340px] sm:h-[380px] md:h-[400px] lg:h-[450px] -mt-8 sm:mt-0 flex items-center">
