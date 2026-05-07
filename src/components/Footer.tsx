@@ -63,117 +63,86 @@ const Footer: React.FC = () => {
         </div>
 
         {/* RIGHT SECTION */}
-        <div className="w-full lg:w-[70%] bg-red-700 text-white px-6 md:px-10 pt-8 pb-6 flex flex-col justify-between">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-x-4 mb-8 md:mb-0">
+        <div className="w-full lg:w-[70%] bg-red-700 text-white px-6 md:px-10 pt-8 pb-6 flex flex-col justify-between items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 md:mb-0 w-full">
             
-            {/* Explore */}
-            <div className="flex flex-col items-center md:items-start">
-              <h2
-                className="font-semibold mb-3 border-b border-red-400/30 pb-2 md:border-none md:pb-0 text-center md:text-left w-full md:w-auto"
-                style={{
-                  fontFamily: "'Mukta Malar', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "24px",
-                  lineHeight: "38px",
-                  letterSpacing: "0%",
-                }}
-              >
-                Explore
-              </h2>
-              <nav 
-                className="flex flex-col space-y-2 text-center md:text-left" 
-                style={{ 
-                  fontFamily: "'Noto Sans Tamil', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "16px",
-                  lineHeight: "28px",
-                  letterSpacing: "0%"
-                }}
-              >
-                <Link to="/about" className="hover:underline cursor-pointer">About</Link>
-                <Link to="/issues" className="hover:underline cursor-pointer">Issues</Link>
-                {/* <Link to="/community" className="hover:underline cursor-pointer">Community</Link> */}
-                <Link to="/writers" className="hover:underline cursor-pointer">Writers</Link>
-                <Link to="/reporters" className="hover:underline cursor-pointer">Reporters</Link>
-              </nav>
-            </div>
+              {/* Explore */}
+              <div className="flex flex-col items-start">
+                <h2
+                  className="font-semibold mb-3 text-left"
+                  style={{
+                    fontFamily: "'Mukta Malar', sans-serif",
+                    fontWeight: 600,
+                    fontSize: "24px",
+                    lineHeight: "38px",
+                    letterSpacing: "0%",
+                  }}
+                >
+                  Explore
+                </h2>
+                <nav 
+                  className="flex flex-col space-y-2 text-left" 
+                  style={{ 
+                    fontFamily: "'Noto Sans Tamil', sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    lineHeight: "28px",
+                    letterSpacing: "0%"
+                  }}
+                >
+                  <Link to="/about" className="hover:underline cursor-pointer">About</Link>
+                  <Link to="/issues" className="hover:underline cursor-pointer">Issues</Link>
+                  {/* <Link to="/community" className="hover:underline cursor-pointer">Community</Link> */}
+                  <Link to="/writers" className="hover:underline cursor-pointer">Writers</Link>
+                  <Link to="/reporters" className="hover:underline cursor-pointer">Reporters</Link>
+                </nav>
+              </div>
 
-            {/* Useful Links */}
-            {/* <div className="flex flex-col items-center md:items-start">
-              <h2
-                className="font-semibold mb-3 border-b border-red-400/30 pb-2 md:border-none md:pb-0 text-center md:text-left w-full md:w-auto"
-                style={{
-                  fontFamily: "'Mukta Malar', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "24px",
-                  lineHeight: "38px",
-                  letterSpacing: "0%",
-                }}
-              >
-                Useful Link
-              </h2>
-              <nav 
-                className="flex flex-col space-y-2 text-center md:text-left"
-                style={{ 
-                  fontFamily: "'Noto Sans Tamil', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "16px",
-                  lineHeight: "28px",
-                  letterSpacing: "0%"
-                }}
-              >
-                <Link to="/blog" className="hover:underline cursor-pointer">Blog</Link>
-                <Link to="/print-media" className="hover:underline cursor-pointer">Print Media</Link>
-                <Link to="/faq" className="hover:underline cursor-pointer">FAQ</Link>
-                <Link to="/career" className="hover:underline cursor-pointer">Carrer</Link>
-              </nav>
-            </div> */}
+              {/* Contacts */}
+              <div className="flex flex-col items-start">
+                <h2
+                  className="font-semibold text-left mb-3"
+                  style={{
+                    fontFamily: "'Mukta Malar', sans-serif",
+                    fontWeight: 600,
+                    fontSize: "24px",
+                    lineHeight: "38px",
+                    letterSpacing: "0%",
+                  }}
+                >
+                  Contacts
+                </h2>
+                <ul 
+                  className="space-y-3 text-sm flex flex-col items-start w-full"
+                  style={{ 
+                    fontFamily: "'Noto Sans Tamil', sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    lineHeight: "28px",
+                    letterSpacing: "0%"
+                  }}
+                >
+                  <li className="flex items-center justify-start gap-2 text-left w-full">
+                    <Mail size={16} className="mt-1 flex-shrink-0" />
+                    <span className="break-all">sribrahmmam@gmail.com</span>
+                  </li>
 
-            {/* Contacts */}
-            <div className="flex flex-col items-center md:items-start">
-              <h2
-                className="font-semibold text-lg mb-3 border-b border-red-400/30 pb-2 md:border-none md:pb-0 text-center md:text-left"
-                style={{
-                  fontFamily: "'Mukta Malar', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "24px",
-                  lineHeight: "38px",
-                  letterSpacing: "0%",
-                }}
-              >
-                Contacts
-              </h2>
-              <ul 
-                className="space-y-3 text-sm flex flex-col items-center md:items-start w-full"
-                style={{ 
-                  fontFamily: "'Noto Sans Tamil', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "16px",
-                  lineHeight: "28px",
-                  letterSpacing: "0%"
-                }}
-              >
-                <li className="flex items-center justify-center md:justify-start gap-2 text-center md:text-left w-full">
-                  <Mail size={16} className="mt-1 flex-shrink-0" />
-                  <span className="break-all">sribrahmmam@gmail.com</span>
-                </li>
+                  {/* முகவரி 2 வரிகளில் சீரமைப்பு */}
+                  <li className="flex items-start justify-start gap-2 text-left w-full">
+                    <MapPin size={16} className="mt-1 flex-shrink-0" />
+                    <span className="leading-tight text-left">
+                      62 Avinashi Road Neelambur, Village,
+                      <br />
+                      Coimbatore, Tamil Nadu 641062, India
+                    </span>
+                  </li>
 
-                {/* முகவரி 2 வரிகளில் சீரமைப்பு */}
-                <li className="flex items-start justify-center md:justify-start gap-2 text-center md:text-left w-full">
-                  <MapPin size={16} className="mt-1 flex-shrink-0" />
-                  <span className="leading-tight text-left">
-                    62 Avinashi Road Neelambur, Village,
-                    <br />
-                    Coimbatore, Tamil Nadu 641062, India
-                  </span>
-                </li>
-
-                {/* மொபைல் எண்கள் 1 வரியில் */}
-                <li className="flex items-center justify-center md:justify-start gap-2 text-center md:text-left w-full">
-                  <Phone size={16} className="mt-1 flex-shrink-0" />
-                  <span className="whitespace-nowrap">044 2446 3550, +91 86558 85568</span>
-                </li>
-              </ul>
+                  {/* மொபைல் எண்கள் 1 வரியில் */}
+                  <li className="flex items-center justify-start gap-2 text-left w-full">
+                    <Phone size={16} className="mt-1 flex-shrink-0 text-white" />
+                    <span className="whitespace-nowrap">044 2446 3550, +91 86558 85568</span>
+                  </li>
+                </ul>
             </div>
           </div>
 
