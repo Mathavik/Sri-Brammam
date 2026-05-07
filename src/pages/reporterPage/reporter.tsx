@@ -100,8 +100,7 @@ export const Reporter: React.FC<ReporterProps> = () => {
     }, [selectedReporterId]);
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 py-8 md:py-10 min-h-screen mt-20 md:mt-40">
-
+<div className="w-full max-w-7xl mx-auto px-4 py-8 md:py-10 min-h-screen mt-32 md:mt-52">
             {/* Tab Switcher - Mobile Friendly Scroll */}
             <div className="flex justify-center mb-8 md:mb-12">
                 <div className="flex overflow-x-auto no-scrollbar gap-2 bg-[#F0ECE1] p-1.5 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl">
