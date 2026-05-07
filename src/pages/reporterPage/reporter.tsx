@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
 
 // API-லிருந்து வரும் தரவுகளுக்கான Interface
-interface RoleItem {
+interface ReporterItem {
     id: number;
     name: string;
     status: boolean;
     created_at: string;
+}
+
+interface ReporterPersonItem {
+    id: number;
+    name: string;
+    phone?: string;
+    bio?: string;
+    profile_image?: string;
+    status?: boolean;
+    created_at?: string;
 }
 
 interface TeamMember {
@@ -27,70 +36,83 @@ interface ReporterProps {
 }
 
 export const Reporter: React.FC<ReporterProps> = ({ reportersData }) => {
-    const location = useLocation();
-    const [activeTab, setActiveTab] = useState<string>(
-        location.state?.activeTab || ''
-    );
-
-    // API-லிருந்து வரும் கடொத்தகளை (Roles)
-    const [availableTabs, setAvailableTabs] = useState<string[]>([]);
+    const [selectedReporterId, setSelectedReporterId] = useState<number | null>(null);
+    const [reporters, setReporters] = useState<ReporterItem[]>([]);
+    const [personsData, setPersonsData] = useState<TeamData>({ senior: [], junior: [] });
     const [loading, setLoading] = useState(false);
 
-    // API fetch செய்யும் பகுதி
+    // API fetch செய்யும் பகுதி - reporter list
     useEffect(() => {
-        const fetchRoles = async () => {
+        const fetchReporters = async () => {
             setLoading(true);
             try {
                 const response = await fetch('https://pcstech.in/pcs_api/brammam/public/api/reporters');
                 const result = await response.json();
-                
-                const roles: RoleItem[] = result.data || [];
+                const data: ReporterItem[] = result.data || [];
 
-                // Roles-க எளன்கடொத்து
-                const roleNames = roles.map(role => role.name.toLowerCase());
-                setAvailableTabs(roleNames);
-
-                // அணமான tab வாணபுமப் படிஏத்து
-                if (roleNames.length > 0 && !activeTab) {
-                    setActiveTab(roleNames[0]);
+                setReporters(data);
+                if (data.length > 0) {
+                    setSelectedReporterId(data[0].id);
                 }
             } catch (error) {
-                console.error("Error fetching roles:", error);
+                console.error("Error fetching reporters:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchRoles();
+        fetchReporters();
     }, []);
 
-    // Tab-க்கு ஏற்ற தரவைத் தேர்ந்தெடுத்தல்
-    const currentTabData: TeamData = {
-        senior: [{ 
-            id: activeTab, 
-            name: activeTab ? activeTab.charAt(0).toUpperCase() + activeTab.slice(1) : '', 
-            phone: "N/A", 
-            destination: "Team Member", 
-            imageUrl: "https://via.placeholder.com/80?text=" + (activeTab || 'Team') 
-        }],
-        junior: []
-    };
-    const currentData: TeamData = currentTabData;
+    // API fetch செய்யும் பகுதி - selected reporter persons
+    useEffect(() => {
+        if (selectedReporterId === null) return;
+
+        const fetchReporterPersons = async () => {
+            setLoading(true);
+            try {
+                const response = await fetch(
+                    `https://pcstech.in/pcs_api/brammam/public/api/reporter-persons?reporter_id=${selectedReporterId}`
+                );
+                const result = await response.json();
+                const data: ReporterPersonItem[] = result.data || [];
+
+                const members: TeamMember[] = data.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    phone: item.phone || 'N/A',
+                    destination: item.bio || 'Reporter Person',
+                    imageUrl: item.profile_image || `https://via.placeholder.com/80?text=${encodeURIComponent(item.name)}`
+                }));
+
+                setPersonsData({ senior: members, junior: [] });
+            } catch (error) {
+                console.error("Error fetching reporter persons:", error);
+                setPersonsData({ senior: [], junior: [] });
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchReporterPersons();
+    }, [selectedReporterId]);
+
+    const currentData: TeamData = personsData;
 
     return (
         <div className="w-full max-w-7xl mx-auto px-4 py-10 min-h-screen mt-14 md:mt-40">
             {/* Tab Switcher */}
             <div className="flex justify-center mb-12">
                 <div className="flex flex-wrap gap-2 bg-[#F0ECE1] p-1.5 rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl justify-center">
-                    {availableTabs.map((tab) => (
+                    {reporters.map((reporter) => (
                         <button
-                            key={tab}
-                            onClick={() => setActiveTab(tab as any)}
+                            key={reporter.id}
+                            onClick={() => setSelectedReporterId(reporter.id)}
                             className={`flex-1 min-w-[120px] py-3 px-4 rounded-full text-sm font-semibold transition-all duration-300 capitalize ${
-                                activeTab === tab ? 'bg-[#932725] text-white shadow-md' : 'text-[#6C5F47] hover:text-[#932725]'
+                                selectedReporterId === reporter.id ? 'bg-[#932725] text-white shadow-md' : 'text-[#6C5F47] hover:text-[#932725]'
                             }`}
                         >
-                            {tab}
+                            {reporter.name}
                         </button>
                     ))}
                 </div>
