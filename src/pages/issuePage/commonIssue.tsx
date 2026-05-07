@@ -7,9 +7,9 @@ export default function CommonIssue() {
     <div className="w-full min-h-screen mt-14 md:mt-60">
 
       <MagazineGallery/>
-      <div className="mt-6"></div>
+      {/* <div className="mt-6"></div> */}
 
-      <SubscribeSection />
+      {/* <SubscribeSection /> */}
 
     </div>
   );

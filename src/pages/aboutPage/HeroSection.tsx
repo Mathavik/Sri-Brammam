@@ -11,7 +11,7 @@ export default function AboutPage() {
       <StatsSection />
       <div className="mt-6"></div>
 
-      <SubscribeSection />
+      {/* <SubscribeSection /> */}
 
     </div>
   );
