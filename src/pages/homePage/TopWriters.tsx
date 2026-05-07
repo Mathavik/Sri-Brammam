@@ -69,11 +69,12 @@ const navigate = useNavigate();
       {/* Desktop View */}
       <div className="hidden lg:flex items-center justify-between gap-6 overflow-x-auto">
 
-        {writers.map((writer) => (
-          <div
-            key={writer.id}
-            className="flex items-center gap-4 min-w-[220px]"
-          >
+      {writers.map((writer) => (
+  <div
+    key={writer.id}
+    onClick={() => navigate(`/writer/${writer.id}`)}
+    className="flex items-center gap-4 min-w-[220px] cursor-pointer"
+  >
 
             <img
               src={writer.image}
