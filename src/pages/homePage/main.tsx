@@ -64,6 +64,7 @@ const MainSection: React.FC = () => {
             style={{
               fontFamily: "'Arima', serif",
               fontWeight: 700,
+              fontSize:"16px"
             }}
           >
             “ஆன்மீகம் • அறம் • அறிவு — உங்கள் வழிகாட்டி”
