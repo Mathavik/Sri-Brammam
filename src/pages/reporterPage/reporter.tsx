@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 
 // API-லிருந்து வரும் தரவுகளுக்கான Interface
-interface CreatorApiItem {
+interface RoleItem {
     id: number;
     name: string;
-    profile_image: string;
-    bio: string;
-    is_top_writer: boolean;
-    phone?: string; // API-ல் போன் எண் இல்லை என்றால் இது optional
+    status: boolean;
+    created_at: string;
 }
 
 interface TeamMember {
@@ -30,71 +28,61 @@ interface ReporterProps {
 
 export const Reporter: React.FC<ReporterProps> = ({ reportersData }) => {
     const location = useLocation();
-    const [activeTab, setActiveTab] = useState<'reporter' | 'writer' | 'publisher' | 'editor'>(
-        location.state?.activeTab || 'reporter'
+    const [activeTab, setActiveTab] = useState<string>(
+        location.state?.activeTab || ''
     );
 
-    // API-லிருந்து வரும் Writer தரவுகளைச் சேமிக்க
-    const [writersData, setWritersData] = useState<TeamData>({ senior: [], junior: [] });
+    // API-லிருந்து வரும் கடொத்தகளை (Roles)
+    const [availableTabs, setAvailableTabs] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
     // API fetch செய்யும் பகுதி
     useEffect(() => {
-        const fetchWriters = async () => {
+        const fetchRoles = async () => {
             setLoading(true);
             try {
-                const response = await fetch('https://pcstech.in/pcs_api/brammam/public/api/creators');
+                const response = await fetch('https://pcstech.in/pcs_api/brammam/public/api/reporters');
                 const result = await response.json();
                 
-                const data: CreatorApiItem[] = result.data;
+                const roles: RoleItem[] = result.data || [];
 
-                // is_top_writer பொறுத்து பிரித்தல்
-                const seniorWriters: TeamMember[] = data
-                    .filter(item => item.is_top_writer === true)
-                    .map(item => ({
-                        id: item.id,
-                        name: item.name,
-                        phone: item.phone || "N/A",
-                        destination: item.bio,
-                        imageUrl: item.profile_image
-                    }));
+                // Roles-க எளன்கடொத்து
+                const roleNames = roles.map(role => role.name.toLowerCase());
+                setAvailableTabs(roleNames);
 
-                const juniorWriters: TeamMember[] = data
-                    .filter(item => item.is_top_writer === false)
-                    .map(item => ({
-                        id: item.id,
-                        name: item.name,
-                        phone: item.phone || "N/A",
-                        destination: item.bio,
-                        imageUrl: item.profile_image
-                    }));
-
-                setWritersData({ senior: seniorWriters, junior: juniorWriters });
+                // அணமான tab வாணபுமப் படிஏத்து
+                if (roleNames.length > 0 && !activeTab) {
+                    setActiveTab(roleNames[0]);
+                }
             } catch (error) {
-                console.error("Error fetching writers:", error);
+                console.error("Error fetching roles:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchWriters();
+        fetchRoles();
     }, []);
 
-    // Default Static Data (மற்ற Tab-களுக்கு)
-    const defaultReporterData: TeamData = reportersData || {
-        senior: [{ id: 1, name: 'A. Karthik', phone: '+91 98765', destination: 'Chief Reporter', imageUrl: '...' }],
-        junior: [{ id: 3, name: 'P. Arul', phone: '+91 98765', destination: 'Field Reporter', imageUrl: '...' }]
-    };
-
     // Tab-க்கு ஏற்ற தரவைத் தேர்ந்தெடுத்தல்
-    const currentData = activeTab === 'writer' ? writersData : defaultReporterData;
+    const currentTabData: TeamData = {
+        senior: [{ 
+            id: activeTab, 
+            name: activeTab ? activeTab.charAt(0).toUpperCase() + activeTab.slice(1) : '', 
+            phone: "N/A", 
+            destination: "Team Member", 
+            imageUrl: "https://via.placeholder.com/80?text=" + (activeTab || 'Team') 
+        }],
+        junior: []
+    };
+    const currentData: TeamData = currentTabData;
 
     return (
         <div className="w-full max-w-7xl mx-auto px-4 py-10 min-h-screen mt-14 md:mt-40">
             {/* Tab Switcher */}
             <div className="flex justify-center mb-12">
                 <div className="flex flex-wrap gap-2 bg-[#F0ECE1] p-1.5 rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl justify-center">
-                    {['reporter', 'writer', 'publisher', 'editor'].map((tab) => (
+                    {availableTabs.map((tab) => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab as any)}
@@ -108,8 +96,8 @@ export const Reporter: React.FC<ReporterProps> = ({ reportersData }) => {
                 </div>
             </div>
 
-            {loading && activeTab === 'writer' ? (
-                <div className="text-center py-20 text-[#932725] font-bold">Loading Writers...</div>
+            {loading ? (
+                <div className="text-center py-20 text-[#932725] font-bold">Loading Data...</div>
             ) : (
                 <div className="space-y-16">
                     {/* Senior Section */}
