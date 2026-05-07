@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 interface LatestReleaseData {
   title: string;
   image_url: string;
@@ -8,6 +8,7 @@ interface LatestReleaseData {
 }
 
 const MagazineSection: React.FC = () => {
+  const navigate = useNavigate();
   const [releaseData, setReleaseData] = useState<LatestReleaseData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [showPdfModal, setShowPdfModal] = useState<boolean>(false);
@@ -53,7 +54,7 @@ const MagazineSection: React.FC = () => {
 
   return (
     // இடது மற்றும் வலது பக்க இடைவெளி குறைக்கப்பட்டு, விளிம்புகளுக்கு அருகில் இருக்குமாறு மாற்றப்பட்டுள்ளது
-    <div className="w-full flex justify-center items-center pt-2 pb-10 md:py-20 px-4 md:px-8 lg:px-12 mt-8 md:-mt-16">     
+    <div className="w-full flex justify-center items-center pt-2 pb-10 md:py-20 px-4 md:px-8 lg:px-12 mt-8 md:-mt-16">
       <div
         className="relative overflow-hidden flex flex-col md:flex-row items-center justify-between px-6 py-10 md:px-20 shadow-2xl rounded-xl md:rounded-sm w-full max-w-[1286px] min-h-[524px]"
         style={{
@@ -127,8 +128,8 @@ const MagazineSection: React.FC = () => {
               <img src="/images/magazine/bookIcon.png" alt="book" className="w-5 h-5 mr-2" />
               Read Article
             </button>
-
             <button
+              onClick={() => navigate("/issues")}
               className="border border-white text-white flex items-center justify-center rounded-full hover:bg-white/10 transition-all w-[200px] md:w-[180px] h-[48px]"
               style={{
                 fontFamily: "'Arima', serif",
