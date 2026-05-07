@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../../api";
 
 type Client = {
   id: number;
@@ -10,14 +11,18 @@ const SponsorsBar: React.FC = () => {
   const [clients, setClients] = useState<Client[]>([]);
 
   // API Fetch
+   // API Fetch
   useEffect(() => {
-    fetch("https://pcstech.in/pcs_api/brammam/public/api/clients")
-      .then((res) => res.json())
-      .then((data) => {
-        setClients(data.data);
+    api
+      .get("/clients")
+      .then((res: any) => {
+        setClients(res.data.data);
       })
-      .catch((err) => console.error("API Error:", err));
+      .catch((err: any) =>
+        console.error("API Error:", err)
+      );
   }, []);
+
 
   return (
     <div className="w-full bg-white py-12 px-4 md:px-8 flex justify-center items-center -mt-16">

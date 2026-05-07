@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../api";
 type EditorPick = {
   id: number;
   title: string;
@@ -18,14 +19,16 @@ const EditorsPick: React.FC = () => {
   const [editorsPicks, setEditorsPicks] = useState<EditorPick[]>([]);
 const navigate = useNavigate();
   // API Fetch
-  useEffect(() => {
-    fetch("https://pcstech.in/pcs_api/brammam/public/api/editors-picks")
-      .then((res) => res.json())
-      .then((data) => {
-        setEditorsPicks(data.data);
-      })
-      .catch((err) => console.error("API Error:", err));
-  }, []);
+useEffect(() => {
+  api
+    .get("/editors-picks")
+    .then((res: any) => {
+      setEditorsPicks(res.data.data);
+    })
+    .catch((err: any) =>
+      console.error("API Error:", err)
+    );
+}, []);
 
   return (
     <div className="w-full bg-white py-16">
