@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 type Category = {
+  id: number;
   title: string;
-  image: string;   // static public image
-  bgImage: string; // API image
+  image: string;
+  bgImage: string;
 };
 
 const staticImages = [
@@ -23,13 +24,14 @@ const navigate = useNavigate();
     fetch("https://pcstech.in/pcs_api/brammam/public/api/featured-categories")
       .then((res) => res.json())
       .then((data) => {
-        const formattedData = data.data.map(
-          (item: any, index: number) => ({
-            title: item.name,
-            bgImage: item.image, // API image
-            image: staticImages[index] || "/images/default.png", // Static image
-          })
-        );
+      const formattedData = data.data.map(
+  (item: any, index: number) => ({
+    id: item.id,
+    title: item.name,
+    bgImage: item.image,
+    image: staticImages[index] || "/images/default.png",
+  })
+);
 
         setCategories(formattedData);
       })
@@ -72,10 +74,11 @@ const navigate = useNavigate();
       {/* Desktop View */}
       <div className="hidden md:grid grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
         {categories.map((cat, index) => (
-          <div
-            key={index}
-            className="relative h-[220px] md:h-[240px] lg:h-[260px] rounded-2xl overflow-hidden group cursor-pointer shadow-sm"
-          >
+        <div
+  key={index}
+  onClick={() => navigate(`/category-posts/${cat.id}`)}
+  className="relative h-[220px] md:h-[240px] lg:h-[260px] rounded-2xl overflow-hidden group cursor-pointer shadow-sm"
+>
             {/* Background Image from API */}
             <img
               src={cat.bgImage}
@@ -102,8 +105,12 @@ const navigate = useNavigate();
       {/* Mobile View */}
       {categories.length > 0 && (
         <div className="md:hidden flex flex-col items-center">
-          <div className="relative w-full max-w-[280px] h-[300px] rounded-2xl overflow-hidden shadow-md">
-
+<div
+  onClick={() =>
+    navigate(`/category-posts/${categories[currentIndex].id}`)
+  }
+  className="relative w-full max-w-[280px] h-[300px] rounded-2xl overflow-hidden shadow-md cursor-pointer"
+>
             {/* API Background */}
             <img
               src={categories[currentIndex].bgImage}

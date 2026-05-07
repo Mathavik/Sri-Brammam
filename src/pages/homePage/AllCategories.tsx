@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../../api";
 
 type Category = {
   id: number;
@@ -9,14 +10,13 @@ type Category = {
 const AllCategories: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
 
-  useEffect(() => {
-    fetch("https://pcstech.in/pcs_api/brammam/public/api/categories")
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data.data);
-      })
-      .catch((err) => console.error("API Error:", err));
-  }, []);
+ useEffect(() => {
+  api
+    .get("/categories")
+    .then((res: any) => {
+      setCategories(res.data.data);
+    })
+.catch((err: any) => console.error("API Error:", err));}, []);
 
   return (
 <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-48 md:mt-56 pb-12">      {/* Heading */}
