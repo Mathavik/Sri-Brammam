@@ -10,7 +10,7 @@ import CommonIssue from "./pages/issuePage/commonIssue";
 import MainBan from "./pages/eventsPage/mainban";
 import { Reporter } from "./pages/reporterPage/reporter";
 import AllCategories from "./pages/homePage/AllCategories";
-import AllCreators from "./pages/homePage/AllCreators";
+import AllPosts from "./pages/homePage/AllPosts";
 // import Ban from "./pages/eventsPage/ban";
 
 // பக்கத்தின் மேல் பகுதிக்கு ஸ்க்ரோல் செய்யும் காம்பொனென்ட்
@@ -41,7 +41,7 @@ function App() {
         <Route path="/issues" element={<CommonIssue />} />
         <Route path="/events" element={<MainBan />} />
         <Route path="/reporters" element={<Reporter />} />
-        <Route path="/all-creators" element={<AllCreators />} />
+        <Route path="/all-posts" element={<AllPosts />} />
         <Route path="/all-categories" element={<AllCategories />} />
 
       </Routes>

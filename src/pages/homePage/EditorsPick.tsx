@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 type EditorPick = {
   id: number;
   title: string;
@@ -16,7 +16,7 @@ type EditorPick = {
 
 const EditorsPick: React.FC = () => {
   const [editorsPicks, setEditorsPicks] = useState<EditorPick[]>([]);
-
+const navigate = useNavigate();
   // API Fetch
   useEffect(() => {
     fetch("https://pcstech.in/pcs_api/brammam/public/api/editors-picks")
@@ -42,11 +42,12 @@ const EditorsPick: React.FC = () => {
           </h2>
 
           <span
-            className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
-            style={{ color: "#B22C23", fontWeight: 600 }}
-          >
-            See All &rarr;
-          </span>
+  onClick={() => navigate("/all-posts")}
+  className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
+  style={{ color: "#B22C23", fontWeight: 600 }}
+>
+  See All &rarr;
+</span>
 
         </div>
 
