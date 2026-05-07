@@ -92,14 +92,14 @@ const Footer: React.FC = () => {
               >
                 <Link to="/about" className="hover:underline cursor-pointer">About</Link>
                 <Link to="/issues" className="hover:underline cursor-pointer">Issues</Link>
-                <Link to="/community" className="hover:underline cursor-pointer">Community</Link>
+                {/* <Link to="/community" className="hover:underline cursor-pointer">Community</Link> */}
                 <Link to="/writers" className="hover:underline cursor-pointer">Writers</Link>
                 <Link to="/reporters" className="hover:underline cursor-pointer">Reporters</Link>
               </nav>
             </div>
 
             {/* Useful Links */}
-            <div className="flex flex-col items-center md:items-start">
+            {/* <div className="flex flex-col items-center md:items-start">
               <h2
                 className="font-semibold mb-3 border-b border-red-400/30 pb-2 md:border-none md:pb-0 text-center md:text-left w-full md:w-auto"
                 style={{
@@ -127,7 +127,7 @@ const Footer: React.FC = () => {
                 <Link to="/faq" className="hover:underline cursor-pointer">FAQ</Link>
                 <Link to="/career" className="hover:underline cursor-pointer">Carrer</Link>
               </nav>
-            </div>
+            </div> */}
 
             {/* Contacts */}
             <div className="flex flex-col items-center md:items-start">

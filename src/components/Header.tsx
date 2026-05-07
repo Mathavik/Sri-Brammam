@@ -58,9 +58,9 @@ const Header: React.FC = () => {
         >
           <a href="/about" className="hover:text-red-600 transition px-6">About</a>
           <a href="/issues" className="hover:text-red-600 transition px-6">Issues</a>
-          <a href="#" className="hover:text-red-600 transition px-6">Community</a>
+          {/* <a href="#" className="hover:text-red-600 transition px-6">Community</a> */}
           <a href="/reporters" className="hover:text-red-600 transition px-6">Reporters</a>
-          <a href="/events" className="hover:text-red-600 transition px-6">Events</a>
+          {/* <a href="/events" className="hover:text-red-600 transition px-6">Events</a> */}
 
          
         </nav>
@@ -71,9 +71,9 @@ const Header: React.FC = () => {
         <div className="md:hidden absolute top-full left-0 w-full border-t border-gray-200 bg-white py-4 px-6 flex flex-col space-y-4 font-medium text-[16px] shadow-lg transition-all duration-300 ease-in-out z-40">
           <a href="/about" className="hover:text-red-600 transition py-2 border-b border-gray-50">About</a>
           <a href="/issues" className="hover:text-red-600 transition py-2 border-b border-gray-50">Issues</a>
-          <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Community</a>
+          {/* <a href="#" className="hover:text-red-600 transition py-2 border-b border-gray-50">Community</a> */}
           <a href="/reporters" className="hover:text-red-600 transition py-2 border-b border-gray-50">Reporters</a>
-          <a href="/events" className="hover:text-red-600 transition py-2 border-b border-gray-50">Events</a>
+          {/* <a href="/events" className="hover:text-red-600 transition py-2 border-b border-gray-50">Events</a> */}
         </div>
       )}
 
