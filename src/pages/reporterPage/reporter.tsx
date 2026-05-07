@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 // Define the data interfaces
 interface TeamMember {
@@ -7,6 +7,14 @@ interface TeamMember {
     phone: string;
     destination: string;
     imageUrl: string;
+}
+
+interface CreatorApiItem {
+    id: number;
+    name: string;
+    bio: string;
+    profile_image: string;
+    phone?: string;
 }
 
 interface TeamData {
@@ -25,7 +33,7 @@ export const Reporter: React.FC<ReporterProps> = ({
 }) => {
 const location = useLocation();
 
-const [activeTab, setActiveTab] = useState<'reporter' | 'writer'>(
+const [activeTab, setActiveTab] = useState<'reporter' | 'writer' | 'publisher' | 'editor'>(
     location.state?.activeTab || 'reporter'
 );
     // Fallback sample data with custom color-matching assets
@@ -49,20 +57,42 @@ const [activeTab, setActiveTab] = useState<'reporter' | 'writer'>(
         ]
     };
 
+    const defaultPublisherData: TeamData = {
+        senior: [
+            { id: 21, name: 'L. Kumar', phone: '+91 98765 43230', destination: 'Editor-in-Chief', imageUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&h=150&q=80' }
+        ],
+        junior: [
+            { id: 22, name: 'S. Radha', phone: '+91 98765 43231', destination: 'Publisher Assistant', imageUrl: 'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=150&h=150&q=80' }
+        ]
+    };
+
+    const defaultEditorData: TeamData = {
+        senior: [
+            { id: 31, name: 'G. Balaji', phone: '+91 98765 43240', destination: 'Chief Editor', imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150&q=80' }
+        ],
+        junior: [
+            { id: 32, name: 'T. Meena', phone: '+91 98765 43241', destination: 'Assistant Editor', imageUrl: 'https://images.unsplash.com/photo-1541233349642-6e425fe6190e?auto=format&fit=crop&w=150&h=150&q=80' }
+        ]
+    };
+
     const currentData = activeTab === 'reporter'
         ? (reportersData || defaultReporterData)
-        : (writersData || defaultWriterData);
+        : activeTab === 'writer'
+            ? (writersData || defaultWriterData)
+            : activeTab === 'publisher'
+                ? defaultPublisherData
+                : defaultEditorData;
 
     return (
         <div className="w-full max-w-7xl mx-auto px-4 py-10 min-h-screen mt-14 md:mt-40">
 
             {/* Tab Switcher / Control Section - Styled with Primary Theme Colors */}
             <div className="flex justify-center mb-12">
-                <div className="flex bg-[#F0ECE1] p-1.5 rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-md">
+                <div className="flex flex-wrap gap-2 bg-[#F0ECE1] p-1.5 rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl justify-center">
 
                     <button
                         onClick={() => setActiveTab('reporter')}
-                        className={`flex-1 py-3 px-6 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === 'reporter'
+                        className={`flex-1 min-w-[120px] py-3 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === 'reporter'
                             ? 'bg-[#932725] text-white shadow-md'
                             : 'text-[#6C5F47] hover:text-[#932725]'
                             }`}
@@ -72,12 +102,32 @@ const [activeTab, setActiveTab] = useState<'reporter' | 'writer'>(
 
                     <button
                         onClick={() => setActiveTab('writer')}
-                        className={`flex-1 py-3 px-6 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === 'writer'
+                        className={`flex-1 min-w-[120px] py-3 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === 'writer'
                             ? 'bg-[#932725] text-white shadow-md'
                             : 'text-[#6C5F47] hover:text-[#932725]'
                             }`}
                     >
                         Writer
+                    </button>
+
+                    <button
+                        onClick={() => setActiveTab('publisher')}
+                        className={`flex-1 min-w-[120px] py-3 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === 'publisher'
+                            ? 'bg-[#932725] text-white shadow-md'
+                            : 'text-[#6C5F47] hover:text-[#932725]'
+                            }`}
+                    >
+                        Publisher
+                    </button>
+
+                    <button
+                        onClick={() => setActiveTab('editor')}
+                        className={`flex-1 min-w-[120px] py-3 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${activeTab === 'editor'
+                            ? 'bg-[#932725] text-white shadow-md'
+                            : 'text-[#6C5F47] hover:text-[#932725]'
+                            }`}
+                    >
+                        Editor
                     </button>
                 </div>
             </div>
