@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import api from "../../api";
 interface GlobalConfig {
   id: number;
   year: string;
@@ -17,10 +17,9 @@ const StatsSection: React.FC = () => {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const response = await fetch("https://pcstech.in/pcs_api/brammam/public/api/global-config");
-        const result = await response.json();
-        const data: GlobalConfig = result.data;
+        const result = await api.get("/global-config");
 
+        const data: GlobalConfig = result.data;
         setConfig(data);
       } catch (err) {
         console.error("Error fetching global config:", err);
