@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import api from "../../api"; // <-- unga api.tsx path-ku correct aa change pannunga
 
 const WriterPosts = () => {
   const { id } = useParams();
@@ -7,18 +8,23 @@ const WriterPosts = () => {
   const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(
-      `https://pcstech.in/pcs_api/brammam/public/api/posts?creator_id=${id}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data.data);
-      })
-      .catch((err) => console.log(err));
+    const fetchPosts = async () => {
+      try {
+        const response = await api.get(
+          `/posts?creator_id=${id}`
+        );
+
+        setPosts(response.data.data || []);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchPosts();
   }, [id]);
 
   return (
-   <div className="p-6 mt-32">
+    <div className="p-6 mt-32">
       <h1 className="text-2xl font-bold mb-6">
         Writer Posts
       </h1>
@@ -45,7 +51,7 @@ const WriterPosts = () => {
               </p>
 
               <div className="mt-3 text-sm text-red-600">
-                {post.creator.name}
+                {post.creator?.name}
               </div>
             </div>
           </div>
