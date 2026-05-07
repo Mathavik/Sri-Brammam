@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../api'; // <-- unga api.tsx path-ku correct aa change pannunga
+import api from '../../api';
 
-// API-லிருந்து வரும் தரவுகளுக்கான Interface
+// Interfaces (அப்படியே இருக்கட்டும்)
 interface ReporterItem {
     id: number;
     name: string;
@@ -25,8 +25,6 @@ interface ReporterPersonItem {
         status: boolean;
         created_at: string;
     };
-    created_at?: string;
-    updated_at?: string;
 }
 
 interface TeamMember {
@@ -50,181 +48,134 @@ interface ReporterProps {
     reportersData?: TeamData;
 }
 
-export const Reporter: React.FC<ReporterProps> = ({ reportersData }) => {
+export const Reporter: React.FC<ReporterProps> = () => {
     const [selectedReporterId, setSelectedReporterId] = useState<number | null>(null);
     const [reporters, setReporters] = useState<ReporterItem[]>([]);
     const [personsData, setPersonsData] = useState<TeamData>({ senior: [], junior: [] });
     const [loading, setLoading] = useState(false);
 
-    // Reporter list fetch
     useEffect(() => {
         const fetchReporters = async () => {
             setLoading(true);
-
             try {
                 const response = await api.get('/reporters');
-
                 const data: ReporterItem[] = response.data.data || [];
-
                 setReporters(data);
-
-                if (data.length > 0) {
-                    setSelectedReporterId(data[0].id);
-                }
+                if (data.length > 0) setSelectedReporterId(data[0].id);
             } catch (error) {
-                console.error("Error fetching reporters:", error);
+                console.error("Error:", error);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchReporters();
     }, []);
 
-    // Selected reporter persons fetch
     useEffect(() => {
         if (selectedReporterId === null) return;
-
         const fetchReporterPersons = async () => {
             setLoading(true);
-
             try {
-                const response = await api.get(
-                    `/reporter-persons?reporter_id=${selectedReporterId}`
-                );
-
+                const response = await api.get(`/reporter-persons?reporter_id=${selectedReporterId}`);
                 const data: ReporterPersonItem[] = response.data.data || [];
-
                 const members: TeamMember[] = data.map((item) => ({
                     id: item.id,
                     name: item.name,
                     mobile: item.mobile || 'N/A',
                     email: item.email || 'N/A',
                     destination: item.describe_role || 'Reporter Person',
-                    address: item.address || 'No address available',
+                    address: item.address || 'No address',
                     pincode: item.pincode || 'N/A',
-                    imageUrl:
-                        item.profile_image ||
-                        `https://via.placeholder.com/120?text=${encodeURIComponent(item.name)}`,
+                    imageUrl: item.profile_image || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=random`,
                     reporterName: item.reporter?.name || 'No role'
                 }));
-
-                setPersonsData({
-                    senior: members,
-                    junior: []
-                });
-
+                setPersonsData({ senior: members, junior: [] });
             } catch (error) {
-                console.error("Error fetching reporter persons:", error);
-
-                setPersonsData({
-                    senior: [],
-                    junior: []
-                });
-
+                setPersonsData({ senior: [], junior: [] });
             } finally {
                 setLoading(false);
             }
         };
-
         fetchReporterPersons();
-
     }, [selectedReporterId]);
 
-    const currentData: TeamData = personsData;
-
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 py-10 min-h-screen mt-14 md:mt-40">
+        <div className="w-full max-w-7xl mx-auto px-4 py-8 md:py-10 min-h-screen mt-20 md:mt-40">
 
-            {/* Tab Switcher */}
-            <div className="flex justify-center mb-12">
-                <div className="flex flex-wrap gap-2 bg-[#F0ECE1] p-1.5 rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl justify-center">
-
+            {/* Tab Switcher - Mobile Friendly Scroll */}
+            <div className="flex justify-center mb-8 md:mb-12">
+                <div className="flex overflow-x-auto no-scrollbar gap-2 bg-[#F0ECE1] p-1.5 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl">
                     {reporters.map((reporter) => (
                         <button
                             key={reporter.id}
                             onClick={() => setSelectedReporterId(reporter.id)}
-                            className={`flex-1 min-w-[120px] py-3 px-4 rounded-full text-sm font-semibold transition-all duration-300 capitalize ${
+                            className={`whitespace-nowrap flex-1 min-w-[100px] md:min-w-[120px] py-2.5 md:py-3 px-4 rounded-xl md:rounded-full text-xs md:text-sm font-bold transition-all duration-300 capitalize ${
                                 selectedReporterId === reporter.id
                                     ? 'bg-[#932725] text-white shadow-md'
-                                    : 'text-[#6C5F47] hover:text-[#932725]'
+                                    : 'text-[#6C5F47] hover:bg-white/50'
                             }`}
                         >
                             {reporter.name}
                         </button>
                     ))}
-
                 </div>
             </div>
 
             {loading ? (
-                <div className="text-center py-20 text-[#932725] font-bold">
-                    Loading Data...
+                <div className="flex flex-col items-center justify-center py-20">
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#932725] mb-4"></div>
+                    <p className="text-[#932725] font-bold animate-pulse">தகவல்கள் சேகரிக்கப்படுகின்றன...</p>
                 </div>
             ) : (
-                <div className="space-y-16">
-
-                    {/* Senior Section */}
+                <div className="space-y-10">
                     <section>
-
-                        {currentData.senior.length > 0 ? (
-
-                            <div className="flex flex-wrap justify-center gap-6">
-
-                                {currentData.senior.map((member) => (
-
+                        {personsData.senior.length > 0 ? (
+                            /* Grid Layout for Mobile and Desktop */
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                {personsData.senior.map((member) => (
                                     <div
                                         key={member.id}
-                                        className="bg-white w-72 rounded-2xl p-6 shadow-sm border border-[#F4EFEB] flex flex-col items-center text-center group"
+                                        className="bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-[#F4EFEB] flex flex-col items-center text-center group hover:shadow-md transition-shadow"
                                     >
-
-                                        <div className="relative w-20 h-20 mb-5">
+                                        <div className="relative w-20 h-20 mb-4">
                                             <img
                                                 src={member.imageUrl}
                                                 alt={member.name}
-                                                className="w-full h-full object-cover rounded-full border-2 border-[#D95D39]/30"
+                                                className="w-full h-full object-cover rounded-full border-2 border-[#D95D39]/20"
                                             />
-
                                             <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-[#408B67] border-2 border-white rounded-full"></span>
                                         </div>
 
-                                        <h3 className="text-lg font-bold text-[#1D1917] group-hover:text-[#932725]">
+                                        <h3 className="text-base md:text-lg font-bold text-[#1D1917] group-hover:text-[#932725] line-clamp-1">
                                             {member.name}
                                         </h3>
 
-                                        <span className="bg-[#FDF7EE] text-[#932725] text-xs font-semibold px-3 py-1 rounded-full my-2">
+                                        <span className="bg-[#FDF7EE] text-[#932725] text-[10px] md:text-xs font-bold px-3 py-1 rounded-full my-2">
                                             {member.destination}
                                         </span>
 
-                                        <p className="text-sm text-[#6C5F47]">
-                                            {member.mobile}
-                                        </p>
-
-                                        <p className="text-sm text-[#A69B88]">
-                                            Pincode: {member.pincode}
-                                        </p>
-
-                                        <p className="text-xs text-[#6C5F47] mt-1">
-                                            Role: {member.reporterName}
-                                        </p>
-
+                                        <div className="space-y-1">
+                                            <p className="text-xs md:text-sm text-[#6C5F47] font-medium">
+                                                {member.mobile}
+                                            </p>
+                                            <p className="text-[11px] md:text-xs text-[#A69B88]">
+                                                Pincode: {member.pincode}
+                                            </p>
+                                            <p className="text-[11px] md:text-xs text-[#932725]/70 font-semibold mt-2 uppercase tracking-wider">
+                                                {member.reporterName}
+                                            </p>
+                                        </div>
                                     </div>
-
                                 ))}
-
                             </div>
-
                         ) : (
-                            <div className="text-center py-10 border-dashed border-2 rounded-xl">
-                                No Seniors found.
+                            <div className="text-center py-16 border-2 border-dashed border-[#D9CEB2] rounded-2xl bg-gray-50">
+                                <p className="text-[#6C5F47] font-medium">தகவல்கள் எதுவும் இல்லை (No Data Found)</p>
                             </div>
                         )}
-
                     </section>
-
                 </div>
             )}
-
         </div>
     );
 };
