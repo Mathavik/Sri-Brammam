@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useLocation } from "react-router-dom";
 // Define the data interfaces
 interface TeamMember {
     id: string | number;
@@ -23,8 +23,11 @@ export const Reporter: React.FC<ReporterProps> = ({
     reportersData,
     writersData
 }) => {
-    const [activeTab, setActiveTab] = useState<'reporter' | 'writer'>('reporter');
+const location = useLocation();
 
+const [activeTab, setActiveTab] = useState<'reporter' | 'writer'>(
+    location.state?.activeTab || 'reporter'
+);
     // Fallback sample data with custom color-matching assets
     const defaultReporterData: TeamData = {
         senior: [

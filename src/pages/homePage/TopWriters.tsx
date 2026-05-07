@@ -54,7 +54,11 @@ const navigate = useNavigate();
         </h2>
 
         <span
-  onClick={() => navigate("/all-creators")}
+  onClick={() =>
+  navigate("/reporters", {
+    state: { activeTab: "writer" },
+  })
+}
   className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
   style={{ color: "#B22C23", fontWeight: 600 }}
 >
