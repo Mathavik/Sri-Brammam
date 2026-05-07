@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../../api";
 
 type Post = {
   id: number;
@@ -17,13 +18,15 @@ type Post = {
 const AllPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
-  useEffect(() => {
-    fetch("https://pcstech.in/pcs_api/brammam/public/api/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data.data);
+useEffect(() => {
+    api
+      .get("/posts")
+      .then((res: any) => {
+        setPosts(res.data.data);
       })
-      .catch((err) => console.error("API Error:", err));
+      .catch((err: any) =>
+        console.error("API Error:", err)
+      );
   }, []);
 
   return (

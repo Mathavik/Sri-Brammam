@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import api from "../../api";
 
 type Post = {
   id: number;
@@ -20,15 +21,15 @@ const CategoryPosts: React.FC = () => {
 
   const [posts, setPosts] = useState<Post[]>([]);
 
-  useEffect(() => {
-    fetch(
-      `https://pcstech.in/pcs_api/brammam/public/api/posts?category_id=${id}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data.data);
+   useEffect(() => {
+    api
+      .get(`/posts?category_id=${id}`)
+      .then((res: any) => {
+        setPosts(res.data.data);
       })
-      .catch((err) => console.error("API Error:", err));
+      .catch((err: any) =>
+        console.error("API Error:", err)
+      );
   }, [id]);
 
   return (
