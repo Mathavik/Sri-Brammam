@@ -51,20 +51,24 @@ const Header: React.FC = () => {
       </div>
 
       {/* Desktop Navigation Section */}
-      <div className="hidden md:block border-t border-b border-gray-200">
-        <nav
-          className="max-w-6xl mx-auto flex justify-between items-center py-4 text-[#333] font-medium text-[18px]"
-          style={{ fontFamily: "Arima, serif" }}
-        >
-          <a href="/about" className="hover:text-red-600 transition px-6">About</a>
-          <a href="/issues" className="hover:text-red-600 transition px-6">Issues</a>
-          {/* <a href="#" className="hover:text-red-600 transition px-6">Community</a> */}
-          <a href="/reporters" className="hover:text-red-600 transition px-6">Reporters</a>
-          {/* <a href="/events" className="hover:text-red-600 transition px-6">Events</a> */}
+ <div className="hidden md:block border-t border-b border-gray-200">
+  <nav
+    className="max-w-6xl mx-auto flex justify-center items-center gap-64 py-5 text-[#333] font-medium text-[18px]"
+    style={{ fontFamily: "Arima, serif" }}
+  >
+    <a href="/about" className="hover:text-red-600 transition px-6">
+      About
+    </a>
 
-         
-        </nav>
-      </div>
+    <a href="/issues" className="hover:text-red-600 transition px-6">
+      Issues
+    </a>
+
+    <a href="/reporters" className="hover:text-red-600 transition px-6">
+      Reporters
+    </a>
+  </nav>
+</div>
 
       {/* Mobile Navigation Menu as an overlay */}
       {isMenuOpen && (
