@@ -171,26 +171,28 @@ export const MagazineGallery: React.FC = () => {
       </div>
 
       {/* --- Book Style PDF Modal --- */}
+      {/* --- Book Style PDF Modal --- */}
       {showPdfModal && currentPdfUrl && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-2 md:p-10 backdrop-blur-md">
 
-          {/* Close Button */}
+          {/* Close Button with Text */}
+          {/* Close Button with Text - Mobile Optimized */}
           <button
             onClick={() => setShowPdfModal(false)}
-            className="absolute top-4 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-all"
+            className="absolute top-4 right-4 md:top-6 md:right-8 z-[110] bg-black/60 hover:bg-black text-white border border-white/30 px-4 py-2 md:px-5 md:py-2 rounded-full transition-all duration-300 flex items-center gap-2 shadow-2xl backdrop-blur-sm"
           >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            <span className="text-[12px] md:text-sm font-bold tracking-widest uppercase">Close</span>
+            <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
 
           {/* Book Container */}
           <div className="relative w-full max-w-[1200px] h-full flex items-center justify-center">
-
-            {/* Book "Center Spine" Design */}
+            {/* ... rest of your modal code ... */}
             <div className="absolute inset-y-0 left-1/2 w-[2px] bg-black/20 z-10 hidden md:block shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
 
-            {/* The PDF Frame */}
             <div className="relative w-full h-full bg-[#333] rounded-lg overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border-[8px] border-[#222]">
-
               <iframe
                 src={`${currentPdfUrl}#view=FitH&pagemode=thumbs&page=1`}
                 title="Book Preview"
@@ -199,12 +201,10 @@ export const MagazineGallery: React.FC = () => {
               />
             </div>
 
-            {/* Realistic Book Edges (Shadows) */}
             <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/40 to-transparent pointer-events-none"></div>
             <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/40 to-transparent pointer-events-none"></div>
           </div>
 
-          {/* Bottom Hint */}
           <p className="absolute bottom-4 text-white/50 text-xs font-light">
             Use PDF controls to toggle double-page view
           </p>
