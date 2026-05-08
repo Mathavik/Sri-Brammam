@@ -14,37 +14,37 @@ const MagazineSection: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [showPdfModal, setShowPdfModal] = useState<boolean>(false);
 
- useEffect(() => {
-  const fetchLatestRelease = async () => {
-    setLoading(true);
+  useEffect(() => {
+    const fetchLatestRelease = async () => {
+      setLoading(true);
 
-    try {
-      const res: any = await api.get("/latest-releases");
+      try {
+        const res: any = await api.get("/latest-releases");
 
-      if (
-        res.data.success === true &&
-        Array.isArray(res.data.data) &&
-        res.data.data.length > 0
-      ) {
-        setReleaseData(res.data.data[0]);
+        if (
+          res.data.success === true &&
+          Array.isArray(res.data.data) &&
+          res.data.data.length > 0
+        ) {
+          setReleaseData(res.data.data[0]);
+        }
+
+      } catch (error: any) {
+
+        console.error(
+          "MagazineSection API Error:",
+          error
+        );
+
+      } finally {
+
+        setLoading(false);
+
       }
+    };
 
-    } catch (error: any) {
-
-      console.error(
-        "MagazineSection API Error:",
-        error
-      );
-
-    } finally {
-
-      setLoading(false);
-
-    }
-  };
-
-  fetchLatestRelease();
-}, []);
+    fetchLatestRelease();
+  }, []);
 
   return (
     // இடது மற்றும் வலது பக்க இடைவெளி குறைக்கப்பட்டு, விளிம்புகளுக்கு அருகில் இருக்குமாறு மாற்றப்பட்டுள்ளது
@@ -154,7 +154,7 @@ const MagazineSection: React.FC = () => {
               />
               <div className="pointer-events-none absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <span className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#B12A1C] opacity-0 group-hover:opacity-100 transition-opacity">
-                Read PDF
+                இதழை வாசிக்க
               </span>
             </button>
           ) : (
