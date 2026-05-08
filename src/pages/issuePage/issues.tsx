@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import api from "../../api";
 
 interface Magazine {
@@ -21,9 +21,15 @@ export const MagazineGallery: React.FC = () => {
   // Modal states
   const [showPdfModal, setShowPdfModal] = useState<boolean>(false);
   const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
+  const [currentTitle, setCurrentTitle] = useState<string>("");
 
   const yearRef = useRef<HTMLDivElement>(null);
   const monthRef = useRef<HTMLDivElement>(null);
+
+  // மொபைல் போனா இல்லையா என்று கண்டறியும் Logic
+  const isMobile = useMemo(() => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  }, []);
 
   const getTamilMonthYear = (dateString: string) => {
     const date = new Date(dateString);
@@ -51,10 +57,23 @@ export const MagazineGallery: React.FC = () => {
     fetchMagazines();
   }, []);
 
-  const openPdf = (url: string) => {
+  const openPdf = (url: string, title: string) => {
     setCurrentPdfUrl(url);
+    setCurrentTitle(title);
     setShowPdfModal(true);
   };
+
+  // PDF வியூவர் URL - லேப்டாப் மற்றும் மொபைலுக்கு ஏற்ப
+  const getPdfSrc = (url: string) => {
+    if (!url) return "";
+    if (isMobile) {
+      // மொபைலில் Google Viewer (பாப்-அப் உள்ளே தெரிய)
+      return `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+    }
+    // லேப்டாப்பில் Chrome Native Viewer (உங்கள் ஸ்கிரீன்ஷாட் போல வர)
+    return `${url}#toolbar=1&navpanes=1&scrollbar=1`;
+  };
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (yearRef.current && !yearRef.current.contains(event.target as Node)) setIsYearOpen(false);
@@ -63,6 +82,7 @@ export const MagazineGallery: React.FC = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
   const filteredMagazines = magazines.filter((mag) => {
     const date = new Date(mag.created_at);
     const magYear = date.getFullYear().toString();
@@ -90,10 +110,10 @@ export const MagazineGallery: React.FC = () => {
   return (
     <div className="min-h-screen bg-white p-6 antialiased" style={{ fontFamily: "'Noto Sans Tamil', sans-serif" }}>
 
-      {/* Filters Section (Preserved) */}
+      {/* Filters Section */}
       <div className="flex flex-wrap items-center gap-6 mb-12 max-w-[1100px] mx-auto">
         <div className="flex flex-col gap-1" ref={yearRef}>
-          <label className="text-[11px] font-bold text-gray-500 tracking-wider">NAME</label>
+          <label className="text-[11px] font-bold text-gray-500 tracking-wider">YEAR</label>
           <div className="relative">
             <button onClick={() => setIsYearOpen(!isYearOpen)} className="bg-[#F3F4F6] text-sm font-medium px-4 py-2.5 rounded-lg flex items-center gap-6">
               {selectedYear}
@@ -101,7 +121,7 @@ export const MagazineGallery: React.FC = () => {
             </button>
             {isYearOpen && (
               <div className="absolute top-full left-0 z-50 mt-1 w-full bg-white border rounded-lg shadow-lg">
-                {['2026', '2025'].map(y => <div key={y} onClick={() => { setSelectedYear(y); setIsYearOpen(false); }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm font-medium">{y}</div>)}
+                {['2026', '2025', '2024'].map(y => <div key={y} onClick={() => { setSelectedYear(y); setIsYearOpen(false); }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm font-medium">{y}</div>)}
               </div>
             )}
           </div>
@@ -122,7 +142,7 @@ export const MagazineGallery: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* Grid Section */}
+
       {/* Grid Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6 max-w-[1100px] mx-auto w-full">
         {loading ? (
@@ -133,7 +153,7 @@ export const MagazineGallery: React.FC = () => {
             return (
               <div key={mag.id} className="flex flex-col w-full max-w-[240px] mx-auto">
                 <div
-                  onClick={() => openPdf(mag.pdf_url)}
+                  onClick={() => openPdf(mag.pdf_url, getTamilMonthYear(mag.created_at))}
                   className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-sm border border-gray-100 group cursor-pointer"
                 >
                   <img src={mag.image_url} alt={mag.title} className="w-full h-full object-cover" />
@@ -151,63 +171,39 @@ export const MagazineGallery: React.FC = () => {
             );
           })
         ) : (
-          /* Empty State Message */
-          <div className="col-span-full flex flex-col items-center justify-center text-center">
-            <div className="bg-gray-50 p-6 rounded-full mb-4">
-              <svg className="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-600">தகவல்கள் எதுவும் இல்லை</h3>
-            <p className="text-gray-400 text-sm mt-1">தேர்ந்தெடுக்கப்பட்ட மாதம் மற்றும் வருடத்தில் இதழ்கள் எதுவும் வெளியிடப்படவில்லை.</p>
-            <button
-              onClick={() => { setSelectedYear('2026'); setSelectedMonth('All'); }}
-              className="mt-6 text-red-600 font-medium hover:underline text-sm"
-            >
-              Clear Filters
-            </button>
-          </div>
+          <div className="col-span-full text-center py-20 italic text-gray-500">தகவல்கள் எதுவும் இல்லை.</div>
         )}
       </div>
 
-      {/* --- Book Style PDF Modal --- */}
-      {/* --- Book Style PDF Modal --- */}
+      {/* --- Responsive PDF Modal (Design matched to screenshots) --- */}
       {showPdfModal && currentPdfUrl && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-2 md:p-10 backdrop-blur-md">
-
-          {/* Close Button with Text */}
-          {/* Close Button with Text - Mobile Optimized */}
-          <button
-            onClick={() => setShowPdfModal(false)}
-            className="absolute top-4 right-4 md:top-6 md:right-8 z-[110] bg-black/60 hover:bg-black text-white border border-white/30 px-4 py-2 md:px-5 md:py-2 rounded-full transition-all duration-300 flex items-center gap-2 shadow-2xl backdrop-blur-sm"
-          >
-            <span className="text-[12px] md:text-sm font-bold tracking-widest uppercase">Close</span>
-            <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          {/* Book Container */}
-          <div className="relative w-full max-w-[1200px] h-full flex items-center justify-center">
-            {/* ... rest of your modal code ... */}
-            <div className="absolute inset-y-0 left-1/2 w-[2px] bg-black/20 z-10 hidden md:block shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
-
-            <div className="relative w-full h-full bg-[#333] rounded-lg overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border-[8px] border-[#222]">
-              <iframe
-                src={`${currentPdfUrl}#view=FitH&pagemode=thumbs&page=1`}
-                title="Book Preview"
-                className="w-full h-full bg-white"
-                frameBorder="0"
-              />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-0 md:p-4 backdrop-blur-sm">
+          
+          <div className="relative w-full h-full md:w-[95vw] md:h-[95vh] bg-[#323639] md:rounded-xl overflow-hidden flex flex-col shadow-2xl">
+            
+            {/* Header Bar (Mobile Friendly as per screenshot) */}
+            <div className="w-full bg-[#202124] md:bg-[#323639] text-white p-3 flex justify-between items-center px-4 md:px-6 border-b border-white/10">
+              <span className="text-sm md:text-base font-medium truncate pr-4">
+                {currentTitle || "இதழ் பார்வை"}
+              </span>
+              <button 
+                onClick={() => setShowPdfModal(false)}
+                className="bg-[#E93E45] hover:bg-red-700 text-white px-4 py-1.5 rounded-md text-xs md:text-sm font-bold transition-all shadow-lg active:scale-95"
+              >
+                Close
+              </button>
             </div>
 
-            <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/40 to-transparent pointer-events-none"></div>
-            <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/40 to-transparent pointer-events-none"></div>
+            {/* Iframe Area */}
+            <div className="flex-grow w-full h-full bg-white relative">
+               <iframe
+                src={getPdfSrc(currentPdfUrl)}
+                title="Magazine Preview"
+                className="w-full h-full border-none"
+                loading="lazy"
+              />
+            </div>
           </div>
-
-          <p className="absolute bottom-4 text-white/50 text-xs font-light">
-            Use PDF controls to toggle double-page view
-          </p>
         </div>
       )}
     </div>
