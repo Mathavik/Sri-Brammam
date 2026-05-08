@@ -1,83 +1,74 @@
 import React, { useState, useRef, useEffect } from 'react';
+import api from "../../api";
 
-const magazines = [
-  {
-    id: 1,
-    title: 'ஏப்ரல் - 2026',
-    month: 'April',
-    year: '2026',
-    isNew: true,
-    image: '/images/issue/mag.jpg',
-    altText: 'April 2026 Magazine Cover',
-    titleText: 'ஸ்ரீ ப்ரஹ்மம்',
-    subtitleText: 'SRI BRAHMAM'
-  },
-  {
-    id: 2,
-    title: 'மார்ச் - 2026',
-    month: 'March',
-    year: '2026',
-    isNew: false,
-    image: '/images/issue/mag2.webp',
-    altText: 'March 2026 Magazine Cover',
-    titleText: 'ஸ்ரீ ப்ரஹ்மம்',
-    subtitleText: 'SRI BRAHMAM'
-  },
-  {
-    id: 3,
-    title: 'பிப்ரவரி - 2026',
-    month: 'February',
-    year: '2026',
-    isNew: false,
-    image: '/images/issue/mag3.jpg',
-    altText: 'February 2026 Magazine Cover',
-    titleText: 'ஸ்ரீ ப்ரஹ்மம்',
-    subtitleText: 'SRI BRAHMAM'
-  },
-  {
-    id: 4,
-    title: 'ஜனவரி - 2026',
-    month: 'January',
-    year: '2026',
-    isNew: false,
-    image: '/images/issue/mag4.webp',
-    altText: 'January 2026 Magazine Cover',
-    titleText: 'ஸ்ரீ ப்ரஹ்மம்',
-    subtitleText: 'SRI BRAHMAM'
-  }
-];
+interface Magazine {
+  id: number;
+  title: string;
+  image_url: string;
+  pdf_url: string;
+  created_at: string;
+  status: string;
+}
 
 export const MagazineGallery: React.FC = () => {
+  const [magazines, setMagazines] = useState<Magazine[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [selectedYear, setSelectedYear] = useState('2026');
   const [selectedMonth, setSelectedMonth] = useState('All');
   const [isYearOpen, setIsYearOpen] = useState(false);
   const [isMonthOpen, setIsMonthOpen] = useState(false);
 
+  // Modal states
+  const [showPdfModal, setShowPdfModal] = useState<boolean>(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
+
   const yearRef = useRef<HTMLDivElement>(null);
   const monthRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdowns when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (yearRef.current && !yearRef.current.contains(event.target as Node)) {
-        setIsYearOpen(false);
-      }
-      if (monthRef.current && !monthRef.current.contains(event.target as Node)) {
-        setIsMonthOpen(false);
-      }
-    }
+  const getTamilMonthYear = (dateString: string) => {
+    const date = new Date(dateString);
+    const tamilMonths = ['ஜனவரி', 'பிப்ரவரி', 'மார்ச்', 'ஏப்ரல்', 'மே', 'ஜூன்', 'ஜூலை', 'ஆகஸ்ட்', 'செப்டம்பர்', 'அக்டோபர்', 'நவம்பர்', 'டிசம்பர்'];
+    return `${tamilMonths[date.getMonth()]} - ${date.getFullYear()}`;
+  };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+  useEffect(() => {
+    const fetchMagazines = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get("/latest-releases");
+        if (response.data.success) {
+          const sortedData = response.data.data.sort((a: Magazine, b: Magazine) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+          setMagazines(sortedData);
+        }
+      } catch (error) {
+        console.error("Error fetching magazines:", error);
+      } finally {
+        setLoading(false);
+      }
     };
+    fetchMagazines();
   }, []);
 
-  // Filter magazines based on selected year & month
+  const openPdf = (url: string) => {
+    setCurrentPdfUrl(url);
+    setShowPdfModal(true);
+  };
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (yearRef.current && !yearRef.current.contains(event.target as Node)) setIsYearOpen(false);
+      if (monthRef.current && !monthRef.current.contains(event.target as Node)) setIsMonthOpen(false);
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   const filteredMagazines = magazines.filter((mag) => {
-    const matchesYear = mag.year === selectedYear;
-    const matchesMonth = selectedMonth === 'All' || mag.month === selectedMonth;
-    return matchesYear && matchesMonth;
+    const date = new Date(mag.created_at);
+    const magYear = date.getFullYear().toString();
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const magMonthName = monthNames[date.getMonth()];
+    return (magYear === selectedYear) && (selectedMonth === 'All' || magMonthName === selectedMonth);
   });
 
   const months = [
@@ -97,131 +88,108 @@ export const MagazineGallery: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white p-8 md:p-0 pb-40 font-sans antialiased">
-      {/* Header & Filters Section */}
-      <div className="flex flex-wrap items-center gap-6 mt-8 mb-12 max-w-[1200px] mx-auto">
-        
-        {/* Name / Year Dropdown */}
-        <div className="flex flex-col gap-1.5 min-w-[160px]" ref={yearRef}>
-          <label className="text-xs font-semibold text-gray-900 tracking-wider">
-            NAME
-          </label>
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => {
-                setIsYearOpen(!isYearOpen);
-                setIsMonthOpen(false);
-              }}
-              className="w-full bg-[#F3F4F6] text-sm text-gray-900 px-4 py-3 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 flex items-center justify-between cursor-pointer pr-10"
-            >
-              <span>{selectedYear}</span>
-              <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+    <div className="min-h-screen bg-white p-6 antialiased" style={{ fontFamily: "'Noto Sans Tamil', sans-serif" }}>
 
+      {/* Filters Section (Preserved) */}
+      <div className="flex flex-wrap items-center gap-6 mb-12 max-w-[1100px] mx-auto">
+        <div className="flex flex-col gap-1" ref={yearRef}>
+          <label className="text-[11px] font-bold text-gray-500 tracking-wider">NAME</label>
+          <div className="relative">
+            <button onClick={() => setIsYearOpen(!isYearOpen)} className="bg-[#F3F4F6] text-sm font-medium px-4 py-2.5 rounded-lg flex items-center gap-6">
+              {selectedYear}
+              <svg className="w-3 h-3 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
+            </button>
             {isYearOpen && (
-              <div className="absolute top-full left-0 z-40 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
-                <div
-                  onClick={() => {
-                    setSelectedYear('2026');
-                    setIsYearOpen(false);
-                  }}
-                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm text-gray-900"
-                >
-                  2026
-                </div>
-                <div
-                  onClick={() => {
-                    setSelectedYear('2025');
-                    setIsYearOpen(false);
-                  }}
-                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm text-gray-900"
-                >
-                  2025
-                </div>
+              <div className="absolute top-full left-0 z-50 mt-1 w-full bg-white border rounded-lg shadow-lg">
+                {['2026', '2025'].map(y => <div key={y} onClick={() => { setSelectedYear(y); setIsYearOpen(false); }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm font-medium">{y}</div>)}
               </div>
             )}
           </div>
         </div>
 
-        {/* Month Dropdown */}
-        <div className="flex flex-col gap-1.5 min-w-[160px]" ref={monthRef}>
-          <label className="text-xs font-semibold text-gray-900 tracking-wider">
-            MONTH
-          </label>
+        <div className="flex flex-col gap-1" ref={monthRef}>
+          <label className="text-[11px] font-bold text-gray-500 tracking-wider">MONTH</label>
           <div className="relative">
-            <button
-              type="button"
-              onClick={() => {
-                setIsMonthOpen(!isMonthOpen);
-                setIsYearOpen(false);
-              }}
-              className="w-full bg-[#F3F4F6] text-sm text-gray-900 px-4 py-3 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-gray-300 flex items-center justify-between cursor-pointer pr-10"
-            >
-              <span>
-                {months.find((m) => m.value === selectedMonth)?.label || 'All'}
-              </span>
-              <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
+            <button onClick={() => setIsMonthOpen(!isMonthOpen)} className="bg-[#F3F4F6] text-sm font-medium px-4 py-2.5 rounded-lg flex items-center justify-between min-w-[140px]">
+              {selectedMonth}
+              <svg className="w-3 h-3 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
             </button>
-
             {isMonthOpen && (
-              <div className="absolute top-full left-0 z-40 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto"> 
-                {months.map((m) => (
-                  <div
-                    key={m.value}
-                    onClick={() => {
-                      setSelectedMonth(m.value);
-                      setIsMonthOpen(false);
-                    }}
-                    className={`px-4 py-3 hover:bg-gray-100 cursor-pointer text-sm text-gray-900 ${
-                      selectedMonth === m.value ? 'bg-gray-50 font-medium' : ''
-                    }`}
-                  >
-                    {m.label}
-                  </div>
-                ))}
+              <div className="absolute top-full left-0 z-50 mt-1 w-56 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {months.map(m => <div key={m.value} onClick={() => { setSelectedMonth(m.value); setIsMonthOpen(false); }} className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm font-medium">{m.label}</div>)}
               </div>
             )}
           </div>
         </div>
       </div>
-
-      {/* Magazine Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto justify-items-center lg:justify-items-start">
-        {filteredMagazines.length > 0 ? (
-          filteredMagazines.map((mag) => (
-            <div key={mag.id} className="flex flex-col items-center lg:items-start w-64">
-              <div className="relative w-64 h-96 bg-gray-100 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                {/* Card Header Tag */}
-                {mag.isNew && (
-                  <span className="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm z-10 uppercase tracking-widest">
-                    New
-                  </span>
+      {/* Grid Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6 max-w-[1100px] mx-auto">
+        {loading ? (
+          <p className="col-span-full text-center py-10 text-gray-400">Loading...</p>
+        ) : filteredMagazines.map((mag) => {
+          const isLatest = mag.id === magazines[0]?.id;
+          return (
+            <div key={mag.id} className="flex flex-col w-full max-w-[240px]">
+              <div
+                onClick={() => openPdf(mag.pdf_url)}
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-sm border border-gray-100 group cursor-pointer"
+              >
+                <img src={mag.image_url} alt={mag.title} className="w-full h-full object-cover" />
+                {isLatest && (
+                  <div className="absolute top-0 left-0 w-16 h-16 overflow-hidden">
+                    <div className="bg-[#E93E45] text-white text-[9px] font-bold py-1 w-24 text-center -rotate-45 -translate-x-7 translate-y-3 shadow-md uppercase">New</div>
+                  </div>
                 )}
-
-                {/* Magazine Background Image */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${mag.image})` }}
-                ></div>
+                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="bg-white/90 text-[#B12A1C] px-4 py-2 rounded-full text-xs font-bold shadow-lg">இதழை வாசிக்க</span>
+                </div>
               </div>
-
-              {/* Tamil Description Label below */}
-              <p className="mt-4 text-sm font-bold text-gray-900 tracking-wide text-center lg:text-left">
-                {mag.title}
-              </p>
+              <h3 className="mt-4 text-[16px] font-bold text-gray-800">{getTamilMonthYear(mag.created_at)}</h3>
             </div>
-          ))
-        ) : (
-          <p className="col-span-full text-center text-gray-500">
-            No magazines found for the selected criteria.
-          </p>
-        )}
+          );
+        })}
       </div>
+
+      {/* --- Book Style PDF Modal --- */}
+      {showPdfModal && currentPdfUrl && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-2 md:p-10 backdrop-blur-md">
+
+          {/* Close Button */}
+          <button
+            onClick={() => setShowPdfModal(false)}
+            className="absolute top-4 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-all"
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+
+          {/* Book Container */}
+          <div className="relative w-full max-w-[1200px] h-full flex items-center justify-center">
+
+            {/* Book "Center Spine" Design */}
+            <div className="absolute inset-y-0 left-1/2 w-[2px] bg-black/20 z-10 hidden md:block shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
+
+            {/* The PDF Frame */}
+            <div className="relative w-full h-full bg-[#333] rounded-lg overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border-[8px] border-[#222]">
+           
+              <iframe
+                src={`${currentPdfUrl}#view=FitH&pagemode=thumbs&page=1`}
+                title="Book Preview"
+                className="w-full h-full bg-white"
+                frameBorder="0"
+              />
+            </div>
+
+            {/* Realistic Book Edges (Shadows) */}
+            <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/40 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/40 to-transparent pointer-events-none"></div>
+          </div>
+
+          {/* Bottom Hint */}
+          <p className="absolute bottom-4 text-white/50 text-xs font-light">
+            Use PDF controls to toggle double-page view
+          </p>
+        </div>
+      )}
     </div>
   );
 };
