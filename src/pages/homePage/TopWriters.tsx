@@ -119,13 +119,14 @@ return (
 
           <button
             onClick={prev}
-            className="p-2 -ml-1 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
-          >
+className="p-2 -ml-1 text-4xl font-bold text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0">
             ←
           </button>
 
-          <div className="flex items-center gap-3 px-1 overflow-hidden max-w-[75%]">
-
+<div
+  onClick={() => navigate(`/writer/${writers[current].id}`)}
+  className="flex items-center gap-3 px-1 overflow-hidden max-w-[75%] cursor-pointer"
+>
             <img
               src={writers[current].image}
               alt={writers[current].name}
@@ -146,8 +147,7 @@ return (
 
           <button
             onClick={next}
-            className="p-2 -mr-1 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
-          >
+className="p-2 -mr-1 text-4xl font-bold text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"          >
             →
           </button>
 
@@ -168,8 +168,10 @@ return (
           <div className="flex items-center justify-around gap-12 w-full px-4 overflow-hidden">
 
             {/* Writer 1 */}
-            <div className="flex items-center gap-4 min-w-[200px] max-w-[260px]">
-
+<div
+  onClick={() => navigate(`/writer/${writers[current].id}`)}
+  className="flex items-center gap-4 min-w-[200px] max-w-[260px] cursor-pointer"
+>
               <img
                 src={writers[current].image}
                 alt={writers[current].name}
@@ -189,8 +191,12 @@ return (
             </div>
 
             {/* Writer 2 */}
-            <div className="flex items-center gap-4 min-w-[200px] max-w-[260px]">
-
+<div
+  onClick={() =>
+    navigate(`/writer/${writers[(current + 1) % writers.length].id}`)
+  }
+  className="flex items-center gap-4 min-w-[200px] max-w-[260px] cursor-pointer"
+>
               <img
                 src={writers[(current + 1) % writers.length].image}
                 alt={writers[(current + 1) % writers.length].name}
