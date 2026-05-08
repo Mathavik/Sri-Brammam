@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
-
+import { useLocation } from "react-router-dom";
 // Interfaces
 interface ReporterItem {
     id: number;
@@ -53,7 +53,7 @@ export const Reporter: React.FC<ReporterProps> = () => {
     const [reporters, setReporters] = useState<ReporterItem[]>([]);
     const [personsData, setPersonsData] = useState<TeamData>({ senior: [], junior: [] });
     const [loading, setLoading] = useState(false);
-
+const location = useLocation();
     useEffect(() => {
         const fetchReporters = async () => {
             setLoading(true);
@@ -61,8 +61,26 @@ export const Reporter: React.FC<ReporterProps> = () => {
                 const response = await api.get('/reporters');
                 const data: ReporterItem[] = response.data.data || [];
                 setReporters(data);
-                if (data.length > 0) setSelectedReporterId(data[0].id);
-            } catch (error) {
+if (data.length > 0) {
+
+    const activeTab = location.state?.activeTab;
+
+    if (activeTab === "writer") {
+
+        const writerReporter = data.find(
+            (item) => item.name.toLowerCase().includes("writer")
+        );
+
+        setSelectedReporterId(
+            writerReporter ? writerReporter.id : data[0].id
+        );
+
+    } else {
+
+        setSelectedReporterId(data[0].id);
+
+    }
+}            } catch (error) {
                 console.error("Error:", error);
             } finally {
                 setLoading(false);
