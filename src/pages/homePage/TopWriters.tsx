@@ -50,8 +50,12 @@ const TopWriters: React.FC = () => {
     );
   };
 
-  return (
-    <div className="w-full bg-white px-6 md:px-12 py-8 md:py-10 my-4 md:my-6 rounded-2xl max-w-7xl mx-auto shadow-sm">
+if (writers.length === 0) {
+  return null;
+}
+
+return (
+  <div className="w-full bg-white px-6 md:px-12 py-8 md:py-10 my-4 md:my-6 rounded-2xl max-w-7xl mx-auto shadow-sm">
 
       {/* Header */}
       <div className="flex flex-col items-center justify-center mb-6 md:flex-row md:justify-between w-full">
@@ -78,9 +82,8 @@ const TopWriters: React.FC = () => {
       </div>
 
       {/* Desktop View */}
-      <div className="hidden lg:flex items-center justify-between gap-6 overflow-x-auto">
-
-        {writers.map((writer) => (
+<div className="hidden lg:grid grid-cols-3 xl:grid-cols-4 gap-x-12 gap-y-8">
+          {writers.map((writer) => (
 
           <div
             key={writer.id}

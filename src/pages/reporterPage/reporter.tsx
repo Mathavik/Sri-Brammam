@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
-
-// Interfaces (அப்படியே இருக்கட்டும்)
+import { useLocation } from "react-router-dom";
+// Interfaces
 interface ReporterItem {
     id: number;
     name: string;
@@ -53,7 +53,7 @@ export const Reporter: React.FC<ReporterProps> = () => {
     const [reporters, setReporters] = useState<ReporterItem[]>([]);
     const [personsData, setPersonsData] = useState<TeamData>({ senior: [], junior: [] });
     const [loading, setLoading] = useState(false);
-
+const location = useLocation();
     useEffect(() => {
         const fetchReporters = async () => {
             setLoading(true);
@@ -61,8 +61,26 @@ export const Reporter: React.FC<ReporterProps> = () => {
                 const response = await api.get('/reporters');
                 const data: ReporterItem[] = response.data.data || [];
                 setReporters(data);
-                if (data.length > 0) setSelectedReporterId(data[0].id);
-            } catch (error) {
+if (data.length > 0) {
+
+    const activeTab = location.state?.activeTab;
+
+    if (activeTab === "writer") {
+
+        const writerReporter = data.find(
+            (item) => item.name.toLowerCase().includes("writer")
+        );
+
+        setSelectedReporterId(
+            writerReporter ? writerReporter.id : data[0].id
+        );
+
+    } else {
+
+        setSelectedReporterId(data[0].id);
+
+    }
+}            } catch (error) {
                 console.error("Error:", error);
             } finally {
                 setLoading(false);
@@ -100,19 +118,30 @@ export const Reporter: React.FC<ReporterProps> = () => {
     }, [selectedReporterId]);
 
     return (
-<div className="w-full max-w-7xl mx-auto px-4 py-8 md:py-10 min-h-screen mt-32 md:mt-52">
-            {/* Tab Switcher - Mobile Friendly Scroll */}
+        <div className="w-full max-w-7xl mx-auto px-4 py-8 md:py-10 min-h-screen mt-12 md:mt-52">
+            
+            {/* Tab Switcher - Modified for Mobile Wrapping */}
             <div className="flex justify-center mb-8 md:mb-12">
-                <div className="flex overflow-x-auto no-scrollbar gap-2 bg-[#F0ECE1] p-1.5 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl">
+                <div className="flex flex-wrap md:flex-nowrap justify-center gap-2 bg-[#F0ECE1] p-2 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl">
                     {reporters.map((reporter) => (
                         <button
                             key={reporter.id}
                             onClick={() => setSelectedReporterId(reporter.id)}
-                            className={`whitespace-nowrap flex-1 min-w-[100px] md:min-w-[120px] py-2.5 md:py-3 px-4 rounded-xl md:rounded-full text-xs md:text-sm font-bold transition-all duration-300 capitalize ${
-                                selectedReporterId === reporter.id
-                                    ? 'bg-[#932725] text-white shadow-md'
-                                    : 'text-[#6C5F47] hover:bg-white/50'
-                            }`}
+                            className={`
+                                /* Mobile: Two buttons per row, Tablet/Desktop: Auto width */
+                                flex-grow md:flex-none 
+                                min-w-[45%] sm:min-w-[140px] md:min-w-[120px] 
+                                
+                                py-2.5 md:py-3 px-4 
+                                rounded-xl md:rounded-full 
+                                text-xs md:text-sm font-bold 
+                                transition-all duration-300 capitalize 
+                                ${
+                                    selectedReporterId === reporter.id
+                                        ? 'bg-[#932725] text-white shadow-md'
+                                        : 'text-[#6C5F47] hover:bg-white/50'
+                                }
+                            `}
                         >
                             {reporter.name}
                         </button>
@@ -129,7 +158,6 @@ export const Reporter: React.FC<ReporterProps> = () => {
                 <div className="space-y-10">
                     <section>
                         {personsData.senior.length > 0 ? (
-                            /* Grid Layout for Mobile and Desktop */
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                                 {personsData.senior.map((member) => (
                                     <div

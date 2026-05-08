@@ -30,9 +30,15 @@ useEffect(() => {
     );
 }, []);
 
-  return (
-    <div className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
+if (editorsPicks.length === 0) {
+  return null;
+}
+
+return (
+
+  
+<div className="w-full bg-white pt-16 pb-8">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
 
         {/* Header */}
         <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0">

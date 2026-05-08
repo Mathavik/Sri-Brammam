@@ -55,6 +55,9 @@ const navigate = useNavigate();
     );
   };
 
+  if (categories.length === 0) {
+  return null;
+}
   return (
     <div className="w-full px-6 md:px-12 py-8 bg-white max-w-7xl mx-auto">
 
