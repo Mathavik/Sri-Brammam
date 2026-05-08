@@ -24,10 +24,12 @@ const SponsorsBar: React.FC = () => {
 
     fetchClients();
   }, []);
+  if (clients.length === 0) {
+  return null;
+}
 
   return (
-    <div className="w-full bg-white py-12 px-4 md:px-8 flex justify-center items-center -mt-16">
-
+<div className="w-full bg-white py-12 px-4 md:px-8 flex justify-center items-center mt-8 md:mt-12">
       <div className="w-full max-w-6xl bg-[#F9F9F9] py-10 px-6 md:px-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8">
 
         {clients.map((client) => (
