@@ -110,7 +110,6 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Copyright Section */}
-        {/* Divider and Copyright */}
 <div 
   className="w-full border-t border-red-400/50 pt-6 mt-10 text-center lg:text-left"
 >
@@ -121,7 +120,7 @@ const Footer: React.FC = () => {
       fontWeight: 600
     }}
   >
-    © 2026 Sri Brammam. All Rights Reserved
+    © {new Date().getFullYear()} Sri Brammam. All Rights Reserved
   </p>
 </div>
         </div>

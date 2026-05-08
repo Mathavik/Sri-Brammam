@@ -78,9 +78,8 @@ const TopWriters: React.FC = () => {
       </div>
 
       {/* Desktop View */}
-      <div className="hidden lg:flex items-center justify-between gap-6 overflow-x-auto">
-
-        {writers.map((writer) => (
+<div className="hidden lg:grid grid-cols-3 xl:grid-cols-4 gap-x-12 gap-y-8">
+          {writers.map((writer) => (
 
           <div
             key={writer.id}
