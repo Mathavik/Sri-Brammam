@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import api from "../../api";
 
 type Post = {
@@ -19,6 +19,7 @@ type Post = {
 const AllPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+  const [selectedTitle, setSelectedTitle] = useState<string>("");
 
   useEffect(() => {
     api
@@ -27,10 +28,20 @@ const AllPosts: React.FC = () => {
         console.log(res.data.data);
         setPosts(res.data.data);
       })
-      .catch((err: any) =>
-        console.error("API Error:", err)
-      );
+      .catch((err: any) => console.error("API Error:", err));
   }, []);
+
+  // Mobile detect
+  const isMobile = useMemo(() => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  }, []);
+
+  // PDF src
+  const getPdfSrc = () => {
+    if (!selectedPdf) return "";
+
+    return `${selectedPdf}#toolbar=1&navpanes=1&scrollbar=1`;
+  };
 
   return (
     <>
@@ -53,7 +64,9 @@ const AllPosts: React.FC = () => {
               key={post.id}
               onClick={() => {
                 if (post.pdf) {
+                  // Both mobile and desktop → modal view
                   setSelectedPdf(post.pdf);
+                  setSelectedTitle(post.title);
                 } else {
                   alert("PDF not uploaded");
                 }
@@ -118,32 +131,49 @@ const AllPosts: React.FC = () => {
         </div>
       </div>
 
-      {/* PDF POPUP */}
+      {/* PDF MODAL - Mobile & Desktop */}
       {selectedPdf && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex justify-center items-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-0 md:p-4">
 
-          <div className="relative w-full max-w-6xl h-[90vh] bg-white rounded-2xl overflow-hidden">
+          <div className="relative w-full h-full md:w-[95vw] md:h-[95vh] bg-[#323639] md:rounded-lg overflow-hidden flex flex-col">
 
-            {/* CLOSE BUTTON */}
-            <button
-              onClick={() => setSelectedPdf(null)}
-              className="absolute top-4 right-4 z-50 bg-red-600 hover:bg-red-700 text-white w-10 h-10 rounded-full"
-            >
-              ✕
-            </button>
+            {/* TOP BAR */}
+            <div className="w-full bg-[#323639] text-white p-3 flex justify-between items-center px-6">
+
+              <span className="text-sm md:text-base font-medium truncate">
+                {selectedTitle}
+              </span>
+
+              <button
+                onClick={() => {
+                  setSelectedPdf(null);
+                  setSelectedTitle("");
+                }}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-md text-sm font-bold transition-colors"
+              >
+                Close
+              </button>
+
+            </div>
 
             {/* PDF VIEWER */}
-            <iframe
-              src={selectedPdf}
-              title="PDF Viewer"
-              className="w-full h-full"
-            />
+            <div className="flex-grow w-full h-full bg-white">
+
+              <iframe
+                src={getPdfSrc()}
+                title="PDF Viewer"
+                className="w-full h-full border-none"
+                loading="lazy"
+              />
+
+            </div>
 
           </div>
 
         </div>
       )}
     </>
+
   );
 };
 
