@@ -38,23 +38,23 @@ const EditorsPick: React.FC = () => {
       <div className="w-full bg-white py-16">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
 
-           {/* Header */}
-        <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0">
-          <h2
-            className="text-3xl font-bold text-gray-800 text-center md:text-left w-full md:w-auto"
-            style={{ fontFamily: "Arima, serif" }}
-          >
-            Editor’s Pick
-          </h2>
+          {/* Header */}
+          <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0">
+            <h2
+              className="text-3xl font-bold text-gray-800 text-center md:text-left w-full md:w-auto"
+              style={{ fontFamily: "Arima, serif" }}
+            >
+              Editor’s Pick
+            </h2>
 
-          <span
-            onClick={() => navigate("/all-posts")}
-            className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
-            style={{ color: "#B22C23", fontWeight: 600 }}
-          >
-            See All &rarr;
-          </span>
-        </div>
+            <span
+              onClick={() => navigate("/all-posts")}
+              className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
+              style={{ color: "#B22C23", fontWeight: 600 }}
+            >
+              See All &rarr;
+            </span>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -83,39 +83,43 @@ const EditorsPick: React.FC = () => {
                 {/* CONTENT */}
                 <div className="p-5">
 
-                  <div className="flex items-center gap-2 mb-4">
+                  {/* Creator */}
+                  <div className="flex items-center gap-3 mb-4">
 
                     <img
                       src={item.creator.profile_image}
                       alt={item.creator.name}
-                      className="w-7 h-7 rounded-full"
+                      className="w-10 h-10 rounded-full object-cover"
                     />
 
-                    <span className="text-sm font-semibold">
+                    <span className="text-sm font-semibold text-gray-700">
                       {item.creator.name}
                     </span>
 
                   </div>
 
-                  <h3 className="text-2xl font-bold mb-4">
+                  {/* Title */}
+                  <h2 className="text-xl font-bold text-gray-900 leading-snug mb-4 font-['Arima']">
+
                     {item.title}
-                  </h3>
 
-                  <div className="flex gap-2 text-sm text-gray-500">
+                  </h2>
 
-                    <span className="text-red-700">
+                  {/* Footer */}
+                  <div className="flex items-center gap-2 text-sm text-gray-500">
+
+                    <span className="text-[#B22C23] font-medium">
                       {item.category.name}
                     </span>
 
                     <span>|</span>
 
-                    <span>
-                      {item.read_time} Mins Read
-                    </span>
+                    <span>{item.read_time} Mins Read</span>
 
                   </div>
 
                 </div>
+
 
               </div>
             ))}
