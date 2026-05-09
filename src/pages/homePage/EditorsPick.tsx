@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api";
-
+import { useNavigate } from "react-router-dom";
 type EditorPick = {
   id: number;
   title: string;
@@ -19,6 +19,7 @@ type EditorPick = {
 const EditorsPick: React.FC = () => {
   const [editorsPicks, setEditorsPicks] = useState<EditorPick[]>([]);
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     api
@@ -26,19 +27,34 @@ const EditorsPick: React.FC = () => {
       .then((res: any) => {
         setEditorsPicks(res.data.data);
       })
-      .catch((err: any) => {
-        console.error(err);
-      });
+      .catch((err: any) => console.error("API Error:", err));
   }, []);
+
+  if (editorsPicks.length === 0) return null;
+
 
   return (
     <>
       <div className="w-full bg-white py-16">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
 
-          <h2 className="text-3xl font-bold mb-10">
+           {/* Header */}
+        <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0">
+          <h2
+            className="text-3xl font-bold text-gray-800 text-center md:text-left w-full md:w-auto"
+            style={{ fontFamily: "Arima, serif" }}
+          >
             Editor’s Pick
           </h2>
+
+          <span
+            onClick={() => navigate("/all-posts")}
+            className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
+            style={{ color: "#B22C23", fontWeight: 600 }}
+          >
+            See All &rarr;
+          </span>
+        </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
