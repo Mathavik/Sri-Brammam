@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
+
 type EditorPick = {
   id: number;
   title: string;
@@ -19,6 +20,8 @@ type EditorPick = {
 const EditorsPick: React.FC = () => {
   const [editorsPicks, setEditorsPicks] = useState<EditorPick[]>([]);
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+  const [selectedTitle, setSelectedTitle] = useState<string>("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,8 +33,19 @@ const EditorsPick: React.FC = () => {
       .catch((err: any) => console.error("API Error:", err));
   }, []);
 
-  if (editorsPicks.length === 0) return null;
+  // Mobile detect
+  const isMobile = useMemo(() => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  }, []);
 
+  // PDF src
+  const getPdfSrc = () => {
+    if (!selectedPdf) return "";
+
+    return `${selectedPdf}#toolbar=1&navpanes=1&scrollbar=1`;
+  };
+
+  if (editorsPicks.length === 0) return null;
 
   return (
     <>
@@ -40,6 +54,7 @@ const EditorsPick: React.FC = () => {
 
           {/* Header */}
           <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0">
+
             <h2
               className="text-3xl font-bold text-gray-800 text-center md:text-left w-full md:w-auto"
               style={{ fontFamily: "Arima, serif" }}
@@ -54,8 +69,10 @@ const EditorsPick: React.FC = () => {
             >
               See All &rarr;
             </span>
+
           </div>
 
+          {/* Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
             {editorsPicks.map((item) => (
@@ -64,6 +81,7 @@ const EditorsPick: React.FC = () => {
                 onClick={() => {
                   if (item.pdf) {
                     setSelectedPdf(item.pdf);
+                    setSelectedTitle(item.title);
                   } else {
                     alert("PDF not uploaded");
                   }
@@ -73,11 +91,13 @@ const EditorsPick: React.FC = () => {
 
                 {/* IMAGE */}
                 <div className="h-[300px] overflow-hidden">
+
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hover:scale-105 transition duration-300"
                   />
+
                 </div>
 
                 {/* CONTENT */}
@@ -131,24 +151,40 @@ const EditorsPick: React.FC = () => {
 
       {/* PDF MODAL */}
       {selectedPdf && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-0 md:p-4">
 
-          <div className="relative w-full max-w-6xl h-[90vh] bg-white rounded-2xl overflow-hidden">
+          <div className="relative w-full h-full md:w-[95vw] md:h-[95vh] bg-[#323639] md:rounded-lg overflow-hidden flex flex-col">
 
-            {/* CLOSE */}
-            <button
-              onClick={() => setSelectedPdf(null)}
-              className="absolute top-4 right-4 z-50 bg-red-600 text-white w-10 h-10 rounded-full"
-            >
-              ✕
-            </button>
+            {/* TOP BAR */}
+            <div className="w-full bg-[#323639] text-white p-3 flex justify-between items-center px-6">
 
-            {/* PDF */}
-            <iframe
-              src={selectedPdf}
-              title="PDF Viewer"
-              className="w-full h-full"
-            />
+              <span className="text-sm md:text-base font-medium truncate">
+                {selectedTitle}
+              </span>
+
+              <button
+                onClick={() => {
+                  setSelectedPdf(null);
+                  setSelectedTitle("");
+                }}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-md text-sm font-bold transition-colors"
+              >
+                Close
+              </button>
+
+            </div>
+
+            {/* PDF VIEWER */}
+            <div className="flex-grow w-full h-full bg-white">
+
+              <iframe
+                src={getPdfSrc()}
+                title="PDF Viewer"
+                className="w-full h-full border-none"
+                loading="lazy"
+              />
+
+            </div>
 
           </div>
 
