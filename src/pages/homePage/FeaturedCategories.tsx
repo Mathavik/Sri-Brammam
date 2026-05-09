@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
 type Category = {
@@ -18,8 +18,10 @@ const staticImages = [
 
 const FeaturedCategories: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-const navigate = useNavigate();
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   // API Fetch
  useEffect(() => {
   api
@@ -43,21 +45,37 @@ const navigate = useNavigate();
     );
 }, []);
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? categories.length - 1 : prev - 1
-    );
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -320, behavior: "smooth" });
+    }
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prev) =>
-      prev === categories.length - 1 ? 0 : prev + 1
-    );
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 320, behavior: "smooth" });
+    }
   };
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    setShowLeftArrow(scrollLeft > 8);
+    setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 8);
+  };
+
+  useEffect(() => {
+    const node = scrollRef.current;
+    if (!node) return;
+    node.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => node.removeEventListener("scroll", handleScroll);
+  }, [categories]);
 
   if (categories.length === 0) {
-  return null;
-}
+    return null;
+  }
   return (
     <div className="w-full px-6 md:px-12 py-8 bg-white max-w-7xl mx-auto">
 
@@ -79,85 +97,56 @@ const navigate = useNavigate();
 </span>
       </div>
 
-      {/* Desktop View */}
-      <div className="hidden md:grid grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
-        {categories.map((cat, index) => (
+      <div className="relative">
+        {showLeftArrow && (
+          <button
+            onClick={scrollLeft}
+            className="absolute left-0 top-1/2 z-20 -translate-y-1/2 bg-white/90 backdrop-blur-md shadow-lg w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-gray-700 hover:bg-white transition"
+          >
+            &#8249;
+          </button>
+        )}
+
+        {showRightArrow && (
+          <button
+            onClick={scrollRight}
+            className="absolute right-0 top-1/2 z-20 -translate-y-1/2 bg-white/90 backdrop-blur-md shadow-lg w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-gray-700 hover:bg-white transition"
+          >
+            &#8250;
+          </button>
+        )}
+
         <div
-  key={index}
-  onClick={() => navigate(`/category-posts/${cat.id}`)}
-  className="relative h-[220px] md:h-[240px] lg:h-[260px] rounded-2xl overflow-hidden group cursor-pointer shadow-sm"
->
-            {/* Background Image from API */}
-            <img
-              src={cat.bgImage}
-              alt="bg"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-
-            <div className="absolute inset-0 bg-black/30"></div>
-
-            {/* Static Public Image */}
-            <img
-              src={cat.image}
-              alt={cat.title}
-              className="relative w-full h-full object-cover group-hover:scale-105 transition duration-300"
-            />
-
-            <div className="absolute bottom-4 left-4 text-white text-base md:text-lg font-semibold drop-shadow-lg font-['Arima']">
-              {cat.title}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Mobile View */}
-      {categories.length > 0 && (
-        <div className="md:hidden flex flex-col items-center">
-<div
-  onClick={() =>
-    navigate(`/category-posts/${categories[currentIndex].id}`)
-  }
-  className="relative w-full max-w-[280px] h-[300px] rounded-2xl overflow-hidden shadow-md cursor-pointer"
->
-            {/* API Background */}
-            <img
-              src={categories[currentIndex].bgImage}
-              alt="bg"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-
-            <div className="absolute inset-0 bg-black/30"></div>
-
-            {/* Static Image */}
-            <img
-              src={categories[currentIndex].image}
-              alt={categories[currentIndex].title}
-              className="relative w-full h-full object-cover"
-            />
-
-            <div className="absolute bottom-4 left-4 text-white text-lg font-semibold drop-shadow-lg font-['Arima']">
-              {categories[currentIndex].title}
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="flex justify-center items-center gap-6 mt-6">
-            <button
-              onClick={handlePrev}
-              className="p-3 bg-orange-50 hover:bg-orange-100 text-[#a22b10] rounded-full transition shadow-sm border border-orange-200 focus:outline-none"
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hide pb-4 px-8 scroll-smooth"
+        >
+          {categories.map((cat, index) => (
+            <div
+              key={index}
+              onClick={() => navigate(`/category-posts/${cat.id}`)}
+              className="relative min-w-[240px] sm:min-w-[260px] md:min-w-[280px] h-[260px] rounded-2xl overflow-hidden group cursor-pointer shadow-sm flex-shrink-0"
             >
-              ←
-            </button>
+              <img
+                src={cat.bgImage}
+                alt="bg"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
 
-            <button
-              onClick={handleNext}
-              className="p-3 bg-orange-50 hover:bg-orange-100 text-[#a22b10] rounded-full transition shadow-sm border border-orange-200 focus:outline-none"
-            >
-              →
-            </button>
-          </div>
+              <div className="absolute inset-0 bg-black/30"></div>
+
+              <img
+                src={cat.image}
+                alt={cat.title}
+                className="relative w-full h-full object-cover group-hover:scale-105 transition duration-300"
+              />
+
+              <div className="absolute bottom-4 left-4 text-white text-base md:text-lg font-semibold drop-shadow-lg font-['Arima']">
+                {cat.title}
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
