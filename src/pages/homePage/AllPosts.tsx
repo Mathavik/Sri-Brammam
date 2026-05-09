@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import api from "../../api";
+import { Link } from "react-router-dom"; // Mela import panniidunga
+
 
 type Post = {
   id: number;
@@ -45,16 +47,24 @@ const AllPosts: React.FC = () => {
 
   return (
     <>
+
+// AllPosts component kulla, "All Posts" heading-ku pakkathula mela intha button-a vaiyinga
+      
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-48 md:mt-56 pb-16">
 
         {/* Heading */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-between items-center mb-12">
+        <h1 className="text-3xl md:text-4xl font-bold font-['Arima']">
+          All Posts
+        </h1>
 
-          <h1 className="text-3xl md:text-4xl font-bold font-['Arima'] text-center">
-            All Posts
-          </h1>
-
-        </div>
+        <Link
+          to="/"
+          className="bg-[#B22C23] text-white px-6 py-2 rounded-full font-semibold hover:bg-red-800 transition shadow-md"
+        >
+          Go to Editor's Pick
+        </Link>
+      </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

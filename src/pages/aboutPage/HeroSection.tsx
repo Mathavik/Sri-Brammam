@@ -2,6 +2,7 @@ import React from "react";
 import HeroBanner from "./HeroBanner";
 import SubscribeSection from "../homePage/SubscribeSection";
 import StatsSection from "./StatsSection";
+import AboutUs from "./aboutUs";
 
 export default function AboutPage() {
   return (
@@ -9,8 +10,8 @@ export default function AboutPage() {
 
       <HeroBanner />
       <StatsSection />
+      <AboutUs />
       <div className="mt-6"></div>
-
       {/* <SubscribeSection /> */}
 
     </div>

@@ -14,7 +14,7 @@ const HeroBanner = () => {
 
         const response = await api.get("/global-config");
 
-        setAboutUs(response.data.data.about_us || "");
+        setAboutUs(response.data.data.short_about_us || "");
 
       } catch (error) {
 
