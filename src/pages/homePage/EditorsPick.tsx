@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +24,9 @@ const EditorsPick: React.FC = () => {
 
   const navigate = useNavigate();
 
+  // Scroll Ref
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     api
       .get("/editors-picks")
@@ -43,6 +46,26 @@ const EditorsPick: React.FC = () => {
     if (!selectedPdf) return "";
 
     return `${selectedPdf}#toolbar=1&navpanes=1&scrollbar=1`;
+  };
+
+  // Scroll Left
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: -400,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // Scroll Right
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: 400,
+        behavior: "smooth",
+      });
+    }
   };
 
   if (editorsPicks.length === 0) return null;
@@ -72,77 +95,100 @@ const EditorsPick: React.FC = () => {
 
           </div>
 
-          {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Horizontal Scroll Wrapper */}
+          <div className="relative">
 
-            {editorsPicks.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => {
-                  if (item.pdf) {
-                    setSelectedPdf(item.pdf);
-                    setSelectedTitle(item.title);
-                  } else {
-                    alert("PDF not uploaded");
-                  }
-                }}
-                className="bg-white rounded-3xl overflow-hidden border shadow cursor-pointer hover:shadow-2xl transition"
-              >
+            {/* LEFT ARROW */}
+            <button
+              onClick={scrollLeft}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold hover:bg-gray-100 transition"
+            >
+              &#8249;
+            </button>
 
-                {/* IMAGE */}
-                <div className="h-[300px] overflow-hidden">
+            {/* RIGHT ARROW */}
+            <button
+              onClick={scrollRight}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold hover:bg-gray-100 transition"
+            >
+              &#8250;
+            </button>
 
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover hover:scale-105 transition duration-300"
-                  />
+            {/* Cards */}
+            <div
+              ref={scrollRef}
+              className="flex gap-6 overflow-x-auto overflow-y-hidden scrollbar-hide pb-4 snap-x snap-mandatory scroll-smooth px-14"
+            >
 
-                </div>
+              {editorsPicks.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => {
+                    if (item.pdf) {
+                      setSelectedPdf(item.pdf);
+                      setSelectedTitle(item.title);
+                    } else {
+                      alert("PDF not uploaded");
+                    }
+                  }}
+                  className="min-w-[31%] max-w-[31%] md:min-w-[31%] md:max-w-[31%] sm:min-w-[80%] flex-shrink-0 bg-white rounded-3xl overflow-hidden border shadow cursor-pointer hover:shadow-2xl transition duration-300 snap-start"
+                >
 
-                {/* CONTENT */}
-                <div className="p-5">
-
-                  {/* Creator */}
-                  <div className="flex items-center gap-3 mb-4">
+                  {/* IMAGE */}
+                  <div className="h-[300px] overflow-hidden">
 
                     <img
-                      src={item.creator.profile_image}
-                      alt={item.creator.name}
-                      className="w-10 h-10 rounded-full object-cover"
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover hover:scale-105 transition duration-300"
                     />
-
-                    <span className="text-sm font-semibold text-gray-700">
-                      {item.creator.name}
-                    </span>
 
                   </div>
 
-                  {/* Title */}
-                  <h2 className="text-xl font-bold text-gray-900 leading-snug mb-4 font-['Arima']">
+                  {/* CONTENT */}
+                  <div className="p-5">
 
-                    {item.title}
+                    {/* Creator */}
+                    <div className="flex items-center gap-3 mb-4">
 
-                  </h2>
+                      <img
+                        src={item.creator.profile_image}
+                        alt={item.creator.name}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
 
-                  {/* Footer */}
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <span className="text-sm font-semibold text-gray-700">
+                        {item.creator.name}
+                      </span>
 
-                    <span className="text-[#B22C23] font-medium">
-                      {item.category.name}
-                    </span>
+                    </div>
 
-                    <span>|</span>
+                    {/* Title */}
+                    <h2 className="text-xl font-bold text-gray-900 leading-snug mb-4 font-['Arima']">
 
-                    <span>{item.read_time} Mins Read</span>
+                      {item.title}
+
+                    </h2>
+
+                    {/* Footer */}
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+
+                      <span className="text-[#B22C23] font-medium">
+                        {item.category.name}
+                      </span>
+
+                      <span>|</span>
+
+                      <span>{item.read_time} Mins Read</span>
+
+                    </div>
 
                   </div>
 
                 </div>
+              ))}
 
-
-              </div>
-            ))}
+            </div>
 
           </div>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api"; // <-- unga api.tsx path-ku correct aa change pannunga
 
@@ -11,7 +11,9 @@ type Writer = {
 
 const TopWriters: React.FC = () => {
   const [writers, setWriters] = useState<Writer[]>([]);
-  const [current, setCurrent] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
 
   const navigate = useNavigate();
 
@@ -38,17 +40,43 @@ const TopWriters: React.FC = () => {
     fetchTopWriters();
   }, []);
 
-  const prev = () => {
-    setCurrent((prev) =>
-      prev === 0 ? writers.length - 1 : prev - 1
-    );
+  // Scroll functions
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: -300,
+        behavior: "smooth",
+      });
+    }
   };
 
-  const next = () => {
-    setCurrent((prev) =>
-      prev === writers.length - 1 ? 0 : prev + 1
-    );
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: 300,
+        behavior: "smooth",
+      });
+    }
   };
+
+  // Handle scroll to show/hide arrows
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    const scrollElement = scrollRef.current;
+    if (scrollElement) {
+      scrollElement.addEventListener('scroll', handleScroll);
+      // Initial check
+      handleScroll();
+      return () => scrollElement.removeEventListener('scroll', handleScroll);
+    }
+  }, [writers]);
 
 if (writers.length === 0) {
   return null;
@@ -81,151 +109,62 @@ return (
 
       </div>
 
-      {/* Desktop View */}
-<div className="hidden lg:grid grid-cols-3 xl:grid-cols-4 gap-x-12 gap-y-8">
-          {writers.map((writer) => (
-
-          <div
-            key={writer.id}
-            onClick={() => navigate(`/writer/${writer.id}`)}
-            className="flex items-center gap-4 min-w-[220px] cursor-pointer"
+      {/* Horizontal Scroll Container */}
+      <div className="relative">
+        {/* Left Arrow */}
+        {showLeftArrow && (
+          <button
+            onClick={scrollLeft}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold hover:bg-gray-100 transition"
           >
+            &#8249;
+          </button>
+        )}
 
-            <img
-              src={writer.image}
-              alt={writer.name}
-              className="w-16 h-16 rounded-full object-cover border border-gray-100 shadow-sm"
-            />
+        {/* Right Arrow */}
+        {showRightArrow && (
+          <button
+            onClick={scrollRight}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold hover:bg-gray-100 transition"
+          >
+            &#8250;
+          </button>
+        )}
 
-            <div>
-              <h3 className="text-base font-semibold text-gray-900">
-                {writer.name}
-              </h3>
+        {/* Writers Container */}
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto overflow-y-hidden scrollbar-hide pb-4 px-12 scroll-smooth"
+        >
+          {writers.map((writer) => (
+            <div
+              key={writer.id}
+              onClick={() => navigate(`/writer/${writer.id}`)}
+              className="flex items-center gap-4 min-w-[280px] cursor-pointer flex-shrink-0"
+            >
+              <img
+                src={writer.image}
+                alt={writer.name}
+                className="w-16 h-16 rounded-full object-cover border border-gray-100 shadow-sm"
+              />
 
-              <p className="text-sm text-gray-500">
-                {writer.role}
-              </p>
+              <div>
+                <h3 className="text-base font-semibold text-gray-900">
+                  {writer.name}
+                </h3>
+
+                <p className="text-sm text-gray-500">
+                  {writer.role}
+                </p>
+              </div>
             </div>
-
-          </div>
-
-        ))}
-
+          ))}
+        </div>
       </div>
 
-      {/* Mobile View */}
-      {writers.length > 0 && (
-        <div className="md:hidden flex items-center justify-between px-1 w-full">
 
-          <button
-            onClick={prev}
-className="p-2 -ml-1 text-4xl font-bold text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0">
-            ←
-          </button>
 
-<div
-  onClick={() => navigate(`/writer/${writers[current].id}`)}
-  className="flex items-center gap-3 px-1 overflow-hidden max-w-[75%] cursor-pointer"
->
-            <img
-              src={writers[current].image}
-              alt={writers[current].name}
-              className="w-12 h-12 rounded-full object-cover border border-gray-100 shadow-sm shrink-0"
-            />
 
-            <div className="min-w-0">
-              <h3 className="text-sm font-semibold text-gray-900 truncate">
-                {writers[current].name}
-              </h3>
-
-              <p className="text-xs text-gray-500 truncate">
-                {writers[current].role}
-              </p>
-            </div>
-
-          </div>
-
-          <button
-            onClick={next}
-className="p-2 -mr-1 text-4xl font-bold text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"          >
-            →
-          </button>
-
-        </div>
-      )}
-
-      {/* Tablet View */}
-      {writers.length > 0 && (
-        <div className="hidden md:flex lg:hidden items-center justify-between px-6 w-full">
-
-          <button
-            onClick={prev}
-            className="p-2 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
-          >
-            ←
-          </button>
-
-          <div className="flex items-center justify-around gap-12 w-full px-4 overflow-hidden">
-
-            {/* Writer 1 */}
-<div
-  onClick={() => navigate(`/writer/${writers[current].id}`)}
-  className="flex items-center gap-4 min-w-[200px] max-w-[260px] cursor-pointer"
->
-              <img
-                src={writers[current].image}
-                alt={writers[current].name}
-                className="w-16 h-16 rounded-full object-cover border border-gray-100 shadow-sm shrink-0"
-              />
-
-              <div className="min-w-0">
-                <h3 className="text-base font-semibold text-gray-900 truncate">
-                  {writers[current].name}
-                </h3>
-
-                <p className="text-sm text-gray-500 truncate">
-                  {writers[current].role}
-                </p>
-              </div>
-
-            </div>
-
-            {/* Writer 2 */}
-<div
-  onClick={() =>
-    navigate(`/writer/${writers[(current + 1) % writers.length].id}`)
-  }
-  className="flex items-center gap-4 min-w-[200px] max-w-[260px] cursor-pointer"
->
-              <img
-                src={writers[(current + 1) % writers.length].image}
-                alt={writers[(current + 1) % writers.length].name}
-                className="w-16 h-16 rounded-full object-cover border border-gray-100 shadow-sm shrink-0"
-              />
-
-              <div className="min-w-0">
-                <h3 className="text-base font-semibold text-gray-900 truncate">
-                  {writers[(current + 1) % writers.length].name}
-                </h3>
-
-                <p className="text-sm text-gray-500 truncate">
-                  {writers[(current + 1) % writers.length].role}
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-
-          <button
-            onClick={next}
-            className="p-2 text-gray-600 hover:text-gray-900 transition focus:outline-none shrink-0"
-          >
-            →
-          </button>
-
-        </div>
-      )}
 
     </div>
   );
