@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import api from "../../api";
 
 interface GlobalConfig {
@@ -11,26 +15,64 @@ interface GlobalConfig {
 }
 
 const StatsSection: React.FC = () => {
-  const [config, setConfig] = useState<GlobalConfig | null>(null);
 
-  const [loading, setLoading] = useState(true);
+  const [config, setConfig] =
+    useState<GlobalConfig | null>(null);
 
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] =
+    useState(true);
 
+  const [error, setError] =
+    useState<string | null>(null);
+
+  // =========================
+  // Fetch API + Cache
+  // =========================
   useEffect(() => {
+    let isMounted = true;
 
     const fetchConfig = async () => {
-
       try {
 
-        const result: any = await api.get(
-          "/global-config"
+        // Cached Data
+        const cachedConfig =
+          localStorage.getItem(
+            "globalConfig"
+          );
+
+        if (cachedConfig) {
+
+          setConfig(
+            JSON.parse(cachedConfig)
+          );
+
+          setLoading(false);
+        }
+
+        console.time("Global Config API");
+
+        const result: any =
+          await api.get(
+            "/global-config"
+          );
+
+        console.timeEnd(
+          "Global Config API"
         );
 
         const data: GlobalConfig =
           result.data.data;
 
-        setConfig(data);
+        if (isMounted && data) {
+
+          setConfig(data);
+
+          // Save Cache
+          localStorage.setItem(
+            "globalConfig",
+            JSON.stringify(data)
+          );
+        }
 
       } catch (err: any) {
 
@@ -39,19 +81,26 @@ const StatsSection: React.FC = () => {
           err
         );
 
-        setError("Unable to load statistics.");
+        setError(
+          "Unable to load statistics."
+        );
 
       } finally {
 
         setLoading(false);
-
       }
     };
 
     fetchConfig();
 
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
+  // =========================
+  // Values
+  // =========================
   const yearValue = config?.year
     ? `${config.year}+`
     : "--";
@@ -69,11 +118,29 @@ const StatsSection: React.FC = () => {
 
       <div className="w-full bg-[#FFF9F6] py-6 md:py-8 px-6 md:px-10 border border-[#B12A1C]/20 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4">
 
+        {/* Loading Skeleton */}
         {loading ? (
 
-          <div className="w-full text-center text-[#B12A1C] font-semibold">
-            Loading statistics...
-          </div>
+          <>
+            {[1, 2, 3].map((item) => (
+
+              <div
+                key={item}
+                className="flex items-center gap-6 w-full md:w-auto"
+              >
+
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-200 animate-pulse"></div>
+
+                <div className="space-y-3">
+
+                  <div className="w-20 h-8 bg-gray-200 rounded animate-pulse"></div>
+
+                  <div className="w-24 h-4 bg-gray-200 rounded animate-pulse"></div>
+
+                </div>
+              </div>
+            ))}
+          </>
 
         ) : error ? (
 
@@ -90,6 +157,8 @@ const StatsSection: React.FC = () => {
               <img
                 src="/images/state/state1.png"
                 alt="years"
+                loading="lazy"
+                decoding="async"
                 className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
               />
 
@@ -102,9 +171,7 @@ const StatsSection: React.FC = () => {
                 <p className="text-black text-lg font-bold mt-1">
                   ஆண்டுகள்
                 </p>
-
               </div>
-
             </div>
 
             {/* Issues */}
@@ -113,6 +180,8 @@ const StatsSection: React.FC = () => {
               <img
                 src="/images/state/state2.png"
                 alt="publications"
+                loading="lazy"
+                decoding="async"
                 className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
               />
 
@@ -125,9 +194,7 @@ const StatsSection: React.FC = () => {
                 <p className="text-black text-lg font-bold mt-1">
                   வெளியீடுகள்
                 </p>
-
               </div>
-
             </div>
 
             {/* Readers */}
@@ -136,6 +203,8 @@ const StatsSection: React.FC = () => {
               <img
                 src="/images/state/state3.png"
                 alt="readers"
+                loading="lazy"
+                decoding="async"
                 className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
               />
 
@@ -148,18 +217,13 @@ const StatsSection: React.FC = () => {
                 <p className="text-black text-lg font-bold mt-1">
                   வாசகர்கள்
                 </p>
-
               </div>
-
             </div>
           </>
-
         )}
-
       </div>
-
     </div>
   );
 };
 
-export default StatsSection;
+export default React.memo(StatsSection);
