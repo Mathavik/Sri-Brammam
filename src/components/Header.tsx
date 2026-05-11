@@ -6,6 +6,9 @@ const Header: React.FC = () => {
 
   return (
     <header className="w-full bg-white shadow-sm md:shadow-none fixed top-0 left-0 right-0 z-50">
+            {/* this is unfixed header */}
+      {/* <header className="w-full bg-white shadow-sm md:shadow-none relative z-50"> */}
+
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4 md:py-6 px-4 md:px-10">
 
         {/* Left Section: Menu button (Mobile only) */}
@@ -31,15 +34,15 @@ const Header: React.FC = () => {
         <div className="hidden md:flex w-1/3 justify-start"></div>
 
         {/* Center: Logo */}
-       <div className="w-1/2 flex justify-center">
-  <a href="/">
-    <img
-      src="/images/logo.png"
-      alt="logo"
-      className="h-15 md:h-20 object-contain cursor-pointer hover:opacity-80 transition-opacity"
-    />
-  </a>
-</div>
+        <div className="w-1/2 flex justify-center">
+          <a href="/">
+            <img
+              src="/images/logo.png"
+              alt="logo"
+              className="h-15 md:h-20 object-contain cursor-pointer hover:opacity-80 transition-opacity"
+            />
+          </a>
+        </div>
 
         {/* Right Section: Login Button */}
         <div className="w-1/3 flex justify-end">
@@ -51,24 +54,24 @@ const Header: React.FC = () => {
       </div>
 
       {/* Desktop Navigation Section */}
- <div className="hidden md:block border-t border-b border-gray-200">
-  <nav
-    className="max-w-6xl mx-auto flex justify-center items-center gap-64 py-5 text-[#333] font-medium text-[18px]"
-    style={{ fontFamily: "Arima, serif" }}
-  >
-    <a href="/about" className="hover:text-red-600 transition px-6">
-      About
-    </a>
+      <div className="hidden md:block border-t border-b border-gray-200">
+        <nav
+          className="max-w-6xl mx-auto flex justify-center items-center gap-64 py-5 text-[#333] font-medium text-[18px]"
+          style={{ fontFamily: "Arima, serif" }}
+        >
+          <a href="/about" className="hover:text-red-600 transition px-6">
+            About
+          </a>
 
-    <a href="/issues" className="hover:text-red-600 transition px-6">
-      Issues
-    </a>
+          <a href="/issues" className="hover:text-red-600 transition px-6">
+            Issues
+          </a>
 
-    <a href="/reporters" className="hover:text-red-600 transition px-6">
-      Reporters
-    </a>
-  </nav>
-</div>
+          <a href="/reporters" className="hover:text-red-600 transition px-6">
+            Reporters
+          </a>
+        </nav>
+      </div>
 
       {/* Mobile Navigation Menu as an overlay */}
       {isMenuOpen && (
