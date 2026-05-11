@@ -8,7 +8,7 @@ import AboutPage from "./pages/aboutPage/HeroSection";
 import CommonIssue from "./pages/issuePage/commonIssue";
 
 import MainBan from "./pages/eventsPage/mainban";
-import { Reporter } from "./pages/reporterPage/reporter";
+import Reporter from "./pages/reporterPage/reporter";
 import AllCategories from "./pages/homePage/AllCategories";
 import AllPosts from "./pages/homePage/AllPosts";
 import CategoryPosts from "./pages/homePage/CategoryPosts";

@@ -2,29 +2,42 @@ import React, { useEffect, useState } from "react";
 import api from "../../api";
 
 const HeroBanner = () => {
-
   const [aboutUs, setAboutUs] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  // API Integration
+  // ⚡ CACHE KEY
+  const CACHE_KEY = "hero_banner_about_us";
+
   useEffect(() => {
-
     const fetchGlobalConfig = async () => {
-
       try {
+        // ⚡ FIRST CACHE CHECK
+        const cachedData = localStorage.getItem(CACHE_KEY);
 
+        if (cachedData) {
+          setAboutUs(cachedData);
+          setLoading(false);
+        }
+
+        // ⚡ API FETCH
         const response = await api.get("/global-config");
 
-        setAboutUs(response.data.data.short_about_us || "");
+        const aboutText =
+          response.data.data.short_about_us || "";
+
+        setAboutUs(aboutText);
+
+        // ⚡ SAVE CACHE
+        localStorage.setItem(CACHE_KEY, aboutText);
 
       } catch (error) {
-
         console.error("API Error:", error);
-
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchGlobalConfig();
-
   }, []);
 
   return (
@@ -47,12 +60,13 @@ const HeroBanner = () => {
       {/* Main Banner Container */}
       <div className="relative w-full h-[320px] sm:h-[350px] md:h-[400px] lg:h-[450px] mt-16 sm:mt-0">
 
-        {/* Banner Image & Overlay Gradient */}
+        {/* Banner Image */}
         <div className="absolute inset-0">
           <img
             src="/images/herosection/background.png"
             alt="background"
             className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
           />
 
           <div className="absolute inset-0 bg-gradient-to-r from-orange-900/70 to-transparent"></div>
@@ -74,16 +88,24 @@ const HeroBanner = () => {
           "
         >
 
-          {/* About Us Content from API */}
-          <p className="text-[10px] sm:text-xs md:text-xs lg:text-base leading-relaxed text-left">
-            {aboutUs}
-          </p>
+          {/* ⚡ SKELETON */}
+          {loading && !aboutUs ? (
+            <div className="w-full space-y-2 animate-pulse">
+              <div className="h-3 bg-white/30 rounded w-full"></div>
+              <div className="h-3 bg-white/30 rounded w-5/6"></div>
+              <div className="h-3 bg-white/30 rounded w-4/6"></div>
+              <div className="h-3 bg-white/30 rounded w-full"></div>
+            </div>
+          ) : (
+            <p className="text-[10px] sm:text-xs md:text-xs lg:text-base leading-relaxed text-left">
+              {aboutUs}
+            </p>
+          )}
 
         </div>
-
       </div>
     </div>
   );
 };
 
-export default HeroBanner;
+export default React.memo(HeroBanner);

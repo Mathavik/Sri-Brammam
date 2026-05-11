@@ -1,6 +1,6 @@
 import React from "react";
 import SubscribeSection from "../homePage/SubscribeSection";
-import { MagazineGallery } from "./issues";
+import  MagazineGallery  from "./issues";
 
 export default function CommonIssue() {
   return (
