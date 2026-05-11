@@ -45,7 +45,7 @@ const HeroBanner = () => {
 
       {/* Left Floating Text */}
       <div
-        className="ml-4 sm:ml-6 md:ml-8 lg:ml-4 mb-8 text-black 
+        className="ml-4 sm:ml-6 md:ml-8 lg:ml-16 mb-8 text-black 
                    max-w-[85%] sm:max-w-md md:max-w-lg"
       >
         <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
