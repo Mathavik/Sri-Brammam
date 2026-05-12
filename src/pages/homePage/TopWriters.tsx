@@ -349,7 +349,6 @@ const TopWriters: React.FC = () => {
         ))}
       </div>
 
-      {/* ARROWS */}
      {/* ARROWS */}
 <div className="flex justify-center gap-5 mt-6">
 

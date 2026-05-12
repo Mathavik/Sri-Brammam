@@ -183,7 +183,7 @@ const FeaturedCategories: React.FC = () => {
       <div className="w-full px-6 md:px-12 py-8 bg-white max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="flex items-center justify-between w-full mb-6">
+        {/* <div className="flex items-center justify-between w-full mb-6">
 
           <h2 className="font-['Arima'] text-[28px] font-semibold text-black capitalize">
             Featured Categories
@@ -196,7 +196,31 @@ const FeaturedCategories: React.FC = () => {
           >
             See All &rarr;
           </span>
-        </div>
+        </div> */}
+          <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0 px-6 md:px-10">
+
+            <h2
+className="text-[32px] md:text-3xl font-bold text-gray-800 text-center md:text-left whitespace-nowrap"              style={{
+                fontFamily:
+                  "Arima, serif",
+              }}
+            >
+              Featured Categories
+            </h2>
+
+            <span
+              onClick={() =>
+                navigate("/all-posts")
+              }
+              className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
+              style={{
+                color: "#B22C23",
+                fontWeight: 600,
+              }}
+            >
+              See All &rarr;
+            </span>
+          </div>
 
         {/* Slider */}
         <div className="relative group">
