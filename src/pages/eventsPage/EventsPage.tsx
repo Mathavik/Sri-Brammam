@@ -5,12 +5,12 @@ const events = [
   {
     id: 1,
     image: "/images/events/one.png",
-    title: "ஸ்ரீ பிரம்மம் மாத இதழ் வெளியீட்டு விழா",
+    title: "ஸ்ரீ ப்ரம்மம் மாத இதழ் வெளியீட்டு விழா",
     category: "வெளியீடு",
     description:
       "மாத பத்திரிக்கை வெளியீட்டின் சிறப்பு விழா. புதிய மாத இதழின் தலைப்புகள், கட்டுரைகள் மற்றும் நடிகர் பேச்சுக்கள் குறிப்பிடப்படும்.",
     date: "05 மே 2026",
-    location: "பிரம்மம் மண்டல மையம்,சென்னை",
+    location: "ப்ரம்மம் மண்டல மையம்,சென்னை",
   },
   {
     id: 2,
@@ -54,7 +54,7 @@ const EventsPage: React.FC = () => {
           <div className="space-y-4 sm:space-y-5">
             {/* மொபைலில் 1 வரியாக வர `whitespace-nowrap` மற்றும் `text-xs` கொடுக்கப்பட்டுள்ளது */}
             <div className="inline-flex items-center gap-3 rounded-full bg-[#ffeadb] px-3 py-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] sm:tracking-[0.35em] text-[#b33b1f] shadow-sm shadow-[#f8d5c8]/60 whitespace-nowrap">
-              ஸ்ரீ பிரம்மம் நிகழ்ச்சிகள்
+              ஸ்ரீ ப்ரம்மம் நிகழ்ச்சிகள்
             </div>
               {/* மொபைல் வியூவில் `text-lg` மற்றும் `break-words` பயன்படுத்தப்பட்டுள்ளது */}
             <h2 className="text-lg sm:text-3xl font-semibold leading-snug text-slate-900 break-words">
@@ -63,7 +63,7 @@ const EventsPage: React.FC = () => {
             
             {/* பத்தியின் அளவு மொபைலுக்கு `text-xs` மற்றும் டெஸ்க்டாப்பிற்கு `text-base` என மாற்றப்பட்டுள்ளது */}
             <p className="text-xs sm:text-lg max-w-3xl text-slate-700 leading-normal">
-              இங்கே ஸ்ரீ பிரம்மம் பிரபல நிகழ்ச்சிகளை, தமிழ் எழுத்து, பாரம்பரியம் மற்றும் ஆன்மிக பிரிவுகளைப் பற்றிய உயிர்வாழ்வு நிகழ்ச்சிகளாகக் காணலாம்.
+              இங்கே ஸ்ரீ ப்ரம்மம் பிரபல நிகழ்ச்சிகளை, தமிழ் எழுத்து, பாரம்பரியம் மற்றும் ஆன்மிக பிரிவுகளைப் பற்றிய உயிர்வாழ்வு நிகழ்ச்சிகளாகக் காணலாம்.
             </p>
             
             <div className="grid gap-4 sm:grid-cols-2">

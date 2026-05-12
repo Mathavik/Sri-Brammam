@@ -49,7 +49,7 @@ const HeroBanner = () => {
                    max-w-[85%] sm:max-w-md md:max-w-lg"
       >
         <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
-          ஸ்ரீ பிரம்மம்
+          ஸ்ரீ ப்ரம்மம்
         </h2>
 
         <p className="text-xs sm:text-xs md:text-sm lg:text-base font-medium">

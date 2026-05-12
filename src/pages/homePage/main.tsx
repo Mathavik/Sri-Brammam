@@ -115,7 +115,7 @@ const MainSection: React.FC = () => {
               lineHeight: "1.2",
             }}
           >
-            ஸ்ரீ பிரம்மம்
+            ஸ்ரீ ப்ரம்மம்
           </h1>
 
           <p
