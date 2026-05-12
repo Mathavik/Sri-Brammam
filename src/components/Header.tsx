@@ -45,12 +45,20 @@ const Header: React.FC = () => {
         </div>
 
         {/* Right Section: Login Button */}
-        <div className="w-1/3 flex justify-end">
-          <button className="bg-[#B22222] text-white px-5 md:px-8 py-2 rounded-full font-semibold text-xs md:text-sm transition hover:bg-red-800 shadow-md">
-            Login
-          </button>
-        </div>
-
+       {/* Right Section: Login Button */}
+<div className="w-1/3 flex justify-end">
+  <button
+    onClick={() =>
+      window.open(
+        "https://pcstech.in/pcs_api/brammam/public/admin/login",
+        "_blank"
+      )
+    }
+    className="bg-[#B22222] text-white px-5 md:px-8 py-2 rounded-full font-semibold text-xs md:text-sm transition hover:bg-red-800 shadow-md"
+  >
+    Login
+  </button>
+</div>
       </div>
 
       {/* Desktop Navigation Section */}
