@@ -20,7 +20,7 @@ const HeroBanner = () => {
         </h2>
 
         <p className="text-xs sm:text-xs md:text-sm lg:text-base font-medium">
-          “ஆன்மீகம் · அறம் · அறிவு – உங்கள் வழிகாட்டி”
+          “ஆன்மிகம் · அறம் · அறிவு – உங்கள் வழிகாட்டி”
         </p>
       </div>
 
