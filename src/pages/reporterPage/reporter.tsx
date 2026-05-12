@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 interface ReporterItem {
   id: number;
   name: string;
+  list_order: string;
   status: boolean;
   created_at: string;
 }
@@ -80,9 +81,16 @@ const Reporter: React.FC<ReporterProps> = () => {
         const response = await api.get("/reporters");
 
         const data: ReporterItem[] =
-          response.data.data || [];
+  response.data.data || [];
 
-        setReporters(data);
+// SORT BY list_order
+const sortedData = data.sort(
+  (a: any, b: any) =>
+    Number(a.list_order) -
+    Number(b.list_order)
+);
+
+setReporters(sortedData);
 
         if (data.length > 0) {
 
@@ -200,8 +208,7 @@ const Reporter: React.FC<ReporterProps> = () => {
       {/* TAB SWITCHER */}
       <div className="flex justify-center mb-8 md:mb-12">
 
-        <div className="flex flex-wrap md:flex-nowrap justify-center gap-2 bg-[#F0ECE1] p-2 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm w-full max-w-3xl">
-
+<div className="inline-flex flex-wrap md:flex-nowrap justify-center gap-2 bg-[#F0ECE1] px-3 py-2 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm">
           {reporters.map((reporter) => (
 
             <button
