@@ -81,16 +81,16 @@ const Reporter: React.FC<ReporterProps> = () => {
         const response = await api.get("/reporters");
 
         const data: ReporterItem[] =
-  response.data.data || [];
+          response.data.data || [];
 
-// SORT BY list_order
-const sortedData = data.sort(
-  (a: any, b: any) =>
-    Number(a.list_order) -
-    Number(b.list_order)
-);
+        // SORT BY list_order
+        const sortedData = data.sort(
+          (a: any, b: any) =>
+            Number(a.list_order) -
+            Number(b.list_order)
+        );
 
-setReporters(sortedData);
+        setReporters(sortedData);
 
         if (data.length > 0) {
 
@@ -168,9 +168,7 @@ setReporters(sortedData);
             //   item.pincode || "N/A",
             imageUrl:
               item.profile_image ||
-              `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                item.name
-              )}&background=random`,
+              "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
             reporterName:
               item.reporter?.name ||
               "No role",
@@ -208,7 +206,7 @@ setReporters(sortedData);
       {/* TAB SWITCHER */}
       <div className="flex justify-center mb-8 md:mb-12">
 
-<div className="inline-flex flex-wrap md:flex-nowrap justify-center gap-2 bg-[#F0ECE1] px-3 py-2 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm">
+        <div className="inline-flex flex-wrap md:flex-nowrap justify-center gap-2 bg-[#F0ECE1] px-3 py-2 rounded-2xl md:rounded-full border border-[#D9CEB2] shadow-sm">
           {reporters.map((reporter) => (
 
             <button
@@ -224,10 +222,9 @@ setReporters(sortedData);
                 text-xs md:text-sm font-bold
                 transition-all duration-300 capitalize
 
-                ${
-                  selectedReporterId === reporter.id
-                    ? "bg-[#932725] text-white shadow-md"
-                    : "text-[#6C5F47] hover:bg-white/50"
+                ${selectedReporterId === reporter.id
+                  ? "bg-[#932725] text-white shadow-md"
+                  : "text-[#6C5F47] hover:bg-white/50"
                 }
               `}
             >
@@ -311,7 +308,7 @@ setReporters(sortedData);
 
                       <p className="text-[11px] md:text-xs text-[#932725]/70 font-semibold mt-2 uppercase tracking-wider">
 
-                        {member.reporterName}
+                        {/* {member.reporterName} */}
 
                       </p>
 
