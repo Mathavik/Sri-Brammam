@@ -1,102 +1,14 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React from "react";
 
-import api from "../../api";
-
-interface GlobalConfig {
-  id: number;
-  year: string;
-  issue: string;
-  reader: string;
-  created_at: string | null;
-  updated_at: string | null;
-}
+import useGlobalConfig from "../../hooks/useGlobalConfig";
 
 const StatsSection: React.FC = () => {
 
-  const [config, setConfig] =
-    useState<GlobalConfig | null>(null);
-
-  const [loading, setLoading] =
-    useState(true);
-
-  const [error, setError] =
-    useState<string | null>(null);
-
-  // =========================
-  // Fetch API + Cache
-  // =========================
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchConfig = async () => {
-      try {
-
-        // Cached Data
-        const cachedConfig =
-          localStorage.getItem(
-            "globalConfig"
-          );
-
-        if (cachedConfig) {
-
-          setConfig(
-            JSON.parse(cachedConfig)
-          );
-
-          setLoading(false);
-        }
-
-        console.time("Global Config API");
-
-        const result: any =
-          await api.get(
-            "/global-config"
-          );
-
-        console.timeEnd(
-          "Global Config API"
-        );
-
-        const data: GlobalConfig =
-          result.data.data;
-
-        if (isMounted && data) {
-
-          setConfig(data);
-
-          // Save Cache
-          localStorage.setItem(
-            "globalConfig",
-            JSON.stringify(data)
-          );
-        }
-
-      } catch (err: any) {
-
-        console.error(
-          "Error fetching global config:",
-          err
-        );
-
-        setError(
-          "Unable to load statistics."
-        );
-
-      } finally {
-
-        setLoading(false);
-      }
-    };
-
-    fetchConfig();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const {
+    config,
+    loading,
+    error,
+  } = useGlobalConfig();
 
   // =========================
   // Values
@@ -118,7 +30,7 @@ const StatsSection: React.FC = () => {
 
       <div className="w-full bg-[#FFF9F6] py-6 md:py-8 px-6 md:px-10 border border-[#B12A1C]/20 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4">
 
-        {/* Loading Skeleton */}
+        {/* Loading */}
         {loading ? (
 
           <>
@@ -157,14 +69,12 @@ const StatsSection: React.FC = () => {
               <img
                 src="/images/state/state1.png"
                 alt="years"
-                loading="lazy"
-                decoding="async"
-                className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
               />
 
-              <div className="text-left min-w-[100px]">
+              <div>
 
-                <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold leading-none">
+                <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold">
                   {yearValue}
                 </h2>
 
@@ -179,15 +89,13 @@ const StatsSection: React.FC = () => {
 
               <img
                 src="/images/state/state2.png"
-                alt="publications"
-                loading="lazy"
-                decoding="async"
-                className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
+                alt="issues"
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
               />
 
-              <div className="text-left min-w-[100px]">
+              <div>
 
-                <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold leading-none">
+                <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold">
                   {issueValue}
                 </h2>
 
@@ -203,14 +111,12 @@ const StatsSection: React.FC = () => {
               <img
                 src="/images/state/state3.png"
                 alt="readers"
-                loading="lazy"
-                decoding="async"
-                className="w-16 h-16 md:w-20 md:h-20 object-contain flex-shrink-0"
+                className="w-16 h-16 md:w-20 md:h-20 object-contain"
               />
 
-              <div className="text-left min-w-[100px]">
+              <div>
 
-                <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold leading-none">
+                <h2 className="text-[#B12A1C] text-3xl md:text-4xl font-bold">
                   {readerValue}
                 </h2>
 

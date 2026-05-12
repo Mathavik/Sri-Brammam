@@ -1,53 +1,20 @@
-import React, { useEffect, useState } from "react";
-import api from "../../api";
+import React from "react";
+
+import useGlobalConfig from "../../hooks/useGlobalConfig";
 
 const HeroBanner = () => {
-  const [aboutUs, setAboutUs] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  // ⚡ CACHE KEY
-  const CACHE_KEY = "hero_banner_about_us";
-
-  useEffect(() => {
-    const fetchGlobalConfig = async () => {
-      try {
-        // ⚡ FIRST CACHE CHECK
-        const cachedData = localStorage.getItem(CACHE_KEY);
-
-        if (cachedData) {
-          setAboutUs(cachedData);
-          setLoading(false);
-        }
-
-        // ⚡ API FETCH
-        const response = await api.get("/global-config");
-
-        const aboutText =
-          response.data.data.short_about_us || "";
-
-        setAboutUs(aboutText);
-
-        // ⚡ SAVE CACHE
-        localStorage.setItem(CACHE_KEY, aboutText);
-
-      } catch (error) {
-        console.error("API Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGlobalConfig();
-  }, []);
+  const {
+    config,
+    loading,
+  } = useGlobalConfig();
 
   return (
     <div className="w-full">
 
-      {/* Left Floating Text */}
-      <div
-        className="ml-4 sm:ml-6 md:ml-8 lg:ml-16 mb-8 text-black 
-                   max-w-[85%] sm:max-w-md md:max-w-lg"
-      >
+      {/* Title */}
+      <div className="ml-4 sm:ml-6 md:ml-8 lg:ml-16 mb-8 text-black max-w-[85%] sm:max-w-md md:max-w-lg">
+
         <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
           ஸ்ரீ ப்ரம்மம்
         </h2>
@@ -57,48 +24,59 @@ const HeroBanner = () => {
         </p>
       </div>
 
-      {/* Main Banner Container */}
+      {/* Banner */}
       <div className="relative w-full h-[320px] sm:h-[350px] md:h-[400px] lg:h-[450px] mt-16 sm:mt-0">
 
-        {/* Banner Image */}
+        {/* Background */}
         <div className="absolute inset-0">
+
           <img
             src="/images/herosection/background.png"
             alt="background"
             className="absolute inset-0 w-full h-full object-cover"
-            loading="lazy"
           />
 
           <div className="absolute inset-0 bg-gradient-to-r from-orange-900/70 to-transparent"></div>
+
         </div>
 
-        {/* Right Card */}
+        {/* Card */}
         <div
           className="
-            absolute 
+            absolute
             right-4 sm:right-6 md:right-8 lg:right-20
             -top-12 sm:-top-16 md:-top-20 lg:-top-24
-            bg-[#B22C23] text-white 
-            p-4 sm:p-6 md:p-6 lg:p-10 
-            rounded-tl-[60px] sm:rounded-tl-[100px] md:rounded-tl-[120px] lg:rounded-tl-[160px]
-            rounded-[12px] md:rounded-[16px] lg:rounded-[20px]
+            bg-[#B22C23]
+            text-white
+            p-4 sm:p-6 md:p-6 lg:p-10
+            rounded-tl-[100px]
+            rounded-[20px]
             w-[65%] sm:w-[55%] md:w-[38%] lg:w-[30%]
             h-[280px] sm:h-[380px] md:h-[350px] lg:h-[440px]
-            flex items-end shadow-2xl
+            flex items-end
           "
         >
 
-          {/* ⚡ SKELETON */}
-          {loading && !aboutUs ? (
+          {loading ? (
+
             <div className="w-full space-y-2 animate-pulse">
+
               <div className="h-3 bg-white/30 rounded w-full"></div>
+
               <div className="h-3 bg-white/30 rounded w-5/6"></div>
+
               <div className="h-3 bg-white/30 rounded w-4/6"></div>
-              <div className="h-3 bg-white/30 rounded w-full"></div>
+
             </div>
+
           ) : (
+
             <p className="text-[10px] sm:text-xs md:text-xs lg:text-base leading-relaxed text-left">
-              {aboutUs}
+
+              {
+                config?.short_about_us
+              }
+
             </p>
           )}
 
