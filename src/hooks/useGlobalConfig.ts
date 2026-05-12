@@ -1,21 +1,36 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import api from "../api";
 
 export interface GlobalConfig {
   id: number;
+
   year: string;
   issue: string;
   reader: string;
+
+  short_about_us?: string;
+  long_about_us?: string;
+
   youtube_url?: string;
   facebook_url?: string;
+
   created_at: string | null;
   updated_at: string | null;
 }
 
+const CACHE_KEY =
+  "globalConfig";
+
 const useGlobalConfig = () => {
 
   const [config, setConfig] =
-    useState<GlobalConfig | null>(null);
+    useState<GlobalConfig | null>(
+      null
+    );
 
   const [loading, setLoading] =
     useState(true);
@@ -31,41 +46,33 @@ const useGlobalConfig = () => {
 
       try {
 
-        // =========================
-        // Local Cache
-        // =========================
-        const cachedConfig =
+        // =====================
+        // CACHE
+        // =====================
+        const cachedData =
           localStorage.getItem(
-            "globalConfig"
+            CACHE_KEY
           );
 
-        if (cachedConfig) {
+        if (cachedData) {
 
           setConfig(
-            JSON.parse(cachedConfig)
+            JSON.parse(cachedData)
           );
 
           setLoading(false);
         }
 
-        // =========================
-        // API Call
-        // =========================
-        console.time(
-          "Global Config API"
-        );
-
-        const result: any =
+        // =====================
+        // API
+        // =====================
+        const response: any =
           await api.get(
             "/global-config"
           );
 
-        console.timeEnd(
-          "Global Config API"
-        );
-
-        const data: GlobalConfig =
-          result.data.data;
+        const data =
+          response.data.data;
 
         if (
           isMounted &&
@@ -74,9 +81,8 @@ const useGlobalConfig = () => {
 
           setConfig(data);
 
-          // Save Cache
           localStorage.setItem(
-            "globalConfig",
+            CACHE_KEY,
             JSON.stringify(data)
           );
         }
@@ -84,12 +90,12 @@ const useGlobalConfig = () => {
       } catch (err) {
 
         console.error(
-          "Error fetching global config:",
+          "Global Config Error:",
           err
         );
 
         setError(
-          "Unable to load global config."
+          "Unable to load data."
         );
 
       } finally {
