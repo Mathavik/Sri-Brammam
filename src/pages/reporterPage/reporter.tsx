@@ -38,7 +38,7 @@ interface TeamMember {
   email: string;
   destination: string;
   address: string;
-  pincode: string;
+  // pincode: string;
   imageUrl: string;
   reporterName: string;
 }
@@ -164,8 +164,8 @@ setReporters(sortedData);
               "Reporter Person",
             address:
               item.address || "No address",
-            pincode:
-              item.pincode || "N/A",
+            // pincode:
+            //   item.pincode || "N/A",
             imageUrl:
               item.profile_image ||
               `https://ui-avatars.com/api/?name=${encodeURIComponent(
@@ -305,7 +305,7 @@ setReporters(sortedData);
 
                       <p className="text-[11px] md:text-xs text-[#A69B88]">
 
-                        Pincode: {member.pincode}
+                        {/* Pincode: {member.pincode} */}
 
                       </p>
 
