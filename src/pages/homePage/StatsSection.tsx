@@ -10,6 +10,11 @@ interface GlobalConfig {
   year: string;
   issue: string;
   reader: string;
+
+  // NEW
+  youtube_url?: string;
+  facebook_url?: string;
+
   created_at: string | null;
   updated_at: string | null;
 }
@@ -29,12 +34,16 @@ const StatsSection: React.FC = () => {
   // Fetch API + Cache
   // =========================
   useEffect(() => {
+
     let isMounted = true;
 
     const fetchConfig = async () => {
+
       try {
 
+        // =========================
         // Cached Data
+        // =========================
         const cachedConfig =
           localStorage.getItem(
             "globalConfig"
@@ -49,7 +58,12 @@ const StatsSection: React.FC = () => {
           setLoading(false);
         }
 
-        console.time("Global Config API");
+        // =========================
+        // API Call
+        // =========================
+        console.time(
+          "Global Config API"
+        );
 
         const result: any =
           await api.get(
@@ -63,11 +77,16 @@ const StatsSection: React.FC = () => {
         const data: GlobalConfig =
           result.data.data;
 
-        if (isMounted && data) {
+        if (
+          isMounted &&
+          data
+        ) {
 
           setConfig(data);
 
+          // =========================
           // Save Cache
+          // =========================
           localStorage.setItem(
             "globalConfig",
             JSON.stringify(data)
@@ -96,6 +115,7 @@ const StatsSection: React.FC = () => {
     return () => {
       isMounted = false;
     };
+
   }, []);
 
   // =========================
