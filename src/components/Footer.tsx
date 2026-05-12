@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
               >
                 <Link to="/about" className="hover:underline">About</Link>
                 <Link to="/issues" className="hover:underline">Issues</Link>
-                <Link to="/writers" className="hover:underline">Writers</Link>
+                {/* <Link to="/writers" className="hover:underline">Writers</Link> */}
                 <Link to="/reporters" className="hover:underline">Reporters</Link>
               </nav>
             </div>
@@ -120,7 +120,7 @@ const Footer: React.FC = () => {
       fontWeight: 600
     }}
   >
-    © {new Date().getFullYear()} Sri Brammam. All Rights Reserved
+    © {new Date().getFullYear()} Sri Brahmam. All Rights Reserved
   </p>
 </div>
         </div>
