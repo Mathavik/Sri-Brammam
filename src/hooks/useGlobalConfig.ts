@@ -17,7 +17,7 @@ export interface GlobalConfig {
 
   youtube_url?: string;
   facebook_url?: string;
-
+  login_url?: string;
   created_at: string | null;
   updated_at: string | null;
 }
