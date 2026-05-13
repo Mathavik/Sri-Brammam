@@ -180,7 +180,7 @@ const FeaturedCategories: React.FC = () => {
       id="categories-section"
       className="scroll-mt-32"
     >
-      <div className="w-full px-6 md:px-12 py-8 bg-white max-w-7xl mx-auto">
+      <div className="w-full px-6 md:px-12 py-0 bg-white max-w-7xl mx-auto">
 
         {/* Header */}
         {/* <div className="flex items-center justify-between w-full mb-6">
