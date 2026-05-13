@@ -78,82 +78,54 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* RIGHT */}
-        <div className="w-full lg:w-[65%] bg-red-700 text-white px-6 md:px-12 pt-10 pb-6">
+     {/* RIGHT SECTION */}
+{/* RIGHT SECTION */}
+<div className="w-full lg:w-[65%] bg-red-700 text-white px-6 md:px-12 pt-10 pb-6">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+  {/* EXPLORE & CONTACTS GRID */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-            {/* Explore */}
-            <div className="flex flex-col items-center lg:items-start lg:ml-20">
+    {/* Explore Section */}
+    <div className="flex flex-col items-center lg:items-start lg:ml-20 text-center lg:text-left">
+      <h2 className="font-semibold mb-4 text-2xl">Explore</h2>
+      <nav className="flex flex-col space-y-3">
+        <Link to="/about">About</Link>
+        <Link to="/issues">Issues</Link>
+        <Link to="/reporters">Reporters</Link>
+      </nav>
+    </div>
 
-              <h2 className="font-semibold mb-4 text-2xl">
-                Explore
-              </h2>
+    {/* Contact Section */}
+    <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+      <h2 className="font-semibold mb-4 text-2xl">Contacts</h2>
+      <ul className="space-y-4 w-full">
+        <li className="flex items-center justify-center lg:justify-start gap-3">
+          <Mail size={18} className="shrink-0" />
+          <span className="text-sm md:text-base">sribrahmamcbe@gmail.com</span>
+        </li>
+        <li className="flex items-start justify-center lg:justify-start gap-3">
+          <MapPin size={18} className="shrink-0 mt-1" />
+          <span className="text-sm md:text-base">
+            Sri Brahmam Monthly Magazine,<br />
+            Coimbatore - 641001
+          </span>
+        </li>
+        <li className="flex items-center justify-center lg:justify-start gap-3">
+          <Phone size={18} className="shrink-0" />
+          <span className="text-sm md:text-base">8825868187</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-              <nav className="flex flex-col space-y-3">
+  {/* ஒரே ஒரு COPYRIGHT SECTION மட்டும் இங்கே இருக்க வேண்டும் (Grid-க்கு வெளியே) */}
+  <div className="border-t border-red-400/50 pt-6 mt-10">
+    <p className="text-sm text-center lg:text-left">
+      © {new Date().getFullYear()} Sri Brahmam. All Rights Reserved
+    </p>
+  </div>
 
-                <Link to="/about">
-                  About
-                </Link>
-
-                <Link to="/issues">
-                  Issues
-                </Link>
-
-                <Link to="/reporters">
-                  Reporters
-                </Link>
-
-              </nav>
-            </div>
-
-            {/* Contact */}
-            <div className="flex flex-col items-center lg:items-start">
-
-              <h2 className="font-semibold mb-4 text-2xl">
-                Contacts
-              </h2>
-
-              <ul className="space-y-4">
-
-                <li className="flex items-center gap-3">
-                  <Mail size={18} />
-                  <span>
-                    sribrahmamcbe@gmail.com
-                  </span>
-                </li>
-
-                <li className="flex items-start gap-3">
-
-                  <MapPin size={18} />
-
-                  <span>
-                    Sri Brahmam Monthly Magazine,
-                    <br />
-                    Coimbatore - 641001
-                  </span>
-                </li>
-
-                <li className="flex items-center gap-3">
-                  <Phone size={18} />
-                  <span>
-                    8825868187
-                  </span>
-                </li>
-
-              </ul>
-            </div>
-          </div>
-
-          {/* COPYRIGHT */}
-          <div className="border-t border-red-400/50 pt-6 mt-10">
-
-            <p className="text-sm">
-              © {new Date().getFullYear()} Sri Brahmam. All Rights Reserved
-            </p>
-
-          </div>
-        </div>
+</div>
       </div>
     </footer>
   );
