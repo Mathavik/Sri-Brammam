@@ -285,7 +285,17 @@ const TopWriters: React.FC = () => {
           <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0 px-6 md:px-10">
 
             <h2
-              className="text-3xl font-bold text-gray-800 text-center md:text-left w-full md:w-auto"
+               className="
+    text-[32px]
+    md:text-3xl
+    font-bold
+    text-gray-800
+    text-center
+    md:text-left
+    whitespace-nowrap
+    lg:-ml-12
+    xl:-ml-18
+  "
               style={{
                 fontFamily:
                   "Arima, serif",
