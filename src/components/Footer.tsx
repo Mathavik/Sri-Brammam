@@ -120,8 +120,8 @@ const Footer: React.FC = () => {
 
   {/* ஒரே ஒரு COPYRIGHT SECTION மட்டும் இங்கே இருக்க வேண்டும் (Grid-க்கு வெளியே) */}
   <div className="border-t border-red-400/50 pt-6 mt-10">
-    <p className="text-sm text-center lg:text-left">
-      © {new Date().getFullYear()} Sri Brahmam. All Rights Reserved
+<p className="text-sm lg:text-lg text-center lg:text-left">
+        © {new Date().getFullYear()} Sri Brahmam. All Rights Reserved
     </p>
   </div>
 
