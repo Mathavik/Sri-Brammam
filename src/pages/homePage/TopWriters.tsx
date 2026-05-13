@@ -306,8 +306,9 @@ const TopWriters: React.FC = () => {
 
             <span
               onClick={() =>
-                navigate("/all-posts")
-              }
+            navigate("/reporters", {
+              state: { activeTab: "writer" },
+            })}
               className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
               style={{
                 color: "#B22C23",
