@@ -120,7 +120,7 @@ const WriterPosts: React.FC = () => {
 
   return (
     <>
-      <div className="p-6 mt-32 max-w-7xl mx-auto">
+      <div className="p-6 mt-24 max-w-7xl mx-auto ">
 
         {/* Heading */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10">

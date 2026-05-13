@@ -197,10 +197,10 @@ const FeaturedCategories: React.FC = () => {
             See All &rarr;
           </span>
         </div> */}
-          <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0 px-6 md:px-10">
+        <div className="flex justify-between items-center mb-10 flex-col md:flex-row gap-4 md:gap-0 px-6 md:px-10">
 
-           <h2
-  className="
+          <h2
+            className="
     text-[32px]
     md:text-3xl
     font-bold
@@ -211,25 +211,25 @@ const FeaturedCategories: React.FC = () => {
     lg:-ml-12
     xl:-ml-18
   "
-  style={{
-    fontFamily: "Arima, serif",
-  }}
->
-  Featured Categories
-</h2>
+            style={{
+              fontFamily: "Arima, serif",
+            }}
+          >
+            Featured Categories
+          </h2>
 
-            <span
+          <span
             onClick={() => navigate("/all-categories")}
-              
-              className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
-              style={{
-                color: "#B22C23",
-                fontWeight: 600,
-              }}
-            >
-              See All &rarr;
-            </span>
-          </div>
+
+            className="font-['Arima'] text-[18px] md:text-[26px] leading-[28px] md:leading-[38px] cursor-pointer hover:underline flex items-center gap-2 justify-center"
+            style={{
+              color: "#B22C23",
+              fontWeight: 600,
+            }}
+          >
+            See All &rarr;
+          </span>
+        </div>
 
         {/* Slider */}
         <div className="relative group">
@@ -294,8 +294,7 @@ const FeaturedCategories: React.FC = () => {
                   className="relative w-full h-full object-cover"
                 />
 
-                {/* Title */}
-                <div className="absolute bottom-4 left-0 right-0 text-center text-white text-lg font-bold font-['Arima'] drop-shadow-md px-2">
+                <div className="absolute bottom-4 left-0 right-0 text-center text-white text-sm md:text-lg font-bold font-['Arima'] drop-shadow-md px-2">
                   {cat.title}
                 </div>
               </div>

@@ -109,7 +109,7 @@ const AllPosts: React.FC = () => {
   // =========================
   if (loading) {
     return (
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-48 md:mt-56 pb-16">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-28 md:mt-56 pb-16">
 
         {/* Header Skeleton */}
         <div className="flex justify-between items-center mb-12">
@@ -166,8 +166,7 @@ const AllPosts: React.FC = () => {
 
   return (
     <>
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-48 md:mt-56 pb-16">
-
+<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-28 md:mt-56 pb-16">
         {/* Heading */}
         <div className="flex justify-between items-center mb-12 flex-col md:flex-row gap-4">
 

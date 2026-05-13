@@ -61,8 +61,7 @@ const AllCategories: React.FC = () => {
   // =========================
   if (loading) {
     return (
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-48 md:mt-56 pb-12">
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10">
+<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2 md:mt-56 pb-12">          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10">
           <div className="w-52 h-10 rounded bg-gray-200 animate-pulse"></div>
           <div className="w-36 h-10 rounded-full bg-gray-200 animate-pulse"></div>
         </div>
@@ -87,9 +86,8 @@ const AllCategories: React.FC = () => {
   if (categories.length === 0) return null;
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-48 md:mt-56 pb-12">
-      {/* Heading */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10">
+<div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-28 md:mt-56 pb-12">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Arima'] text-center">
           All Categories
         </h1>
@@ -123,7 +121,7 @@ const AllCategories: React.FC = () => {
 
             {/* Title */}
             <div className="p-4">
-              <h2 className="text-center text-lg sm:text-xl font-semibold font-['Arima'] line-clamp-1">
+              <h2 className="text-center text-lg sm:text-xl font-semibold font-['Arima'] line-clamp-1 mt-10">
                 {cat.name}
               </h2>
             </div>

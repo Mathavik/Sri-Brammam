@@ -71,7 +71,7 @@ const HeroBanner = () => {
 
           ) : (
 
-            <p className="text-[10px] sm:text-xs md:text-xs lg:text-base leading-relaxed text-left">
+            <p className="text-[11px] sm:text-xs md:text-xs lg:text-base leading-relaxed text-left">
 
               {
                 config?.short_about_us
