@@ -50,7 +50,7 @@ const SponsorsBar: React.FC = () => {
   if (clients.length === 0) return null;
 
   return (
-    <div className="w-full bg-white py-12 px-4 md:px-8 flex justify-center items-center mt-0 md:mt-12 overflow-hidden">
+    <div className="w-full bg-white py-12 px-4 md:px-8 flex justify-center items-center mt-0 md:mt-0 overflow-hidden">
       <div className="w-full max-w-6xl bg-[#F9F9F9] py-10 px-6 md:px-12 rounded-2xl overflow-hidden">
         
         {/* SCROLLABLE CONTAINER */}
